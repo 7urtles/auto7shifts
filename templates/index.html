@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Auto7shifts</title>
+
+    <!-- Font Icon -->
+    <!-- {{ url_for('static', filename='style.css') }} -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-icon/css/material-design-iconic-font.min.css') }}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="{{ key }}"
+              data-description="A Flask Charge"
+              data-amount="1000"
+              data-locale="auto"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            <form name=signup-form action='/submit' method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
+                <h3>
+                    Contact Info
+                </h3>
+                <fieldset> 
+                    <h2>Contact</h2>
+                    <div class="form-group">
+                        <input type="text" name="first_name" id="first_name" placeholder="First Name"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" placeholder="Last Name"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="telegram" id="telegram" placeholder="Telegram: @username"/>
+                    </div>
+                </fieldset>
+
+                <h3>
+                    Link 7shifts
+                </h3>
+                <fieldset>
+                    <h2>Connect</h2>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="7shifts_email@mail.com"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" placeholder="7shifts Password"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="repassword" id="repassword" placeholder="Confirm Password"/>
+                    </div>
+                </fieldset>
+
+                <h3>
+                    Select Shifts
+                </h3>
+                <fieldset>
+                    <h2>Shifts</h2>
+                    <div class="form-group">
+                        <input type="text" name="shift_type" id="shift_type" placeholder="Bartender, Security"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="shift_days" id="shift_days" placeholder="Thu, Fri, Sat, Sun"/>
+                    </div>
+                    <!-- <div class="form-group">
+                        <input type="text" name="venmo" id="venmo" placeholder="@venmo_username"/>
+                    </div> -->
+                </fieldset>
+
+                <button type="submit" id='submit-button' form="signup-form" hidden>Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-validation/dist/additional-methods.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-steps/jquery.steps.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
