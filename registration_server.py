@@ -5,27 +5,32 @@ import os
 
 import stripe
 
+from dotenv import load_dotenv
+
 from utils import *
 from telegram_bot import send_message
+from twilio_sms import send_sms
 
-from dotenv import load_dotenv
+
 
 load_dotenv()
 
 PUB_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
-SEC_KEY = os.getenv('STRIPE_SECRET_KEY')
-END_KEY = OS.GETENV('ENDPOINT_SECRET_KEY')
+STRIPE_SEC_KEY = os.getenv('STRIPE_SECRET_KEY')
+END_KEY = os.getenv('ENDPOINT_SECRET_KEY')
+SMS_URL_KEY = os.getenv('SMS_URL_KEY')
 
-stripe.api_key = SEC_KEY
-print(f"{PUB_KEY}\n{SEC_KEY}")
+stripe.api_key = STRIPE_SEC_KEY
 
 app = Flask(__name__)
 
-
-@app.route('/signup/'+'<url>')
-@one_time_url
-@send_routes
-def home(url):
+# Dynamic url acceptance route
+# @app.route('/signup/'+'<url>'', methods = ['POST'])
+# Wrapper for creating & validating one time use urls
+# @one_time_url
+@app.route('/signup')
+# @send_routes
+def home():
 	global expected_urls
 
 	match request.method:
@@ -35,10 +40,13 @@ def home(url):
 			response = 'unsupported method'
 	return response
 
-@app.route('/signup/'+'<url>'+'/submit', methods = ['POST'])
-@one_time_url
-@send_routes
-def submit(url):
+# Dynamic url acceptance route
+# @app.route('/signup/'+'<url>'+'/submit', methods = ['POST'])
+# Wrapper for creating & validating one time use urls
+# @one_time_url
+@app.route('/submit', methods = ['POST'])
+# @send_routes
+def submit():
 	match request.method:
 		case 'POST':
 			data = dict(request.form)
@@ -47,15 +55,15 @@ def submit(url):
 			response = 'Shift request recieved'
 		case _:
 			response = 'unsupported method'
-	return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ')
+	return redirect('https://buy.stripe.com/aEU9E04sle3CbyEeUV')
 
+# route to display all active one time use urls
+# @app.route('/'+END_KEY)
+# @send_routes
+# def routes_to_telegram(x):
+# 	return 'routes sent'
 
-@app.route('/jkdfal84375ry9thgiu')
-@send_routes
-def routes_to_telegram(x):
-	return 'routes sent'
-
-@app.route("/config")
+@app.route("/checkout")
 def get_publishable_key():
     return render_template('checkout.html',key=PUB_KEY)
 
@@ -64,6 +72,10 @@ def charge():
 	return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ')
     # return redirect('https://buy.stripe.com/cN22by1g9cZydGM6oo')
 
+@app.route("/sms/user_registered/"+SMS_URL_KEY)
+def user_registered():
+	send_sms('New User Registered')
+	return 'sms sent'
 
 # SUCCESSFUL PAYMENT ENDPOINT
 @app.route('/payment_successful', methods=['POST'])
@@ -94,7 +106,10 @@ def webhook():
     return jsonify(success=True)
 
 if __name__ == "__main__":
-	add_url()
-	add_url(url='jkdfal84375ry9thgiu')
-	send_message(urls_to_string())
+	# Generate a new random url string
+	# add_url()
+	# Add specific url to list of accepted urls
+	# add_url(url=END_KEY)
+	# Send currently accepted urls in a telegram message
+	# send_message(urls_to_string())
 	app.run(host='0.0.0.0', port=80)

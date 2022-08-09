@@ -25,5 +25,6 @@ message = 'A simple message'
 
 def send_message(message):
 	message_url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}'
-	requests.post(message_url)
+	res = requests.post(message_url)
+	return True
 	# print(res.json())

@@ -14,7 +14,8 @@
         titleTemplate : '<div class="title"><span class="title-text">#title#</span><span class="title-number">0#index#</span></div>',
         onFinished: function (event, currentIndex)
         {               
-            $('#signup-form').attr('action', window.location.pathname + '/submit');
+            $('#signup-form').attr('action', '/submit');
+            // $('#signup-form').attr('action', window.location.pathname + '/submit');
 
             document.getElementById("submit-button").click();
         }

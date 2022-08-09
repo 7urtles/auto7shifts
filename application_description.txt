@@ -1,0 +1,46 @@
+______________________________________________________
+
+DESCRIPTION/STATEMENT OF PURPOSE:
+
+	Purpose:
+		- Allow 7shifts users to pick up available shifts quickly.
+
+	Potential Users:
+		- Any 7shifts user that wants more shifts.
+
+	Application Type:
+		- Website
+
+	Problem & Solution:
+		- Many users are not able to pick up available shifts faster than their coworkers.
+
+		- The app picks up desired shifts faster than manual usage of the 7shifts web application.
+______________________________________________________
+
+REQUIREMENTS:
+
+	Technologies:
+		- Python
+		- Twilio API
+		- Stripe Payments
+
+	API Access:
+		- Twilio
+		- Stripe
+		- Flask webservers API endpoints
+______________________________________________________
+
+USER STORY:
+	
+	As a user:
+		- Submit contact, 7shifts login, and desired shift details
+
+	Goal:
+		- Gain work shifts automatically before coworkers
+
+	Acceptance Criteria:
+		- Enter details on registration form.
+		- Submit payment
+		- Receive sms notification of successful registration.
+		- Receive sms notification of successful shift pickup.
+______________________________________________________
