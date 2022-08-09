@@ -28,6 +28,7 @@ def add_url(num_urls=1,url=None):
 		expected_urls.append(url)
 	return True
 
+
 def remove_url(url):
 	global expected_urls
 	if url in expected_urls:
@@ -37,8 +38,10 @@ def remove_url(url):
 		print('error in function < remove_url() >, url not found in expected_urls')
 		return False
 
+
 def block_ip(req):
 	return True if telegram_bot_subnet in req.remote_addr else False
+
 
 def send_routes(func):
 	global expected_urls
@@ -51,6 +54,7 @@ def send_routes(func):
 		send_message(message)
 		return func(url)
 	return decorated_function
+
 
 def one_time_url(func):
 	global expected_urls
@@ -76,10 +80,12 @@ def one_time_url(func):
 		return func(url)
 	return decorated_function
 
+
 def store_data(dict_data):
 	with open("7shifts.csv", "a") as outfile:
 		writer = csv.writer(outfile)
 		writer.writerow(dict_data.values())
+
 
 def urls_to_string(url=None):
 	global ip
