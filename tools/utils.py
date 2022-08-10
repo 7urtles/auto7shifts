@@ -1,3 +1,7 @@
+import os
+import json, csv
+import socket
+
 from flask import Flask, request, render_template, url_for, redirect
 from functools import wraps
 from random import choices
@@ -5,8 +9,7 @@ from string import ascii_lowercase
 # import telegram_bot.send_message
 from datetime import datetime
 from string import ascii_lowercase, ascii_uppercase
-import json, csv
-import socket
+
 
 global ip
 global expected_urls
@@ -92,3 +95,4 @@ def urls_to_string(url=None):
 	message = [f"{ip}/{x}" for x in expected_urls]
 	message = "\n".join(message)
 	return message
+
