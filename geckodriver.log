@@ -4634,3 +4634,372 @@ JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeE
 Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
 Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
 console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166042197	geckodriver	INFO	Listening on 127.0.0.1:45063
+1660166042674	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "43001" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilepewNuu"
+Gtk-Message: 16:14:02.736: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:14:02.737: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166043183	Marionette	INFO	Marionette enabled
+1660166043186	Marionette	INFO	Listening on port 34993
+WebDriver BiDi listening on ws://localhost:43001
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 34993
+1660166043317	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilepewNuu/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:43001/devtools/browser/5f90a3dc-8258-4ce0-9cba-23c422269fc5
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1660166108661	geckodriver	INFO	Listening on 127.0.0.1:48573
+1660166109130	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "37079" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileyURgXc"
+Gtk-Message: 16:15:09.201: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:15:09.201: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166109646	Marionette	INFO	Marionette enabled
+1660166109649	Marionette	INFO	Listening on port 35449
+WebDriver BiDi listening on ws://localhost:37079
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 35449
+1660166109767	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileyURgXc/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:37079/devtools/browser/fa70972c-96b3-4a76-ae33-1653f756c33f
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660166116657	Marionette	INFO	Stopped listening on port 35449
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166160767	geckodriver	INFO	Listening on 127.0.0.1:39981
+1660166161230	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "52595" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile4hvb0q"
+Gtk-Message: 16:16:01.289: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:16:01.290: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166161734	Marionette	INFO	Marionette enabled
+1660166161737	Marionette	INFO	Listening on port 38649
+WebDriver BiDi listening on ws://localhost:52595
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 38649
+1660166161952	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile4hvb0q/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:52595/devtools/browser/390782ce-ea79-485f-803d-a5646ca63761
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+1660166172189	Marionette	INFO	Stopped listening on port 38649
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166296126	geckodriver	INFO	Listening on 127.0.0.1:58729
+1660166296594	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "49961" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilePFeFGX"
+Gtk-Message: 16:18:16.655: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:18:16.656: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166297099	Marionette	INFO	Marionette enabled
+1660166297102	Marionette	INFO	Listening on port 42551
+WebDriver BiDi listening on ws://localhost:49961
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 42551
+1660166297284	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilePFeFGX/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:49961/devtools/browser/124a6015-6ac9-4605-9eda-ddf0e4d90548
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+1660166306870	Marionette	INFO	Stopped listening on port 42551
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166489169	geckodriver	INFO	Listening on 127.0.0.1:41313
+1660166489638	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "33523" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile5SY96M"
+Gtk-Message: 16:21:29.700: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:21:29.700: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166490147	Marionette	INFO	Marionette enabled
+1660166490151	Marionette	INFO	Listening on port 43291
+WebDriver BiDi listening on ws://localhost:33523
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 43291
+1660166490339	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile5SY96M/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:33523/devtools/browser/f599a49e-4f80-4817-bd92-866908f1e44f
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660166500028	Marionette	INFO	Stopped listening on port 43291
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166574650	geckodriver	INFO	Listening on 127.0.0.1:38527
+1660166575122	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "58651" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilecN4Rtx"
+Gtk-Message: 16:22:55.186: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:22:55.187: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166575637	Marionette	INFO	Marionette enabled
+1660166575640	Marionette	INFO	Listening on port 46599
+WebDriver BiDi listening on ws://localhost:58651
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 46599
+1660166575825	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilecN4Rtx/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:58651/devtools/browser/917e21b3-dbdc-41eb-8a8b-d2b3683c1a96
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660166585848	Marionette	INFO	Stopped listening on port 46599
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+Sandbox: Unexpected EOF, op 0 flags 00 path /proc/cpuinfo
+1660166722796	geckodriver	INFO	Listening on 127.0.0.1:43339
+1660166723270	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "41337" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHbIRor"
+Gtk-Message: 16:25:23.331: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:25:23.332: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166723777	Marionette	INFO	Marionette enabled
+1660166723780	Marionette	INFO	Listening on port 40025
+WebDriver BiDi listening on ws://localhost:41337
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 40025
+1660166723965	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileHbIRor/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:41337/devtools/browser/40db07f0-7fc9-4e9e-994f-415fb831a2e2
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660166733523	Marionette	INFO	Stopped listening on port 40025
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166776267	geckodriver	INFO	Listening on 127.0.0.1:40013
+1660166776742	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "47429" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofiletFZRj1"
+Gtk-Message: 16:26:16.803: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:26:16.804: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166777255	Marionette	INFO	Marionette enabled
+1660166777258	Marionette	INFO	Listening on port 38373
+WebDriver BiDi listening on ws://localhost:47429
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 38373
+1660166777390	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofiletFZRj1/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:47429/devtools/browser/5f1d8adf-493b-47b7-aa39-f673fd57bc4f
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660166788064	Marionette	INFO	Stopped listening on port 38373
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660166915380	geckodriver	INFO	Listening on 127.0.0.1:48339
+1660166915846	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "60555" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilevIMUX7"
+Gtk-Message: 16:28:35.908: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:28:35.910: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166916364	Marionette	INFO	Marionette enabled
+1660166916367	Marionette	INFO	Listening on port 36129
+WebDriver BiDi listening on ws://localhost:60555
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 36129
+1660166916496	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilevIMUX7/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:60555/devtools/browser/03741105-a2a2-48c5-b443-2aab766aad51
+1660166945205	geckodriver	INFO	Listening on 127.0.0.1:45527
+1660166945682	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "55357" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileCtyNhD"
+Gtk-Message: 16:29:05.742: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:29:05.743: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660166946196	Marionette	INFO	Marionette enabled
+1660166946199	Marionette	INFO	Listening on port 43607
+WebDriver BiDi listening on ws://localhost:55357
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 43607
+1660166946408	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileCtyNhD/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:55357/devtools/browser/13d6ccae-2bdd-4080-9493-46298810f4bb
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660166954741	Marionette	INFO	Stopped listening on port 43607
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2006\"  data: no]"
+1660167074616	geckodriver	INFO	Listening on 127.0.0.1:38983
+1660167075090	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "54691" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileFqmdNy"
+Gtk-Message: 16:31:15.150: Failed to load module "canberra-gtk-module"
+Gtk-Message: 16:31:15.151: Failed to load module "canberra-gtk-module"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+amdgpu: os_same_file_description couldn't determine if two DRM fds reference the same file description.
+If they do, bad things may happen!
+1660167075591	Marionette	INFO	Marionette enabled
+1660167075594	Marionette	INFO	Listening on port 44375
+WebDriver BiDi listening on ws://localhost:54691
+ATTENTION: default value of option mesa_glthread overridden by environment.
+Read port: 44375
+1660167075781	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileFqmdNy/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:54691/devtools/browser/6df5f523-1452-40f3-855d-244d70f99fad
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1660167334804	geckodriver	INFO	Listening on 127.0.0.1:50137
+1660167335282	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--headless" "--remote-debugging-port" "51805" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileWaqVBG"
+*** You are running in headless mode.
+1660167335501	Marionette	INFO	Marionette enabled
+1660167335503	Marionette	INFO	Listening on port 38209
+WebDriver BiDi listening on ws://localhost:51805
+Read port: 38209
+1660167335704	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileWaqVBG/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:51805/devtools/browser/4ec1b6d0-2a02-473e-9ca4-96466ad928cb
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1660167501450	geckodriver	INFO	Listening on 127.0.0.1:44345
+1660167501930	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--headless" "--remote-debugging-port" "51475" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileKgdFt8"
+*** You are running in headless mode.
+1660167502151	Marionette	INFO	Marionette enabled
+1660167502153	Marionette	INFO	Listening on port 44953
+WebDriver BiDi listening on ws://localhost:51475
+Read port: 44953
+1660167502354	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileKgdFt8/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:51475/devtools/browser/1ea0bd88-c934-4863-b1c1-330fa5f7a349
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1660167524737	geckodriver	INFO	Listening on 127.0.0.1:33929
+1660167525214	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--headless" "--remote-debugging-port" "43827" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileILYVGa"
+*** You are running in headless mode.
+1660167525442	Marionette	INFO	Marionette enabled
+1660167525445	Marionette	INFO	Listening on port 43979
+WebDriver BiDi listening on ws://localhost:43827
+Read port: 43979
+1660167525644	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileILYVGa/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:43827/devtools/browser/b2efdbab-55be-469f-885c-b8599892fc4f
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+1660167605620	geckodriver	INFO	Listening on 127.0.0.1:45431
+1660167606098	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--headless" "--remote-debugging-port" "50661" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileSsWhMa"
+*** You are running in headless mode.
+1660167606320	Marionette	INFO	Marionette enabled
+1660167606323	Marionette	INFO	Listening on port 36155
+WebDriver BiDi listening on ws://localhost:50661
+Read port: 36155
+1660167606524	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileSsWhMa/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.jsm
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://localhost:50661/devtools/browser/0ba9c732-7810-4263-be21-a7195c8b0802
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted
+JavaScript error: https://static.7shifts.com/bd5811be4caa8019984b5ceed20c53d024b88945/js/build/common.js, line 2: AbortError: Aborted

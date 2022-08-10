@@ -25,8 +25,8 @@ class Shift_Grabber:
 		self.CONFIRM_PICKUP_BUTTON = CONFIRM_PICKUP_BUTTON
 		self.shift_wanted = {
 			'location':'any',
-			'position':'Security',
-			'day':'Sun',
+			'position':'Bartender',
+			'day':'Sat',
 			'time':'any'
 		}
 		self.shift_taken = False
@@ -34,6 +34,7 @@ class Shift_Grabber:
 		self.driver = None
 		self.first_run = True
 		self.shift_detail_string = None
+		self.refreshes = 0
 		self.setup_webdriver()
 
 	#-----------------------------------------------------------------
@@ -141,13 +142,15 @@ class Shift_Grabber:
 			open_shift = shift.find_element(By.TAG_NAME, self.shift_pickup_button)
 			open_shift.send_keys(Keys.RETURN)
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
-			# pickup_button = WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((By.XPATH, self.CONFIRM_PICKUP_BUTTON)))
-			# pickup_button.send_keys(Keys.RETURN)
+			pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
+			pickup_button.send_keys(Keys.RETURN)
+			time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
 			"""*****************************************************"""
 			return True
 		except:
 			print('Shift pickup failed!')
+			# print(shift.text)
 			return False
 
 	#-----------------------------------------------------------------
@@ -205,8 +208,9 @@ class Shift_Grabber:
 			-pick up shift
 			-send user new shift info via telegram
 		"""
-		print(f"Searching available {self.shift_wanted['position'].upper()} shifts for: {self.shift_wanted['day'].upper()}")
-
+		print(f"Searching available {self.shift_wanted['position'].upper()} shifts for {self.login_credentials['email']} on {self.shift_wanted['day'].upper()}")
+		self.refreshes += 1
+		print(f'Refreshes: {self.refreshes}')
 		# Direct webdriver to available shifts url
 		# self.driver.get(self.shift_pool_url)
 
@@ -253,7 +257,9 @@ class Shift_Grabber:
 					if requested_time_found:
 
 						# If the bot successfully clicks the shift pickup button
-						if self.pickup_shift(shift):
+						shift_picked_up = self.pickup_shift(shift)
+						print(shift_picked_up)
+						if shift_picked_up:
 							print('Shift Picked Up:\n\n' + self.shift_detail_string)
 							return True
 		else:
@@ -267,8 +273,8 @@ if __name__ == '__main__':
 	# Load environment variables
 	load_dotenv()
 	login_credentials = {
-		'email':os.getenv('C_EMAIL'),
-		'password':os.getenv('C_PASSWORD')
+		'email':os.getenv('A_EMAIL'),
+		'password':os.getenv('A_PASSWORD')
 	}
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
 	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
@@ -286,9 +292,10 @@ if __name__ == '__main__':
 		scraper.shift_taken = scraper.run()
 
 	# # If the scraper picks up a shift send sms notification to user
-	message = "Check your 7shifts!"
-	message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
-	twilio_sms.send_sms(message=message)
+	if scraper.shift_taken:
+		message = "Check your 7shifts!"
+		message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
+		# twilio_sms.send_sms(message=message)
 
 	# Close the headless browser and ending session
 	scraper.stop_webdriver()
