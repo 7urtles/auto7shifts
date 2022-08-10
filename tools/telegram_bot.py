@@ -1,7 +1,4 @@
-
-
 import requests
-
 
 
 # Token is provided upon bot creation.   
@@ -23,8 +20,7 @@ message = 'A simple message'
 # res = requests.post(message)
 # print(res.json())
 
-def send_message(message):
+def send_telegram(message):
 	message_url = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}'
 	res = requests.post(message_url)
 	return True
-	# print(res.json())

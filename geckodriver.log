@@ -2032,3 +2032,27 @@ Read port: 55368
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileuNEp5Y/search.json.mozlz4", (void 0)))
 DevTools listening on ws://localhost:55363/devtools/browser/63c4ed36-58ee-4ad8-b4de-5c5a7bb6c79f
+1660114269837	geckodriver	INFO	Listening on 127.0.0.1:55499
+1660114270342	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "--headless" "--remote-debugging-port" "55500" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileoxc4RC"
+*** You are running in headless mode.
+1660114270590	Marionette	INFO	Marionette enabled
+1660114270600	Marionette	INFO	Listening on port 55505
+WebDriver BiDi listening on ws://localhost:55500
+Read port: 55505
+1660114270836	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileoxc4RC/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55500/devtools/browser/18ac0cb4-35d5-44a6-89e8-bde824865cae
+1660114276080	Marionette	INFO	Stopped listening on port 55505
+1660114287198	geckodriver	INFO	Listening on 127.0.0.1:55591
+1660114287202	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "--headless" "--remote-debugging-port" "55592" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofile8AySFX"
+*** You are running in headless mode.
+1660114287453	Marionette	INFO	Marionette enabled
+1660114287461	Marionette	INFO	Listening on port 55595
+WebDriver BiDi listening on ws://localhost:55592
+Read port: 55595
+1660114287640	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofile8AySFX/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:55592/devtools/browser/0b034ed1-f894-4489-9fc5-5b0078e1742c
+1660114292300	Marionette	INFO	Stopped listening on port 55595

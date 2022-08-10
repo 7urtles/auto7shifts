@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 from pprint import pprint
 
-import twilio_sms
+from tools import twilio_sms
 
 #*************************************
 
@@ -54,7 +54,7 @@ class Shift_Grabber:
 	def save_cookies(self) -> bool:
 		self.driver.get(self.shift_pool_url)
 		time.sleep(60)
-		pickle.dump(self.driver.get_cookies() , open("cookies.pkl","wb"))
+		pickle.dump(self.driver.get_cookies() , open("cookies/cookies.pkl","wb"))
 		return True
 
 
@@ -63,7 +63,7 @@ class Shift_Grabber:
 		self.driver.get(self.shift_pool_url)
 
 		# Load login cookies
-		cookies = pickle.load(open("cookies.pkl", "rb"))
+		cookies = pickle.load(open("cookies/cookies.pkl", "rb"))
 
 		# Add each cookie to the current driver
 		try:

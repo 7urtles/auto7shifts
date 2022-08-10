@@ -7,10 +7,9 @@ import stripe
 
 from dotenv import load_dotenv
 
-from utils import *
-from telegram_bot import send_message
-from twilio_sms import send_sms
-
+from tools.utils import *
+from tools.twilio_sms import send_sms
+from tools.telegram_bot import send_telegram
 
 
 load_dotenv()
@@ -111,5 +110,5 @@ if __name__ == "__main__":
 	# Add specific url to list of accepted urls
 	# add_url(url=END_KEY)
 	# Send currently accepted urls in a telegram message
-	# send_message(urls_to_string())
+	# send_telegram(urls_to_string())
 	app.run(host='0.0.0.0', port=80)

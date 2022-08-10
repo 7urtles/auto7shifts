@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, url_for, redirect
 from functools import wraps
 from random import choices
 from string import ascii_lowercase
-from telegram_bot import send_message
+# import telegram_bot.send_message
 from datetime import datetime
 from string import ascii_lowercase, ascii_uppercase
 import json, csv
