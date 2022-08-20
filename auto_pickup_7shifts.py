@@ -16,7 +16,7 @@ from tools import twilio_sms
 #*************************************
 
 class Shift_Grabber:
-	def __init__(self, login_credentials, shift_pool_url, CONFIRM_PICKUP_BUTTON):
+	def __init__(self, login_credentials={}, shift_pool_url='https://app.7shifts.com/company/139871/shift_pool/up_for_grabs', CONFIRM_PICKUP_BUTTON='btn-success'):
 		self.login_credentials = login_credentials
 		self.shift_pool_url = shift_pool_url
 		self.shift_table_selector = "._1d8Ci"
@@ -24,13 +24,13 @@ class Shift_Grabber:
 		self.shift_pickup_button = 'button'
 		self.CONFIRM_PICKUP_BUTTON = CONFIRM_PICKUP_BUTTON
 		self.shift_wanted = {
-			'location':'any',
-			'position':'Bartender',
-			'day':'Sat',
-			'time':'any'
+			'location':self.login_credentials['location'],
+			'position':self.login_credentials['position'],
+			'day':self.login_credentials['day'],
+			'time':'any',
 		}
 		self.shift_taken = False
-		self.headless = True
+		self.headless = False
 		self.driver = None
 		self.first_run = True
 		self.shift_detail_string = None
@@ -52,7 +52,9 @@ class Shift_Grabber:
 		# Create webdriver and add specified runtime arguments
 		self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
 		return True
+
 	#-----------------------------------------------------------------
+
 	def login(self) -> bool:
 
 		self.driver.get(self.shift_pool_url)
@@ -67,9 +69,12 @@ class Shift_Grabber:
 		password_field.send_keys(self.login_credentials['password'])
 
 		submit_button.send_keys(Keys.RETURN)
+		try:
+			WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".profile")))
+			return True
+		except:
+		 return False
 
-		WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".profile")))
-		return True
 
 	def save_cookies(self) -> bool:
 		pickle.dump(self.driver.get_cookies() , open("cookies/cookies.pkl","wb"))
@@ -143,8 +148,8 @@ class Shift_Grabber:
 			open_shift.send_keys(Keys.RETURN)
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
 			pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
-			pickup_button.send_keys(Keys.RETURN)
-			time.sleep(5)
+			# pickup_button.send_keys(Keys.RETURN)
+			# time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
 			"""*****************************************************"""
 			return True
@@ -245,7 +250,7 @@ class Shift_Grabber:
 			self.shift_detail_string = self.format_shift_message(shift_details)
 			requested_location_found = self.check_shift_location(shift_details)
 
-			# If the shift day matches the requested day
+			# If the shift location matches the requested location
 			if requested_location_found:
 				requested_day_found = self.check_shift_day(shift_details)
 
@@ -258,7 +263,6 @@ class Shift_Grabber:
 
 						# If the bot successfully clicks the shift pickup button
 						shift_picked_up = self.pickup_shift(shift)
-						print(shift_picked_up)
 						if shift_picked_up:
 							print('Shift Picked Up:\n\n' + self.shift_detail_string)
 							return True

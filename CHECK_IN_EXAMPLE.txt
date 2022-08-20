@@ -1,0 +1,66 @@
+***************************
+* 7shifts Auto Pickup App *
+***************************
+
+
+---------------------------------------------------------
+- What have you achieved at this point in your project? -
+---------------------------------------------------------
+
+* User can navigate to the web app and pay for the service
+
+* Upon payment and 7shifts account verification the app looks
+	for the requested shift and picks it up if available
+
+* Upon shift pickup user is notified and of new shifts details
+
+* Upon shift is pickup user is billed
+
+* Successful test functionality test:
+	User shift pickup, sms notifications, and Telegram notifications verified
+
+
+Implemented:
+- User registration
+- User payment acceptance
+- 7shifts webscraper
+- Automated Shift Pickup
+- Notifications via Telegram messaging api
+- SMS notifications
+
+
+Planning to implement:
+- HTTP -> HTTPS
+- Deployment grade database
+- Updated error and confirmation pages
+- PEP 8
+- Code Tests
+- Proper error handling (maybe)
+- Selecting multiple shifts at once (maybe)
+- Location specific shifts (maybe)
+
+
+
+---------------------------------------------------------------------------
+- What are some issues you have run into already working on this project? -
+---------------------------------------------------------------------------
+
+* After connecting the scraper code to the web app the scrapers main driver code
+	loop needs to be ran locally within a scraper instance.
+
+
+
+------------------------------------------------------------------------------
+- How much work is their left to do and how long do you think it will take ? -
+------------------------------------------------------------------------------
+
+* PEP8 adherence along with unit tests are the most urgent since they impact grade most
+	PEP8 				[  1 Day ]
+	Code Tests 			[ .5 Day ]
+	Prod Database 		[ .5 Day ]
+	HTTPS & Deployment	[ .2 Day ]
+	Try/Except -> Assert[ .5 Day ]
+	Multi-Shift			[ .5 Day ]
+	Multi-Location ->	[ .2 Day ]
+
+	Work estimate:		[ 3.4 Days ]

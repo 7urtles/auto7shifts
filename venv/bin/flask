@@ -1,4 +1,4 @@
-#!/home/heath/Apps/7shifts_auto_pickup/venv/bin/python3
+#!/Users/charles/Apps/7shifts_auto_pickup/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
