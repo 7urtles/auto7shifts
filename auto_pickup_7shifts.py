@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 from pprint import pprint
 
-from tools import twilio_sms
+# from tools import twilio_sms
 
 #*************************************
 
@@ -32,9 +32,10 @@ class Shift_Grabber:
 		self.shift_taken = False
 		self.headless = False
 		self.driver = None
-		self.first_run = True
+		self.first_run = False
 		self.shift_detail_string = None
 		self.refreshes = 0
+		self.demo = True
 		self.setup_webdriver()
 
 	#-----------------------------------------------------------------
@@ -216,15 +217,24 @@ class Shift_Grabber:
 		print(f"Searching available {self.shift_wanted['position'].upper()} shifts for {self.login_credentials['email']} on {self.shift_wanted['day'].upper()}")
 		self.refreshes += 1
 		print(f'Refreshes: {self.refreshes}')
-		# Direct webdriver to available shifts url
-		# self.driver.get(self.shift_pool_url)
-
+		
+ 
 		if self.first_run == True:
-			# Now that the webdrivers current url and the cookies url match the cookies may be added
 			logged_in = self.login()
+
+			#-----------------------------------------------------------------
+			# Storing the session cookies. Requires the commented out scraper cookie
+			#	storage code within the base scope scraper_driver() function. 
+
+			# Direct webdriver to available shifts url
+			# self.driver.get(self.shift_pool_url)
+			# Now that the webdrivers current url and the cookies url match the cookies may be added
+
 			# self.add_cookies()
 			# Reload page with added cookies
 			# self.driver.get(self.shift_pool_url)
+			#-----------------------------------------------------------------
+
 			if logged_in:
 				self.first_run = False
 				return False
@@ -273,23 +283,16 @@ class Shift_Grabber:
 #*************************************
 
 # Main Driver Code
-if __name__ == '__main__':
-	# Load environment variables
-	load_dotenv()
-	login_credentials = {
-		'email':os.getenv('A_EMAIL'),
-		'password':os.getenv('A_PASSWORD')
-	}
-	shift_pool_url = os.getenv('SHIFT_POOL_URL')
-	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
-
-	# Initialize scraper instance
-	scraper = Shift_Grabber(login_credentials=login_credentials, shift_pool_url=shift_pool_url, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
-
+def scraper_driver(scraper):
+	# Uncomment to launch a browser to the login page, allows time for user
+	# 	to login to their account. After a 60 seconds (and hopefull logged in)
+	# 	driver will store the session cookies that way navigating the login page
+	# 	is not necessary if an instance fails and needs to be relaunched.
+	# ---------------------------------------------------------------------------
 	# if scraper.save_cookies():
 	# 	print('login cookies saved')
 	# 	exit()
-
+	
 	# Continues to scrape for the requested shift until it's picked up
 	while not scraper.shift_taken:
 		scraper.clear()
@@ -301,5 +304,32 @@ if __name__ == '__main__':
 		message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
 		# twilio_sms.send_sms(message=message)
 
-	# Close the headless browser and ending session
+	if self.demo == True and self.refreshes >= 10:
+		message = message = f"Shift Picked Up:\n\n{scraper.shift_wanted}\nCheck your 7shifts!"
+		twilio_sms.send_sms(message=message)
+		scraper.shift_taken = True
+
+	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
+
+
+#--------------------------------------------------------------------------------
+if __name__ == '__main__':
+	# Load environment variables
+	load_dotenv()
+	# env testing variables (personal credentials)
+	login_credentials = {
+		'email':os.getenv('A_EMAIL'),
+		'password':os.getenv('A_PASSWORD')
+	}
+	# link to page of available shifts
+	shift_pool_url = os.getenv('SHIFT_POOL_URL')
+	# if clicked after finding an available shift will pick up that shift after shift selection
+	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
+
+	# Initialize scraper instance
+	scraper = Shift_Grabber(login_credentials=login_credentials, shift_pool_url=shift_pool_url, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
+
+	# Call scraper main loop driver function
+	scraper_driver(scraper)
+

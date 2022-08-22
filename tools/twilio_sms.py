@@ -22,3 +22,4 @@ def send_sms(number=ACCOUNT_PHONE_NUMBER, message='shift picked up'):
 
     # except:
     #     print('SMS FAILED')
+send_sms()

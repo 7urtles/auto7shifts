@@ -7,7 +7,7 @@ import stripe
 
 from tools.server_utils import *
 from tools.twilio_sms import send_sms
-from auto_pickup_7shifts import Shift_Grabber
+from auto_pickup_7shifts import Shift_Grabber, scraper_driver
 
 # -----------------------------------------------------------------------------
 load_dotenv()
@@ -15,6 +15,7 @@ PUB_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SEC_KEY = os.getenv('STRIPE_SECRET_KEY')
 END_KEY = os.getenv('ENDPOINT_SECRET_KEY')
 SMS_URL_KEY = os.getenv('SMS_URL_KEY')
+
 stripe.api_key = STRIPE_SEC_KEY
 
 app = Flask(__name__)
@@ -47,7 +48,6 @@ def submit():
 
 		case _:
 			response = 'ERROR: Unsupported Method'
-
 	return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ') # TEST URL
 	# return redirect('https://buy.stripe.com/14kaI43oh9Nm8msaEG') # LIVE PAYMENT URL
 
@@ -97,7 +97,10 @@ def webhook():
 
 		if match_payment_to_registered_user(payment_intent):
 			if start_scraper(scrapers[email]):
-				pass
+				if scrapers[email].demo == True:
+					scraper_driver(scrapers[email])
+				else:
+					scraper_driver(scrapers[email])
 			else:
 				print(f'ERROR: Issue launching scraper for {email}')
 		
@@ -109,5 +112,5 @@ def webhook():
 
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=80)
+	app.run(host='0.0.0.0', port=80, debug=True)
 	
