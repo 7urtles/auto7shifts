@@ -1353,3 +1353,55 @@ Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+1661264288832	geckodriver	INFO	Listening on 127.0.0.1:52395
+1661264289372	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "--remote-debugging-port" "52396" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileM7y9Qy"
+1661264289667	Marionette	INFO	Marionette enabled
+1661264289688	Marionette	INFO	Listening on port 52401
+Read port: 52401
+WebDriver BiDi listening on ws://localhost:52396
+1661264289841	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileM7y9Qy/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52396/devtools/browser/72e57079-0d32-4017-b3cf-725c2b5c7b4b
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1661266537484	geckodriver	INFO	Listening on 127.0.0.1:52587
+1661266538001	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "--remote-debugging-port" "52588" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileEB6pCe"
+1661266538330	Marionette	INFO	Marionette enabled
+1661266538349	Marionette	INFO	Listening on port 52593
+WebDriver BiDi listening on ws://localhost:52588
+Read port: 52593
+1661266538462	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileEB6pCe/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52588/devtools/browser/9f450921-1839-4136-aaf8-4bd04fc79ba8
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1661266562960	geckodriver	INFO	Listening on 127.0.0.1:52683
+1661266563473	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "--remote-debugging-port" "52684" "--remote-allow-hosts" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileUg7PjT"
+1661266563715	Marionette	INFO	Marionette enabled
+1661266563735	Marionette	INFO	Listening on port 52689
+WebDriver BiDi listening on ws://localhost:52684
+Read port: 52689
+1661266563870	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/4_/387v_q11557gc5m9fscsggxc0000gn/T/rust_mozprofileUg7PjT/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52684/devtools/browser/c26d51ef-b942-4a7b-ac2f-354be33d49bc
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 1267: TypeError: shadowRoot is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://app.7shifts.com"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
