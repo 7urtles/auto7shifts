@@ -7,6 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from webdriver_manager.firefox import GeckoDriverManager
 
 from dotenv import load_dotenv
 from pprint import pprint
@@ -45,13 +47,16 @@ class Shift_Grabber:
 		Prepping web driver & loading login cookies
 		"""
 		# Initializing driver options
-		fireFoxOptions = selenium.webdriver.FirefoxOptions()
+		fireFoxOptions = FirefoxOptions()
 		if self.headless:
 			# Prevent showing browser window
 			fireFoxOptions.add_argument('--headless')
 
 		# Create webdriver and add specified runtime arguments
-		self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
+		# MAC
+		# self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
+		# UBUNTU
+		self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
 		return True
 
 	#-----------------------------------------------------------------
