@@ -56,7 +56,7 @@ class Shift_Grabber:
 		# MAC
 		# self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
 		# UBUNTU
-		self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
+		self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
 		return True
 
 	#-----------------------------------------------------------------
