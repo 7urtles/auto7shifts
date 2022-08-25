@@ -107,7 +107,7 @@ def webhook():
     # ... handle other event types
 	else:
 		print('Unhandled event type {}'.format(event['type']))
-	return jsonify(success=True)
+	return redirect('/payment_successful.html')
 
 
 # -----------------------------------------------------------------------------
