@@ -72,7 +72,7 @@ def user_registered():
 
 
 # -----------------------------------------------------------------------------
-@app.route('/payment_successful', methods=['POST'])
+@app.route('/payment_successful', methods=['GET','POST'])
 def webhook():
 	event = None
 	payload = request.data
@@ -97,17 +97,15 @@ def webhook():
 
 		if match_payment_to_registered_user(payment_intent):
 			if start_scraper(scrapers[email]):
-				if scrapers[email].demo == True:
-					scraper_driver(scrapers[email])
-				else:
-					scraper_driver(scrapers[email])
+				scraper_driver(scrapers[email])
+				return redirect('/payment_successful.html')
 			else:
 				print(f'ERROR: Issue launching scraper for {email}')
 		
     # ... handle other event types
 	else:
 		print('Unhandled event type {}'.format(event['type']))
-	return redirect('/payment_successful.html')
+		return "Oops! Something went wrong"
 
 
 # -----------------------------------------------------------------------------
