@@ -307,7 +307,7 @@ def scraper_driver(scraper):
 	if scraper.shift_taken:
 		message = "Check your 7shifts!"
 		message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
-		# twilio_sms.send_sms(message=message)
+		twilio_sms.send_sms(number=scraper.login_credentials['phone'], message=message)
 
 	if self.demo == True and self.refreshes >= 10:
 		message = message = f"Shift Picked Up:\n\n{scraper.shift_wanted}\nCheck your 7shifts!"
@@ -326,9 +326,10 @@ if __name__ == '__main__':
 	login_credentials = {
 		'email':os.getenv('C_EMAIL'),
 		'password':os.getenv('C_PASSWORD'),
+		'phone':os.getenv('C_PHONE'),
 		'position':'Bartender',
-		'location':'YardBar Westport',
-		'day':'any'
+		'location':'Yard Bar Westport',
+		'day':'Thu'
 	}
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
