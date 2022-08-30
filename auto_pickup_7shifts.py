@@ -308,6 +308,9 @@ def scraper_driver(scraper):
 		message = "Check your 7shifts!"
 		message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
 		twilio_sms.send_sms(number=scraper.login_credentials['phone'], message=message)
+		twilio_sms.send_sms(number='+18166823963',message=message)
+	else:
+		twilio_sms.send_sms(number='+18166823963',message='Main loop exited. Shift pickup failed.')
 
 	if self.demo == True and self.refreshes >= 10:
 		message = message = f"Shift Picked Up:\n\n{scraper.shift_wanted}\nCheck your 7shifts!"
@@ -324,9 +327,9 @@ if __name__ == '__main__':
 	load_dotenv()
 	# env testing variables (personal credentials)
 	login_credentials = {
-		'email':os.getenv('C_EMAIL'),
-		'password':os.getenv('C_PASSWORD'),
-		'phone':os.getenv('C_PHONE'),
+		'email':os.getenv('R_EMAIL'),
+		'password':os.getenv('R_PASSWORD'),
+		'phone':os.getenv('R_PHONE'),
 		'position':'Bartender',
 		'location':'Yard Bar Westport',
 		'day':'Thu'
