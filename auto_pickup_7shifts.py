@@ -13,7 +13,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from dotenv import load_dotenv
 from pprint import pprint
 
-# from tools import twilio_sms
+from tools import twilio_sms
 
 #*************************************
 
@@ -32,12 +32,12 @@ class Shift_Grabber:
 			'time':'any',
 		}
 		self.shift_taken = False
-		self.headless = False
+		self.headless = True
 		self.driver = None
-		self.first_run = False
+		self.first_run = True
 		self.shift_detail_string = None
 		self.refreshes = 0
-		self.demo = True
+		self.demo = False
 		self.setup_webdriver()
 
 	#-----------------------------------------------------------------
@@ -54,9 +54,9 @@ class Shift_Grabber:
 
 		# Create webdriver and add specified runtime arguments
 		# MAC
-		# self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
+		self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
 		# UBUNTU
-		self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
+		# self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
 		return True
 
 	#-----------------------------------------------------------------
@@ -324,8 +324,11 @@ if __name__ == '__main__':
 	load_dotenv()
 	# env testing variables (personal credentials)
 	login_credentials = {
-		'email':os.getenv('A_EMAIL'),
-		'password':os.getenv('A_PASSWORD')
+		'email':os.getenv('C_EMAIL'),
+		'password':os.getenv('C_PASSWORD'),
+		'position':'Bartender',
+		'location':'YardBar Westport',
+		'day':'any'
 	}
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
