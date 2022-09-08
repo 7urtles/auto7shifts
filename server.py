@@ -59,9 +59,9 @@ def invalid_credentials():
 
 
 # -----------------------------------------------------------------------------
-@app.route("/checkout")
-def get_publishable_key():
-    return render_template('checkout.html',key=PUB_KEY)
+#@app.route("/checkout")
+#def get_publishable_key():
+#    return render_template('checkout.html',key=PUB_KEY)
 
 
 # -----------------------------------------------------------------------------
