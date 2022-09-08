@@ -29,19 +29,17 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
               <div class="container-fluid">
-                <h1 class="text-center navbar-brand mx-auto mb-5" href="http://www.7shifts.online">Auto7shifts</h1>
+                <h1 class="text-center navbar-brand mx-auto mb-5" href="http://www.7shifts.online">Automated Shift Grabber</h1>
               </div>
             </nav>
 
             <form name=signup-form action='/submit' method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
-
                 <h3>
                     Welcome 
                 </h3>
                 <fieldset> 
                     <div class="form-group text-center"><br>
-			<p class="mt-1 px-2">Automated Shift Pickup</p>
-                        <img src="{{ url_for('static', filename='Mini-Robot.png')}}" class="mt-1fa mx-auto d-block w-75 h-75" alt="robot">
+                        <img src="{{ url_for('static', filename='Mini-Robot.png')}}" class="mx-auto d-block w-75 h-75" alt="robot">
                         <p class="mt-1 px-2">Get the work you deserve</p>
                     </div>
                 </fieldset>
