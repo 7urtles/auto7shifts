@@ -54,7 +54,7 @@ class Shift_Grabber:
 
 		# Create webdriver and add specified runtime arguments
 		# MAC
-		self.driver = selenium.webdriver.Firefox(options=fireFoxOptions)
+		self.driver = selenium.webdriver.Firefox(options=fireFoxOptions, service_log_path=os.devnull)
 		# UBUNTU
 		# self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
 		return True
@@ -154,8 +154,8 @@ class Shift_Grabber:
 			open_shift.send_keys(Keys.RETURN)
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
 			pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
-			# pickup_button.send_keys(Keys.RETURN)
-			# time.sleep(5)
+			pickup_button.send_keys(Keys.RETURN)
+			time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
 			"""*****************************************************"""
 			return True
@@ -222,7 +222,9 @@ class Shift_Grabber:
 		print(f"Searching available {self.shift_wanted['position'].upper()} shifts for {self.login_credentials['email']} on {self.shift_wanted['day'].upper()}")
 		self.refreshes += 1
 		print(f'Refreshes: {self.refreshes}')
-		
+		if self.shift_detail_string:
+			print('\nViewing Shifts:\n')
+			print(self.shift_detail_string)
  
 		if self.first_run == True:
 			logged_in = self.login()
@@ -254,11 +256,11 @@ class Shift_Grabber:
 
 		# Look at all found shifts
 		
-		print('\nViewing Shifts:\n')
+		# print('\nViewing Shifts:\n')
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
 			self.shift_detail_string = self.format_shift_message(shift_details)
-			print(self.shift_detail_string)
+			# print(self.shift_detail_string)
 
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
@@ -327,12 +329,12 @@ if __name__ == '__main__':
 	load_dotenv()
 	# env testing variables (personal credentials)
 	login_credentials = {
-		'email':os.getenv('R_EMAIL'),
-		'password':os.getenv('R_PASSWORD'),
-		'phone':os.getenv('R_PHONE'),
+		'email':os.getenv('C_EMAIL'),
+		'password':os.getenv('C_PASSWORD'),
+		'phone':os.getenv('C_PHONE'),
 		'position':'Bartender',
 		'location':'Yard Bar Westport',
-		'day':'Thu'
+		'day':'Sat'
 	}
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')

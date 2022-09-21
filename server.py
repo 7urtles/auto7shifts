@@ -48,8 +48,8 @@ def submit():
 
 		case _:
 			response = 'ERROR: Unsupported Method'
-	return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ') # TEST URL
-	# return redirect('https://buy.stripe.com/14kaI43oh9Nm8msaEG') # LIVE PAYMENT URL
+	#return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ') # TEST URL
+	return redirect('https://buy.stripe.com/14kaI43oh9Nm8msaEG') # LIVE PAYMENT URL
 
 
 # -----------------------------------------------------------------------------
@@ -110,5 +110,5 @@ def webhook():
 
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5007, debug=True)
+	app.run(host='0.0.0.0', port=5007)
 	
