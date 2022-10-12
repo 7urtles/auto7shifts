@@ -36,15 +36,15 @@ def submit():
 	match request.method:
 		case 'POST':
 			registration_data = dict(request.form)
-			print(login_verification.check_login(registration_data['email'],registration_data['password']))
-			scraper = Shift_Grabber(login_credentials=registration_data)
-			scraper.login_credentials.update({
-				'time_submitted':datetime.now(), 
-				"login_success":scraper.login()
-			})
-			if scraper.login_credentials['login_success']:
+			if login_verification.check_login(registration_data['email'],registration_data['password'])):
+			#scraper = Shift_Grabber(login_credentials=registration_data)
+			#scraper.login_credentials.update({
+			#	'time_submitted':datetime.now(), 
+			#	"login_success":scraper.login()
+			#})
+			#if scraper.login_credentials['login_success']:
 				store_to_csv(scraper.login_credentials)
-				scrapers[scraper.login_credentials['email']] = scraper
+				scrapers[scraper.login_credentials['email']] = registration_data['email']
 			else:
 				return redirect('http://www.7shifts.online/invalid_credentials')
 
