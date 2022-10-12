@@ -37,6 +37,10 @@ def submit():
 		case 'POST':
 			registration_data = dict(request.form)
 			if login_verification.check_login(registration_data['email'],registration_data['password']):
+			registration_data.update({
+				'time_submitted':datetime.now(), 
+				"login_success":True
+			
 			#scraper = Shift_Grabber(login_credentials=registration_data)
 			#scraper.login_credentials.update({
 			#	'time_submitted':datetime.now(), 
