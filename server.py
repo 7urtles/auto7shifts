@@ -41,14 +41,11 @@ def submit():
 					'time_submitted':datetime.now(), 
 					"login_success":True
 				})
-			#scraper = Shift_Grabber(login_credentials=registration_data)
-			#scraper.login_credentials.update({
-			#	'time_submitted':datetime.now(), 
-			#	"login_success":scraper.login()
-			#})
+				scraper = Shift_Grabber(login_credentials=registration_data)
+				scraper.login_credentials = registration_data
 			#if scraper.login_credentials['login_success']:
 				store_to_csv(registration_data)
-			#	scrapers[scraper.login_credentials['email']] = registration_data['email']
+				scrapers[scraper.login_credentials['email']] = registration_data['email']
 			else:
 				return redirect('http://www.7shifts.online/invalid_credentials')
 
