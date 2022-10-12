@@ -44,7 +44,7 @@ def submit():
 			#})
 			#if scraper.login_credentials['login_success']:
 				store_to_csv(scraper.login_credentials)
-				scrapers[scraper.login_credentials['email']] = registration_data['email']
+			#	scrapers[scraper.login_credentials['email']] = registration_data['email']
 			else:
 				return redirect('http://www.7shifts.online/invalid_credentials')
 
