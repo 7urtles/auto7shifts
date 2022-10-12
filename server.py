@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, render_template, url_for, redirect, jsonify
 
 import stripe
-import 7shifts_login_request
+import login_verification
 from tools.server_utils import *
 from tools.twilio_sms import send_sms
 from auto_pickup_7shifts import Shift_Grabber, scraper_driver
@@ -36,7 +36,7 @@ def submit():
 	match request.method:
 		case 'POST':
 			registration_data = dict(request.form)
-			print(7shifts_login_request.check_login(registration_data['email'],registration_data['password']))
+			print(login_verification.check_login(registration_data['email'],registration_data['password']))
 			scraper = Shift_Grabber(login_credentials=registration_data)
 			scraper.login_credentials.update({
 				'time_submitted':datetime.now(), 
