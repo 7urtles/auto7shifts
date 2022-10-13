@@ -73,7 +73,7 @@ def verify_stripe_payment(request:dict,END_KEY:str)->dict|bool:
     # Handle the event
     if event['type'] == 'payment_intent.succeeded':
         print(event)
-        payment_email = event['data']['data'][0]['billing_details']['email']
+        payment_email = event['data']['object']['charges']['data'][0]['billing_details']['email']
         print('payment succeeded')
         return payment_intent        
     # ... handle other event types
