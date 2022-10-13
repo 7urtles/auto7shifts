@@ -17,7 +17,7 @@ from tools import twilio_sms
 
 #*************************************
 
-class Shift_Grabber:
+class Shift_Bot:
 	def __init__(self, login_credentials={}, shift_pool_url='https://app.7shifts.com/company/139871/shift_pool/up_for_grabs', CONFIRM_PICKUP_BUTTON='btn-success'):
 		self.login_credentials = login_credentials
 		self.shift_pool_url = shift_pool_url
@@ -342,7 +342,7 @@ if __name__ == '__main__':
 	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
 
 	# Initialize scraper instance
-	scraper = Shift_Grabber(login_credentials=login_credentials, shift_pool_url=shift_pool_url, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
+	scraper = Shift_Bot(login_credentials=login_credentials, shift_pool_url=shift_pool_url, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
 
 	# Call scraper main loop driver function
 	scraper_driver(scraper)
