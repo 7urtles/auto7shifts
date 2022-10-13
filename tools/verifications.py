@@ -75,7 +75,7 @@ def verify_stripe_payment(request:dict,END_KEY:str)->dict|bool:
         print(event)
         payment_email = event['data']['object']['charges']['data'][0]['billing_details']['email']
         print('payment succeeded')
-        return payment_intent        
+        return payment_email        
     # ... handle other event types
     else:
         print('Unhandled event type {}'.format(event['type']))
