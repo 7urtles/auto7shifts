@@ -42,7 +42,7 @@ def submit():
 				# scraper.login_credentials = login_credentials
 				# if scraper.login_credentials['login_success']:
 				store_to_csv(login_credentials)
-				scrapers[scraper.login_credentials['email']] = login_credentials['email']
+				scrapers[scraper.login_credentials['email']] = scraper
 			else:
 				return redirect('http://www.7shifts.online/invalid_credentials')
 		case _:
