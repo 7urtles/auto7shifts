@@ -78,7 +78,7 @@ def webhook():
 	if email: 
 		if match_payment_email_to_scraper(email, scrapers):
 			# if start_scraper(scrapers[email]):
-			thread = Thread(target=scraper_driver,args=(scrapers[email]))
+			thread = Thread(target=scraper_driver,args=scrapers[email])
 			thread.start()
 			return redirect('/payment_successful.html')
 			# else:
