@@ -53,7 +53,7 @@ def verify_7shifts_login(request:dict)->dict|bool:
 
 
 # -----------------------------------------------------------------------------
-def verify_stripe_payment(request:dict)->dict|bool:
+def verify_stripe_payment(request:dict,END_KEY:str)->dict|bool:
     event = None
     payload = request.data
     sig_header = request.headers['STRIPE_SIGNATURE']
