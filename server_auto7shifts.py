@@ -74,10 +74,9 @@ def user_registered():
 @app.route('/payment_successful', methods=['POST'])
 def webhook():
 	# check the request data to confirm stripe payment for user
-	payment_intent = v.verify_stripe_payment(request, END_KEY)
-	if payment_intent: 
-		email = match_payment_email_to_scraper(payment_intent, scrapers)
-		if email:
+	email = v.verify_stripe_payment(request, END_KEY)
+	if email: 
+		if match_payment_email_to_scraper(email, scrapers):
 			# if start_scraper(scrapers[email]):
 			thread = Thread(target=scraper_driver,args=(scrapers[email]))
 			thread.start()
