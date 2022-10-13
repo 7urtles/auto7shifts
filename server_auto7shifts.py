@@ -47,8 +47,8 @@ def submit():
 				return redirect('http://www.7shifts.online/invalid_credentials')
 		case _:
 			response = 'ERROR: Unsupported Method'
-	return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ') # TEST URL
-	# return redirect('https://buy.stripe.com/14kaI43oh9Nm8msaEG') # LIVE PAYMENT URL
+	# return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ') # TEST URL
+	return redirect('https://buy.stripe.com/14kaI43oh9Nm8msaEG') # LIVE PAYMENT URL
 
 
 # -----------------------------------------------------------------------------
