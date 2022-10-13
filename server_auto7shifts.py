@@ -1,10 +1,11 @@
 import os
+import stripe
+import tools.verifications as v
+
 from dotenv import load_dotenv
 from threading import Thread
 from flask import Flask, request, render_template, url_for, redirect, jsonify
 
-import stripe
-import tools.verifications as v
 from tools.server_utils import *
 from tools.twilio_sms import send_sms
 from bot import Shift_Bot, scraper_driver
