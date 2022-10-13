@@ -76,7 +76,7 @@ def webhook():
 	# check the request data to confirm stripe payment for user
 	payment_intent = v.verify_stripe_payment(request, END_KEY)
 	if payment_intent: 
-		if match_payment_email_to_scraper(payment_intent):
+		if match_payment_email_to_scraper(payment_intent, scrapers):
 			# if start_scraper(scrapers[email]):
 			thread = Thread(target=scraper_driver,args=(scrapers[email]))
 			thread.start()

@@ -23,7 +23,7 @@ expected_urls = []
 
 
 # -----------------------------------------------------------------------------
-def match_payment_email_to_scraper(email):
+def match_payment_email_to_scraper(email, scrapers):
 	if email in scrapers:
 		return True
 	else:
@@ -34,7 +34,7 @@ def match_payment_email_to_scraper(email):
 # -----------------------------------------------------------------------------
 def start_scraper(scraper):
 	print('launching scraper')
-	
+
 	if scrapers[email].run():
 		print(f'Scraper for user: {scraper} running')
 		return True
