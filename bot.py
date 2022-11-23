@@ -9,16 +9,40 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from webdriver_manager.firefox import GeckoDriverManager
-
+from selenium.webdriver.firefox.service import Service
 from dotenv import load_dotenv
 from pprint import pprint
 
 from tools import twilio_sms
 
+from flask_sqlalchemy import SQLAlchemy
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('name', help='foo help')
+parser.add_argument('day', help='foo help')
+parser.add_argument('location', help='foo help')
+args = parser.parse_args()
+user_name = args.name
+user_day = args.day
+"""
 #*************************************
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db = SQLAlchemy(app)
+
+class Avilable_Shift(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    employee = db.Column(db.String(80), unique=True, nullable=False)
+    position = db.Column(db.String(120), unique=True, nullable=False)
+    date = db.Column(db.String(120), unique=True)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+#*************************************
+"""
 
 class Shift_Bot:
-	def __init__(self, login_credentials={}, shift_pool_url='https://app.7shifts.com/company/139871/shift_pool/up_for_grabs', CONFIRM_PICKUP_BUTTON='btn-success'):
+	def __init__(self, login_credentials={}, shift_wanted={}, shift_pool_url='https://app.7shifts.com/company/139871/shift_pool/up_for_grabs', CONFIRM_PICKUP_BUTTON='btn-success'):
 		self.login_credentials = login_credentials
 		self.shift_pool_url = shift_pool_url
 		self.shift_table_selector = "._1d8Ci"
@@ -26,9 +50,9 @@ class Shift_Bot:
 		self.shift_pickup_button = 'button'
 		self.CONFIRM_PICKUP_BUTTON = CONFIRM_PICKUP_BUTTON
 		self.shift_wanted = {
-			'location':self.login_credentials['location'],
-			'position':self.login_credentials['position'],
-			'day':self.login_credentials['day'],
+			'location':shift_wanted['location'],
+			'position':shift_wanted['position'],
+			'day':shift_wanted['day'],
 			'time':'any',
 		}
 		self.shift_taken = False
@@ -54,9 +78,11 @@ class Shift_Bot:
 
 		# Create webdriver and add specified runtime arguments
 		# MAC
-		self.driver = selenium.webdriver.Firefox(options=fireFoxOptions, service_log_path=os.devnull)
+		#self.driver = selenium.webdriver.Firefox(options=fireFoxOptions, service_log_path=os.devnull)
 		# UBUNTU
-		# self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
+		#self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
+		s = Service('/usr/bin/geckodriver')
+		self.driver=selenium.webdriver.Firefox(service=s, options=fireFoxOptions)
 		return True
 
 	#-----------------------------------------------------------------
@@ -76,10 +102,10 @@ class Shift_Bot:
 
 		submit_button.send_keys(Keys.RETURN)
 		try:
-			WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".profile")))
+			WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".profile")))
 			return True
 		except:
-		 return False
+			return False
 
 
 	def save_cookies(self) -> bool:
@@ -167,13 +193,22 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_location(self, shift_details:dict) -> bool:
-		if self.shift_wanted['location'] == shift_details['location'] \
+		if self.shift_wanted['location'] in  shift_details['location'] \
 			or self.shift_wanted['location'] == 'any':
 			return True
 
-	def check_shift_day(self, shift_details:dict) -> bool:
+
+	def check_shift_position(self, shift_details:dict) -> bool:
 		"""
 		Checking for open shifts and available dates for the specified position type
+		"""
+		if self.shift_wanted['position'] == shift_details['position']:
+			return True
+
+
+	def check_shift_day(self, shift_details:dict) -> bool:
+		"""
+		Checking for open shifts and available dates for the specified day
 		"""
 		if self.shift_wanted['day'] == shift_details['date']['day_week']:
 			return True
@@ -244,7 +279,6 @@ class Shift_Bot:
 
 			if logged_in:
 				self.first_run = False
-				return False
 
 		# Process page elements into a list of found shifts
 		try:
@@ -255,36 +289,33 @@ class Shift_Bot:
 			return False
 
 		# Look at all found shifts
-		
-		# print('\nViewing Shifts:\n')
-		for shift in found_shifts:
-			shift_details = self.parse_shift(shift)
-			self.shift_detail_string = self.format_shift_message(shift_details)
-			# print(self.shift_detail_string)
+
+		print('\nViewing Shifts:\n')
 
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
 			self.shift_detail_string = self.format_shift_message(shift_details)
 			requested_location_found = self.check_shift_location(shift_details)
+			#print(shift_detail_string)
 
 			# If the shift location matches the requested location
 			if requested_location_found:
-				requested_day_found = self.check_shift_day(shift_details)
+				requested_position_found = self.check_shift_position(shift_details)
+				# If the shift position matches the requested postiion
+				if requested_position_found:
+					requested_day_found = self.check_shift_day(shift_details)
+					# If the shift day matches the requested day
+					if requested_day_found:
+						requested_time_found = self.check_shift_time(shift_details)
+						# If the shift time matches the requested time
+						if requested_time_found:
 
-				# If the shift day matches the requested day
-				if requested_day_found:
-					requested_time_found = self.check_shift_time(shift_details)
-
-					# If the shift time matches the requested time
-					if requested_time_found:
-
-						# If the bot successfully clicks the shift pickup button
-						shift_picked_up = self.pickup_shift(shift)
-						if shift_picked_up:
-							print('Shift Picked Up:\n\n' + self.shift_detail_string)
-							return True
-		else:
-			return False
+							# If the bot successfully clicks the shift pickup button
+							shift_picked_up = self.pickup_shift(shift)
+							if shift_picked_up:
+								print('Shift Picked Up:\n\n' + self.shift_detail_string)
+								return True
+		return False
 	#-----------------------------------------------------------------
 
 #*************************************
@@ -305,16 +336,17 @@ def scraper_driver(scraper):
 		scraper.clear()
 		scraper.shift_taken = scraper.run()
 
-	# # If the scraper picks up a shift send sms notification to user
+	# If the scraper picks up a shift send sms notification to user
 	if scraper.shift_taken:
 		message = "Check your 7shifts!"
 		message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
+		print(message)
 		twilio_sms.send_sms(number=scraper.login_credentials['phone'], message=message)
 		twilio_sms.send_sms(number='+18166823963',message=message)
 	else:
 		twilio_sms.send_sms(number='+18166823963',message='Main loop exited. Shift pickup failed.')
 
-	if self.demo == True and self.refreshes >= 10:
+	if scraper.demo == True and self.refreshes >= 10:
 		message = message = f"Shift Picked Up:\n\n{scraper.shift_wanted}\nCheck your 7shifts!"
 		twilio_sms.send_sms(message=message)
 		scraper.shift_taken = True
@@ -328,21 +360,35 @@ if __name__ == '__main__':
 	# Load environment variables
 	load_dotenv()
 	# env testing variables (personal credentials)
-	login_credentials = {
-		'email':os.getenv('C_EMAIL'),
-		'password':os.getenv('C_PASSWORD'),
-		'phone':os.getenv('C_PHONE'),
+	randi_login_credentials = {
+		'email':os.getenv('R_EMAIL'),
+		'password':os.getenv('R_PASSWORD'),
+		'phone':os.getenv('R_PHONE')
+	}
+	randi_shift_wanted = {
 		'position':'Bartender',
-		'location':'Yard Bar Westport',
+		'location':'Bridgers Westport',
 		'day':'Sat'
 	}
+	user_login_credentials = {
+		'email':os.getenv(f"{user_name.upper()}_EMAIL"),
+		'name':os.getenv(f"{user_name.upper()}_NAME"),
+		'password':os.getenv(f"{user_name.upper()}_PASSWORD"),
+		'phone':os.getenv(f"{user_name.upper()}_PHONE")
+	}
+	user_shift_wanted = {
+		'position':'Bartender',
+		'location':'Yard Bar Westport',
+		'day':user_day.capitalize()
+	}
+
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
 	# if clicked after finding an available shift will pick up that shift after shift selection
 	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
 
 	# Initialize scraper instance
-	scraper = Shift_Bot(login_credentials=login_credentials, shift_pool_url=shift_pool_url, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
+	scraper = Shift_Bot(login_credentials=user_login_credentials, shift_pool_url=shift_pool_url, shift_wanted=user_shift_wanted, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
 
 	# Call scraper main loop driver function
 	scraper_driver(scraper)
