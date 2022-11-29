@@ -181,7 +181,8 @@ class Shift_Bot:
 			open_shift = shift.find_element(By.TAG_NAME, self.shift_pickup_button)
 			open_shift.send_keys(Keys.RETURN)
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
-			# pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
+			# pickup_button = WebDr
+			iverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
 			# pickup_button.send_keys(Keys.RETURN)
 			time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
@@ -285,6 +286,8 @@ class Shift_Bot:
 		# Process page elements into a list of found shifts
 		try:
 			found_shifts = self.get_shift_table()
+			print(found_shifts)
+			delay(5)
 		except:
 			# Restart the loop if no shifts are up for grabs
 			print('Shift Pool Empty')
