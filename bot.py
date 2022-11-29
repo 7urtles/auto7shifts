@@ -60,7 +60,7 @@ class Shift_Bot:
 		self.headless = True
 		self.driver = None
 		self.first_run = True
-		self.shift_detail_string = None
+		self.shift_detail_string = ''
 		self.refreshes = 0
 		self.setup_webdriver()
 
