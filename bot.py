@@ -237,7 +237,7 @@ class Shift_Bot:
 
 	#-----------------------------------------------------------------
 	def clear(self):
-
+		scraper.shift_detail_string = ''
 		# for windows
 		if os.name == 'nt':
 			_ = os.system('cls')
