@@ -290,8 +290,6 @@ class Shift_Bot:
 			print('Shift Pool Empty')
 			return False
 
-		print('\nViewing Shifts:\n')
-
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
