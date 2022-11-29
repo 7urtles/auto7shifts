@@ -171,7 +171,7 @@ class Shift_Bot:
 		
 		# Format shift position
 		shift_details['position'] = shift_details['position'].capitalize()
-		shift_details['position'] = self.add_arrow_string(shift_details['position'], left_space=19, right_space=2)
+		shift_details['position'] = self.append_arrow_string(shift_details['position'], left_space=19, right_space=2)
 		
 
 		# Format shifts time
