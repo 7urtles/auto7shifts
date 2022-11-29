@@ -170,7 +170,7 @@ class Shift_Bot:
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].capitalize() + 
+		shift_details['position'] = shift_details['position'].capitalize()
 		shift_details['position'] = self.add_arrow_string(shift_details['position'], left_space=19, right_space=2)
 		
 
