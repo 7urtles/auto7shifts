@@ -60,7 +60,7 @@ class Shift_Bot:
 		self.headless = True
 		self.driver = None
 		self.first_run = True
-		self.shift_detail_string = ''
+		self.shift_detail_string = None
 		self.refreshes = 0
 		self.setup_webdriver()
 
@@ -237,7 +237,7 @@ class Shift_Bot:
 
 	#-----------------------------------------------------------------
 	def clear(self):
-		scraper.shift_detail_string = ''
+
 		# for windows
 		if os.name == 'nt':
 			_ = os.system('cls')
@@ -330,8 +330,8 @@ def scraper_driver(scraper):
 	# Continues to scrape for the requested shift until it's picked up
 	while scraper.shift_wanted['days']:
 		while not scraper.shift_taken:
-			scraper.shift_taken = scraper.run()
 			scraper.clear()
+			scraper.shift_taken = scraper.run()
 
 		# If the scraper picks up a shift send sms notification to user
 		if scraper.shift_taken:
