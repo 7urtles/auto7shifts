@@ -328,7 +328,7 @@ def scraper_driver(scraper):
 	# 	exit()
 	
 	# Continues to scrape for the requested shift until it's picked up
-	while self.shift_wanted['days']:
+	while scraper.shift_wanted['days']:
 		while not scraper.shift_taken:
 			scraper.clear()
 			scraper.shift_taken = scraper.run()
