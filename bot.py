@@ -159,7 +159,7 @@ class Shift_Bot:
 		# Create dict of labels and shift attributes
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 		# Format shift posters name
-		shift_details['shift_poster'] = ' '.join([name for name in shift_details['shift_poster']])
+		shift_details['shift_poster'] = ' '.join([name for name in shift_details['shift_poster'].split()])
 		# Format shift location
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
 		# Format shift position
