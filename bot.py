@@ -147,7 +147,11 @@ class Shift_Bot:
 			return False
 
 	#-----------------------------------------------------------------
+	def append_arrow_string(input_string,left_space,right_space):
+			return ' '*(left_space-len(input_string)) / 
+			+	  (' ' * right_space) f"---> {input_string.capitalize()}"
 
+	#-----------------------------------------------------------------		
 	def parse_shift(self, shift:list) -> dict:
 		# Labels to be used in attribute dictionaries
 		detail_labels = ['shift_poster','position', 'date', 'location', 'shift_type', 'position', 'button_label']
@@ -167,7 +171,9 @@ class Shift_Bot:
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].capitalize() + ' '*(19-len(shift_details['position'])) + f"---> {shift_details['position']}"
+		shift_details['position'] = shift_details['position'].capitalize() + 
+		shift_details['position'] = self.add_arrow_string(shift_details['position'], left_space=19, right_space=2)
+		
 
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
