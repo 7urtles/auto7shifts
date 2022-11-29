@@ -135,7 +135,7 @@ class Shift_Bot:
 		"""
 		Attempting to retrieve html table containing individual shift entries
 		"""
-		delay = 2 # seconds
+		# delay = 2 # seconds
 		self.driver.get(self.shift_pool_url)
 
 		try:
