@@ -167,7 +167,7 @@ class Shift_Bot:
 		return shift_details
 
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{shift_details['location']}\n\t{shift_details['position']}\n\t{shift_details['date']['day_week']}: {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
+		shift_detail_string = f"\t{shift_details['location'].capitalize()}\n\t{shift_details['position'].capitalize()}\n\t{shift_details['date']['day_week'].capitalize()}: {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
@@ -187,7 +187,6 @@ class Shift_Bot:
 			return True
 		except:
 			print('Shift pickup failed!')
-			# print(shift.text)
 			return False
 
 	#-----------------------------------------------------------------
@@ -288,10 +287,9 @@ class Shift_Bot:
 			print('Shift Pool Empty')
 			return False
 
-		# Look at all found shifts
-
 		print('\nViewing Shifts:\n')
 
+		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
 			self.shift_detail_string = self.format_shift_message(shift_details)
