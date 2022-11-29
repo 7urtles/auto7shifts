@@ -167,7 +167,7 @@ class Shift_Bot:
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].capitalize() + ' '*(25-len(shift_details['position'])) + f"---> {shift_details['position']}"
+		shift_details['position'] = shift_details['position'].capitalize() + ' '*(19-len(shift_details['position'])) + f"---> {shift_details['position']}"
 
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
