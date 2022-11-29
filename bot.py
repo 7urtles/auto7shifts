@@ -189,7 +189,7 @@ class Shift_Bot:
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
 			pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
 			# pickup_button.send_keys(Keys.RETURN)
-			time.sleep(5)
+			# time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
 			"""*****************************************************"""
 			return True
