@@ -260,7 +260,7 @@ class Shift_Bot:
 		print(f'Refreshes: {self.refreshes}')
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
-			print(self.shift_detail_string)
+			print('/n/n'.join(self.shift_detail_string))
  
 		if self.first_run == True:
 			logged_in = self.login()
