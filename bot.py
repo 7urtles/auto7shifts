@@ -60,7 +60,7 @@ class Shift_Bot:
 		self.headless = True
 		self.driver = None
 		self.first_run = True
-		self.shift_detail_string = ''
+		self.shift_detail_string = []
 		self.refreshes = 0
 		self.setup_webdriver()
 
@@ -257,7 +257,6 @@ class Shift_Bot:
 			-send user new shift info via telegram
 		"""
 		print(f"Searching available shifts for {self.login_credentials['email']}\n\nPosition: {self.shift_wanted['position']}\nLocations: {[location for location in self.shift_wanted['locations']]}\nDays: {[day for day in self.shift_wanted['days']]}\n\n")
-		self.refreshes += 1
 		print(f'Refreshes: {self.refreshes}')
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
@@ -265,7 +264,7 @@ class Shift_Bot:
  
 		if self.first_run == True:
 			logged_in = self.login()
-
+		self.refreshes += 1
 			#-----------------------------------------------------------------
 			# Storing the session cookies. Requires the commented out scraper cookie
 			#	storage code within the base scope scraper_driver() function. 
@@ -293,7 +292,7 @@ class Shift_Bot:
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
-			self.shift_detail_string += self.format_shift_message(shift_details)
+			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			# print(self.shift_detail_string)
 			requested_location_found = self.check_shift_locations(shift_details)
 			# If the shift location matches the requested location
