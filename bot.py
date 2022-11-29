@@ -158,13 +158,17 @@ class Shift_Bot:
 
 		# Create dict of labels and shift attributes
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
+		
 		# Format shift posters name
 		first_name, last_name = shift_details['shift_poster'].split()
 		shift_details['shift_poster'] = f'{first_name.capitalize()} {last_name.capitalize()}'
+		
 		# Format shift location
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
+		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].capitalize()
+		shift_details['position'] = shift_details['position'].capitalize() + ' '*30-len(shift_details['position'])
+
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
 
@@ -201,7 +205,7 @@ class Shift_Bot:
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
 		for location in self.shift_wanted['locations']:
-			if location in shift_details['location'] \
+			if location.lower() in shift_details['location'].lower() \
 				or self.shift_wanted['locations'] == 'any':
 				return True
 
@@ -210,7 +214,7 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified position type
 		"""
-		if self.shift_wanted['position'] == shift_details['position']:
+		if self.shift_wanted['position'].lower() == shift_details['position'].lower():
 			return True
 
 
@@ -218,7 +222,7 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
-		if shift_details['date']['day_week'] in self.shift_wanted['days']:
+		if shift_details['date']['day_week'].lower() in self.shift_wanted['days'].lower():
 			return True
 
 
