@@ -159,6 +159,9 @@ class Shift_Bot:
 		# Create dict of labels and shift attributes
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 
+		# Format shift location
+		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
+
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
 
