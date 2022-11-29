@@ -264,7 +264,7 @@ class Shift_Bot:
  
 		if self.first_run == True:
 			logged_in = self.login()
-		self.refreshes += 1
+
 			#-----------------------------------------------------------------
 			# Storing the session cookies. Requires the commented out scraper cookie
 			#	storage code within the base scope scraper_driver() function. 
@@ -280,7 +280,7 @@ class Shift_Bot:
 
 			if logged_in:
 				self.first_run = False
-
+		self.refreshes += 1
 		# Process page elements into a list of found shifts
 		try:
 			found_shifts = self.get_shift_table()
