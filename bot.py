@@ -256,7 +256,7 @@ class Shift_Bot:
 			-pick up shift
 			-send user new shift info via telegram
 		"""
-		print(f"Searching available {[location.capitalize() for location in self.shift_wanted['locations']]} shifts for {self.login_credentials['email']} on {[day.upper() for day in self.shift_wanted['days']]}")
+		print(f"Searching available {[location for location in self.shift_wanted['locations']]} shifts for {self.login_credentials['email']} on {[day for day in self.shift_wanted['days']]}")
 		self.refreshes += 1
 		print(f'Refreshes: {self.refreshes}')
 		if self.shift_detail_string:
@@ -360,7 +360,7 @@ if __name__ == '__main__':
 	}
 	# Gather shift information based on user input
 	user_shift_wanted = {
-		'position':'Bartender',
+		'position':'bartender',
 		'locations':[location.lower() for location in user_locations],
 		'days':[day.lower() for day in user_days]
 	}
