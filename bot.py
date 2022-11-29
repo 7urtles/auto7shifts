@@ -148,8 +148,7 @@ class Shift_Bot:
 
 	#-----------------------------------------------------------------
 	def append_arrow_string(input_string,left_space,right_space):
-			return ' '*(left_space-len(input_string)) / 
-			+	  (' ' * right_space) f"---> {input_string.capitalize()}"
+			return ' '*(left_space-len(input_string)) + (' ' * right_space) f"---> {input_string.capitalize()}"
 
 	#-----------------------------------------------------------------		
 	def parse_shift(self, shift:list) -> dict:
