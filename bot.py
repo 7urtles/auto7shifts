@@ -362,32 +362,39 @@ def scraper_driver(scraper):
 	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
 
-
+def login_success():
+	name = input('Username: ')
+	passw = input('Password')
+	if name != 'test' or passw != 'test':
+		print(f"\nInvalid Login\n")
+		return False
+	return True
+		
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
+	if login_success():
+		# Load environment variables containing 7shifts user data
+		user_login_credentials = {
+			'email':os.getenv(f"{user_name.upper()}_EMAIL"),
+			'name':os.getenv(f"{user_name.upper()}_NAME"),
+			'password':os.getenv(f"{user_name.upper()}_PASSWORD"),
+			'phone':os.getenv(f"{user_name.upper()}_PHONE")
+		}
+		# Gather shift information based on user input
+		user_shift_wanted = {
+			'position':'bartender',
+			'locations':[location.lower() for location in user_locations],
+			'days':[day.lower() for day in user_days]
+		}
+		# link to page of available shifts
+		shift_pool_url = os.getenv('SHIFT_POOL_URL')
 
-	# Load environment variables containing 7shifts user data
-	user_login_credentials = {
-		'email':os.getenv(f"{user_name.upper()}_EMAIL"),
-		'name':os.getenv(f"{user_name.upper()}_NAME"),
-		'password':os.getenv(f"{user_name.upper()}_PASSWORD"),
-		'phone':os.getenv(f"{user_name.upper()}_PHONE")
-	}
-	# Gather shift information based on user input
-	user_shift_wanted = {
-		'position':'bartender',
-		'locations':[location.lower() for location in user_locations],
-		'days':[day.lower() for day in user_days]
-	}
-	# link to page of available shifts
-	shift_pool_url = os.getenv('SHIFT_POOL_URL')
+		# if clicked after finding an available shift will pick up that shift after shift selection
+		CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
 
-	# if clicked after finding an available shift will pick up that shift after shift selection
-	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
+		# Initialize scraper instance
+		scraper = Shift_Bot(login_credentials=user_login_credentials, shift_pool_url=shift_pool_url, shift_wanted=user_shift_wanted, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
 
-	# Initialize scraper instance
-	scraper = Shift_Bot(login_credentials=user_login_credentials, shift_pool_url=shift_pool_url, shift_wanted=user_shift_wanted, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
-
-	# Call scraper main loop driver function
-	scraper_driver(scraper)
+		# Call scraper main loop driver function
+		scraper_driver(scraper)
 
