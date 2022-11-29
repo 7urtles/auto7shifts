@@ -24,6 +24,7 @@ parser.add_argument('location', help='foo help')
 args = parser.parse_args()
 user_name = args.name
 user_day = args.day
+user_location = args.location
 """
 #*************************************
 app = Flask(__name__)
@@ -378,7 +379,7 @@ if __name__ == '__main__':
 	}
 	user_shift_wanted = {
 		'position':'Bartender',
-		'location':'Yard Bar Westport',
+		'location':user_location,
 		'day':user_day.capitalize()
 	}
 
