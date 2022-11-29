@@ -147,7 +147,7 @@ class Shift_Bot:
 			return False
 
 	#-----------------------------------------------------------------
-	def append_arrow_string(input_string, left_space, right_space):
+	def append_arrow_string(self, input_string, left_space, right_space):
 			return ' '*(left_space-len(input_string)) + (' ' * right_space) + f"---> {input_string.capitalize()}"
 
 	#-----------------------------------------------------------------		
