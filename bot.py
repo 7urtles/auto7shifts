@@ -135,7 +135,7 @@ class Shift_Bot:
 		"""
 		Attempting to retrieve html table containing individual shift entries
 		"""
-		# delay = 2 # seconds
+		delay = 2 # seconds
 		self.driver.get(self.shift_pool_url)
 
 		try:
@@ -344,7 +344,7 @@ def scraper_driver(scraper):
 			twilio_sms.send_sms(number='+18166823963',message=message)
 		else:
 			twilio_sms.send_sms(number='+18166823963',message='Main loop exited. Shift pickup failed.')
-
+		scraper.shift_taken = False
 	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
 
