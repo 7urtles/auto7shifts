@@ -193,7 +193,7 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
-		if self.shift_wanted['locations'] in shift_details['locations'] \
+		if shift_details['location'] in self.shift_wanted['locations'] \
 			or self.shift_wanted['locations'] == 'any':
 			return True
 
