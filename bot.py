@@ -256,7 +256,7 @@ class Shift_Bot:
 			-pick up shift
 			-send user new shift info via telegram
 		"""
-		print(f"Searching available {[location for location in self.shift_wanted['locations']]} shifts for {self.login_credentials['email']} on {[day for day in self.shift_wanted['days']]}")
+		print(f"Searching available shifts for {self.login_credentials['email']}\nPosition: {self.shit_wanted['position']}\nLocations: {[location for location in self.shift_wanted['locations']]}\nDays: {[day for day in self.shift_wanted['days']]}")
 		self.refreshes += 1
 		print(f'Refreshes: {self.refreshes}')
 		if self.shift_detail_string:
