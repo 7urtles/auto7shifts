@@ -157,13 +157,15 @@ class Shift_Bot:
 		shift_details = shift.find_elements(By.CSS_SELECTOR, self.shift_details_selector)
 
 		# Create dict of labels and shift attributes
-		shift_details = {detail_labels[i]:shift_details[i].text for i in range(len(detail_labels))}
+		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
 
 		# Convert shifts date details into a dict of accessable date traits
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
+
+		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
 		return shift_details
 
 	def format_shift_message(self, shift_details):
@@ -192,9 +194,10 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
-		if shift_details['location'] in self.shift_wanted['locations'] \
-			or self.shift_wanted['locations'] == 'any':
-			return True
+		for location in self.shift_wanted['locations']:
+			if location in shift_details['location'] \
+				or self.shift_wanted['locations'] == 'any':
+				return True
 
 
 	def check_shift_position(self, shift_details:dict) -> bool:
@@ -358,8 +361,8 @@ if __name__ == '__main__':
 	# Gather shift information based on user input
 	user_shift_wanted = {
 		'position':'Bartender',
-		'locations':user_locations,
-		'days':[day.capitalize() for day in user_days]
+		'locations':[location.lower() for location in user_locations],
+		'days':[day.lower() for day in user_days]
 	}
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
