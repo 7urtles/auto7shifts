@@ -293,8 +293,8 @@ class Shift_Bot:
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
-			self.shift_detail_string = self.format_shift_message(shift_details)
-			print(self.shift_detail_string)
+			self.shift_detail_string += self.format_shift_message(shift_details)
+			# print(self.shift_detail_string)
 			requested_location_found = self.check_shift_locations(shift_details)
 			# If the shift location matches the requested location
 			if requested_location_found:
