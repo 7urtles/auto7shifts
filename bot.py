@@ -17,7 +17,7 @@ from tools import twilio_sms
 # from flask_sqlalchemy import SQLAlchemy
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('-n', '--name', help='foo help')
+# parser.add_argument('-n', '--name', help='foo help')
 parser.add_argument('-d', '--days', nargs='+', action='append', help='foo help')
 parser.add_argument('-l', '--locations', nargs='+', action='append', help='foo help')
 args = parser.parse_args()
@@ -363,9 +363,9 @@ def scraper_driver(scraper):
 	scraper.stop_webdriver()
 
 def login_success():
-	name = input('Username: ')
-	passw = input('Password')
-	if name != 'test' or passw != 'test':
+	user_name = input('Username: ')
+	password = input('Password: ')
+	if user_name != 'test' or password != 'test':
 		print(f"\nInvalid Login\n")
 		return False
 	return True
