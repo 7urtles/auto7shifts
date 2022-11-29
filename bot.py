@@ -330,8 +330,8 @@ def scraper_driver(scraper):
 	while scraper.shift_wanted['days']:
 		while not scraper.shift_taken:
 			scraper.clear()
-			scraper.shift_detail_string = []
 			scraper.shift_taken = scraper.run()
+			scraper.shift_detail_string = []
 
 		# If the scraper picks up a shift send sms notification to user
 		if scraper.shift_taken:
