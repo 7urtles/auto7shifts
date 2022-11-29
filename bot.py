@@ -289,6 +289,8 @@ class Shift_Bot:
 			print('Shift Pool Empty')
 			return False
 
+		# reset list containing known available shifts
+		self.shift_detail_string = []
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
@@ -331,7 +333,6 @@ def scraper_driver(scraper):
 		while not scraper.shift_taken:
 			scraper.clear()
 			scraper.shift_taken = scraper.run()
-			scraper.shift_detail_string = []
 
 		# If the scraper picks up a shift send sms notification to user
 		if scraper.shift_taken:
