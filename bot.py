@@ -365,9 +365,9 @@ def scraper_driver(scraper):
 
 
 def login_success():
-	email = input('Email: ').lower()
+	user_email = input('Email: ').lower()
 	password = input('Password: ')
-	if email != 'charleshparmley@icloud.com' or password != 'Earthday19!@22':
+	if user_email != 'charleshparmley@icloud.com' or password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
 		return False
 	return True
@@ -378,7 +378,7 @@ if __name__ == '__main__':
 	if login_success():
 		# Load environment variables containing 7shifts user data
 		user_login_credentials = {
-			'email':os.getenv(f"{email.upper()}_EMAIL"),
+			'email':os.getenv(f"{user_email.upper()}_EMAIL"),
 			'name':os.getenv(f"{name.upper()}_NAME"),
 			'password':os.getenv(f"{name.upper()}_PASSWORD"),
 			'phone':os.getenv(f"{name.upper()}_PHONE")
