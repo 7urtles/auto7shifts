@@ -371,7 +371,6 @@ def scraper_driver(scraper):
 if __name__ == '__main__':
 
 	user_name = input('Name: ').lower()
-	user_email = input('Email: ').lower()
 	user_password = input('Password: ')
 
 	if user_email != 'charleshparmley@icloud.com' or user_password != os.getenv(f"{user_name.upper()}_PASSWORD"):
