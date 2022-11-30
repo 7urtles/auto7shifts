@@ -373,34 +373,35 @@ if __name__ == '__main__':
 	# user_name = input('Name: ').lower()
 	user_email = input('Email: ').lower()
 	user_password = input('Password: ')
+
 	if user_email != 'charleshparmley@icloud.com' or user_password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
 		exit()
 
+	# Load environment variables containing 7shifts user data
+	user_login_credentials = {
+		'email':user_email,
+		# 'name':user_name,
+		'password':user_password,
+		'phone':'+8166823963' #os.getenv(f"{user_name.upper()}_PHONE")
+	}
 
-	if login_success():
-		# Load environment variables containing 7shifts user data
-		user_login_credentials = {
-			'email':user_email,
-			# 'name':user_name,
-			'password':user_password,
-			'phone':'+8166823963' #os.getenv(f"{user_name.upper()}_PHONE")
-		}
-		# Gather shift information based on user input
-		user_shift_wanted = {
-			'position':'bartender',
-			'locations':[location.lower() for location in user_locations],
-			'days':[day.lower() for day in user_days]
-		}
-		# link to page of available shifts
-		shift_pool_url = os.getenv('SHIFT_POOL_URL')
+	# Gather shift information based on user input
+	user_shift_wanted = {
+		'position':'bartender',
+		'locations':[location.lower() for location in user_locations],
+		'days':[day.lower() for day in user_days]
+	}
+	
+	# link to page of available shifts
+	shift_pool_url = os.getenv('SHIFT_POOL_URL')
 
-		# if clicked after finding an available shift will pick up that shift after shift selection
-		CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
+	# if clicked after finding an available shift will pick up that shift after shift selection
+	CONFIRM_PICKUP_BUTTON = os.getenv('CONFIRM_PICKUP_BUTTON')
 
-		# Initialize scraper instance
-		scraper = Shift_Bot(login_credentials=user_login_credentials, shift_pool_url=shift_pool_url, shift_wanted=user_shift_wanted, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
+	# Initialize scraper instance
+	scraper = Shift_Bot(login_credentials=user_login_credentials, shift_pool_url=shift_pool_url, shift_wanted=user_shift_wanted, CONFIRM_PICKUP_BUTTON=CONFIRM_PICKUP_BUTTON)
 
-		# Call scraper main loop driver function
-		scraper_driver(scraper)
+	# Call scraper main loop driver function
+	scraper_driver(scraper)
 
