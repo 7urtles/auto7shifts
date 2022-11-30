@@ -147,7 +147,7 @@ class Shift_Bot:
 			return False
 
 	#-----------------------------------------------------------------
-	def append_arrow_string(self, input_string, space_after=15):
+	def append_arrow_string(self, input_string, space_after=5):
 			return input_string + ' '*(space_after-len(input_string))
 
 	#-----------------------------------------------------------------		
