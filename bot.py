@@ -174,7 +174,6 @@ class Shift_Bot:
 		# Format shift position
 		shift_details['position'] = shift_details['position'].capitalize()
 		shift_details['position'] = self.append_arrow_string(shift_details['position'], 19, 2)
-		
 
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
@@ -277,7 +276,7 @@ class Shift_Bot:
 		print(f'Refreshes: {self.refreshes}')
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
-			print('\n\n'.join(self.shift_detail_string))
+			# print('\n\n'.join(self.shift_detail_string))
  
 		if self.first_run == True:
 			logged_in = self.login()
@@ -300,7 +299,8 @@ class Shift_Bot:
 		self.refreshes += 1
 		# Process page elements into a list of found shifts
 		try:
-			found_shifts = self.get_shift_table()
+			known_shifts = self.get_shift_table()
+			pprint(known_shifts)
 		except:
 			# Restart the loop if no shifts are up for grabs
 			print('Shift Pool Empty')
@@ -309,7 +309,7 @@ class Shift_Bot:
 		# reset list containing known available shifts
 		self.shift_detail_string = []
 		# Look at all found shifts
-		for shift in found_shifts:
+		for shift in known_shifts:
 			shift_details = self.parse_shift(shift)
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			# print(self.shift_detail_string)
