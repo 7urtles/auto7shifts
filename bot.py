@@ -369,7 +369,7 @@ if __name__ == '__main__':
 		'a':['bridgers westport', 'lotus westport', 'yard bar westport']
 	}
 	positions = {'1':['bartender'], '2':['security'], 'a':['bartender', 'security']}
-	days = {'1':['thu'], '2':['fri'], '3':['sat'], '4':['sun'], 'a':['thu','fri','sat','sun']}
+	days = {'1':['thu'], '2':['fri'], '3':['sat'], '4':['sun'], 'a':['fri','sat','sun']}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
