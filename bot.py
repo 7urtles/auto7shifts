@@ -185,7 +185,7 @@ class Shift_Bot:
 		return shift_details
 
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{' '.join([shift for shift in shift_details['shift_poster'].split()])}\n\t{shift_details['location']}\n\t{shift_details['position']}\n\t{shift_details['date']['day_week']}: {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
+		shift_detail_string = f"\t{' '.join([shift for shift in shift_details['shift_poster'].split()])}\n\t{shift_details['locations']}\n\t{shift_details['position']}\n\t{shift_details['date']['day_week']}: {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
