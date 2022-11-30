@@ -171,8 +171,8 @@ class Shift_Bot:
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].capitalize()
-		shift_details['position'] = self.append_arrow_string(shift_details['position'], 19, 2)
+		shift_details['positions'] = shift_details['position'].capitalize()
+		shift_details['positions'] = self.append_arrow_string(shift_details['position'], 19, 2)
 		
 
 		# Format shifts time
@@ -218,9 +218,10 @@ class Shift_Bot:
 
 	def check_shift_position(self, shift_details:dict) -> bool:
 		"""
-		Checking for open shifts and available dates for the specified position type
+		Checking for the specified position type
 		"""
-		if self.shift_wanted['position'].lower() == shift_details['position'].lower():
+		shift_details[''] = [position.lower() for position in shift_details['positions']]
+		if self.shift_wanted['positions'].lower() in shift_details['positions']:
 			return True
 
 
@@ -402,7 +403,7 @@ if __name__ == '__main__':
 
 	# Gather shift information based on user input
 	user_shift_wanted = {
-		'position':positions[user_positions],
+		'positions':positions[user_positions],
 		'locations':locations[user_locations],
 		'days':days[user_days]
 	}
