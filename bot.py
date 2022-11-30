@@ -189,7 +189,7 @@ class Shift_Bot:
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
 		{self.append_arrow_string(shift_details['position'].capitalize())} \
-		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'].capitalize())} \
+		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {(shift_details['date']['day_month'].capitalize(),4)} \
 		{self.capitalize_string(shift_details['location'])} \
 		{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
 		{self.capitalize_string(shift_details['shift_poster'])}"
