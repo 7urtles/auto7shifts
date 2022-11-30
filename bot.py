@@ -363,7 +363,7 @@ def scraper_driver(scraper):
 	scraper.stop_webdriver()
 
 def login_success():
-	user_name.lower() = input('Username: ')
+	user_name = input('Username: ').lower()
 	password = input('Password: ')
 	if user_name != 'charles' or password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
