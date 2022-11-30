@@ -380,9 +380,9 @@ if __name__ == '__main__':
 
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
-		'email':user_email,
+		'email':os.getenv(f"{user_name.upper()}_EMAIL"),
 		'name':user_name,
-		'password':user_password,
+		'password':os.getenv(f"{user_name.upper}_PASSWORD"),
 		'phone':os.getenv(f"{user_name.upper()}_PHONE")
 	}
 
