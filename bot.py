@@ -21,8 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--days', nargs='+', action='append', help='foo help')
 parser.add_argument('-l', '--locations', nargs='+', action='append', help='foo help')
 args = parser.parse_args()
-user_email = None
-password = None
+user_name = args.name
 user_days = args.days[0]
 user_locations = args.locations[0]
 
@@ -368,22 +367,20 @@ def login_success():
 	user_name = input('Name: ').lower()
 	user_email = input('Email: ').lower()
 	password = input('Password: ')
-	if user_email != 'charleshparmley@icloud.com' or password != 'Earthday19!@22':
+	if user_email != 'charles' or password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
-		user_name, user_email, password = None,None,None
 		return False
 	return True
 		
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
-	name = input('Name: ').lower()
 	if login_success():
 		# Load environment variables containing 7shifts user data
 		user_login_credentials = {
 			'email':user_email,
 			'name':user_name,
-			'password':password,
-			'phone':os.getenv(f"{name.upper()}_PHONE")
+			'password':user_password,
+			'phone':os.getenv(f"{user_name.upper()}_PHONE")
 		}
 		# Gather shift information based on user input
 		user_shift_wanted = {
