@@ -14,29 +14,30 @@ from pprint import pprint
 
 from tools import twilio_sms
 
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 user_name = None
 user_email = None
 user_password = None
 user_days = None
 user_locations = None
 
-"""
+
 #*************************************
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
-class Avilable_Shift(db.Model):
+class Dropped_Shift(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    employee = db.Column(db.String(80), unique=True, nullable=False)
-    position = db.Column(db.String(120), unique=True, nullable=False)
-    date = db.Column(db.String(120), unique=True)
+    employee = db.Column(db.String(80), nullable=False)
+    location = db.Column(db.String(80), nullable=False)
+    position = db.Column(db.String(80), nullable=False)
+    date = db.Column(db.String(80), unique=True)
 
     def __repr__(self):
         return '<User %r>' % self.username
 #*************************************
-"""
+
 
 class Shift_Bot:
 	def __init__(self, login_credentials={}, shift_wanted={}, shift_pool_url='https://app.7shifts.com/company/139871/shift_pool/up_for_grabs', CONFIRM_PICKUP_BUTTON='btn-success'):
@@ -177,6 +178,7 @@ class Shift_Bot:
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
 
 		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
+		shift_details['date']['day_month'] = shift_details['date']['day_month'].lower()
 		return shift_details
 
 	def capitalize_string(self, input_string):
@@ -185,7 +187,8 @@ class Shift_Bot:
 		shift_detail_string = f" \
 		\n\t{shift_details['position'].capitalize()} \
 		\n\t{self.capitalize_string(shift_details['location'])} \
-		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
+		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['day_week'].capitalize()} \
+		\n\t{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
 		\n\t{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
 	#-----------------------------------------------------------------
@@ -301,6 +304,7 @@ class Shift_Bot:
 
 			if logged_in:
 				self.first_run = False
+
 		self.refreshes += 1
 		# Process page elements into a list of found shifts
 		try:
@@ -320,7 +324,6 @@ class Shift_Bot:
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
-			[self.shift_tracker[key]+1 for key in ['bartender','security']]
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			# If the shift location matches the requested location
 			if self.check_shift_locations(shift_details):
