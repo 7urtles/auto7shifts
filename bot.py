@@ -282,7 +282,7 @@ class Shift_Bot:
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
 			print('\n\n'.join(self.shift_detail_string))
- 		print(self.shift_tracker)
+		print(self.shift_tracker)
 		if self.first_run == True:
 			logged_in = self.login()
 
