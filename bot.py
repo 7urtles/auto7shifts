@@ -370,6 +370,7 @@ def scraper_driver(scraper):
 if __name__ == '__main__':
 	locations = {'1':'Bridgers Westport', '2':'Lotus Westport', '3':'Yard Bar Westport', 'a':'any'},
 	position = {'1':'Bartender', '2':'Security', 'a':'any'}
+	days = {'1':'Thu', '2':'Fri', '3':'Sat', '4':'Sun', '5':'any'}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
@@ -384,6 +385,9 @@ if __name__ == '__main__':
 	# Gather desired shift locations from user
 	user_locations = input('\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport\n[3] Yard Bar Westport\nor (a) for all: ')
 	
+	# Gather desired shift days from user
+	user_days = input('\nDays:\n[1] Thurs\n[2] Fri\n[3] Sat\n[4] Sun\n[5] all')
+
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
 		'email':os.getenv(f"{user_name.upper()}_EMAIL"),
@@ -396,7 +400,7 @@ if __name__ == '__main__':
 	user_shift_wanted = {
 		'position':user_positions,
 		'locations':user_locations,
-		'days':[day.lower() for day in user_days]
+		'days':days[user_days]
 	}
 
 	# link to page of available shifts
