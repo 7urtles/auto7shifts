@@ -185,9 +185,9 @@ class Shift_Bot:
 		return shift_details
 
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{''.join([name.capitalize() for name in shift_details['shift_poster']])} \
+		shift_detail_string = f"\t{''.join([name.capitalize() for name in shift_details['shift_poster'].split(' ')])} \
 		\n\t{''.join([location.capitalize() for location in shift_details['locations']])}\
-		\n\t{shift_details['position']}\n\t{''.join([day.upper() for day in shift_details['date']['day_week']])}:{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
+		\n\t{shift_details['position']}\n\t{''.join([day.capitalize() for day in shift_details['date']['day_week']])}:{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
