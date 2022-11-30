@@ -333,7 +333,7 @@ class Shift_Bot:
 						if shift_picked_up:
 							# Remove the found shifts day from list of wanted days
 							self.shift_wanted['days'].remove(shift_details['date']['day_week'])
-							print('Shift Picked Up:\n\n' + self.shift_detail_string)
+							print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
 							return True
 		return False
 	#-----------------------------------------------------------------
