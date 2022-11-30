@@ -370,20 +370,20 @@ def scraper_driver(scraper):
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-	# user_name = input('Name: ').lower()
+	user_name = input('Name: ').lower()
 	user_email = input('Email: ').lower()
 	user_password = input('Password: ')
 
-	if user_email != 'charleshparmley@icloud.com' or user_password != 'Earthday19!@22':
+	if user_email != 'charleshparmley@icloud.com' or user_password != os.getenv(f"{user_name.upper()}_PASSWORD"):
 		print(f"\nInvalid Login\n")
 		exit()
 
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
 		'email':user_email,
-		# 'name':user_name,
+		'name':user_name,
 		'password':user_password,
-		'phone':'+8166823963' #os.getenv(f"{user_name.upper()}_PHONE")
+		'phone':os.getenv(f"{user_name.upper()}_PHONE")
 	}
 
 	# Gather shift information based on user input
@@ -392,7 +392,7 @@ if __name__ == '__main__':
 		'locations':[location.lower() for location in user_locations],
 		'days':[day.lower() for day in user_days]
 	}
-	
+
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
 
