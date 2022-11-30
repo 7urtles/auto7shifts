@@ -184,10 +184,12 @@ class Shift_Bot:
 		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
 		return shift_details
 
+	def capitalize_string(self, input_string):
+		return ''.join([word.capitalize() for word in input_string.split(' ')])
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{''.join([name.capitalize() for name in shift_details['shift_poster'].split(' ')])} \
-		\n\t{''.join([location.capitalize() for location in shift_details['locations']])}\
-		\n\t{shift_details['position']}\n\t{''.join([day.capitalize() for day in shift_details['date']['day_week']])}:{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
+		shift_detail_string = f"\t{capitalize_string(shift_details['shift_poster'])} \
+		\n\t{capitalize_string(shift_details['locations'])}\
+		\n\t{shift_details['position']}\n\t{shift_details['date']['day_week'].capitalize()}:{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
