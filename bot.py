@@ -165,10 +165,10 @@ class Shift_Bot:
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 		
 		# Format shift posters name
-		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split()])
+		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')])
 		
 		# Format shift location
-		shift_details['locations'] = ' '.join([location_name.lower() for location_name in shift_details['locations'].split()])
+		shift_details['locations'] = ' '.join([location_name.lower() for location_name in shift_details['locations'].split(' ')])
 		
 		# Format shift position
 		shift_details['position'] = shift_details['position'].lower()
@@ -183,7 +183,7 @@ class Shift_Bot:
 
 		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
 		return shift_details
-		
+
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f"\t{' '.join([name.capitalize() for name in shift_details['shift_poster']])} \
 		\n\t{[location.capitalize() for location in shift_details['locations']]}\
