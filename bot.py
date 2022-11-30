@@ -211,7 +211,7 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
-		shift_tracker[shift_details['location']] += 1
+		self.shift_tracker[shift_details['location']] += 1
 		if shift_details['location'] in self.shift_wanted['locations'] \
 		or shift_details['location'] == 'any':
 			return True
@@ -221,7 +221,7 @@ class Shift_Bot:
 		"""
 		Checking for the specified position type
 		"""
-		shift_tracker[shift_details['position']] += 1
+		self.shift_tracker[shift_details['position']] += 1
 		if shift_details['position'] in self.shift_wanted['positions'] \
 		or self.shift_wanted == 'any':
 			return True
@@ -231,7 +231,7 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
-		shift_tracker[shift_details['date']['day_week']] += 1
+		self.shift_tracker[shift_details['date']['day_week']] += 1
 		if shift_details['date']['day_week'] in self.shift_wanted['days'] \
 		or shift_details['date']['day_week'] == 'any':
 			return True
