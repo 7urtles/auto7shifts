@@ -370,7 +370,7 @@ def scraper_driver(scraper):
 if __name__ == '__main__':
 	locations = {'1':['Bridgers Westport'], '2':['Lotus Westport'], '3':['Yard Bar Westport'], 'a':['Bridgers Westport', 'Lotus Westport', 'Yard Bar Westport']},
 	positions = {'1':['Bartender'], '2':['Security'], 'a':['Bartender', 'Security']}
-	days = {'1':['Thu'], '2':['Fri'], '3':['Sat'], ['4']:['Sun'], 'a':['Thu','Fri','Sat','Sun']}
+	days = {'1':['Thu'], '2':['Fri'], '3':['Sat'], '4':['Sun'], 'a':['Thu','Fri','Sat','Sun']}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
