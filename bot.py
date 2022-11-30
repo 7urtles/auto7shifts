@@ -174,7 +174,7 @@ class Shift_Bot:
 		
 
 		# Format shifts time
-		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ').replace('\t','')
+		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').replace('\t','').split(' ')
 
 		# Convert shifts date details into a dict of accessable date traits
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
