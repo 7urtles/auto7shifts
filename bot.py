@@ -373,7 +373,7 @@ if __name__ == '__main__':
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
-	if user_email != 'charleshparmley@icloud.com' or user_password != os.getenv(f"{user_name.upper()}_PASSWORD"):
+	if user_name != 'charles' or user_password != os.getenv(f"{user_name.upper()}_PASSWORD"):
 		print(f"\nInvalid Login\n")
 		exit()
 
