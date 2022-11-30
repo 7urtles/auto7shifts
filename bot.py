@@ -192,7 +192,7 @@ class Shift_Bot:
 		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'].capitalize())} \
 		{self.append_arrow_string(self.capitalize_string(shift_details['location']))} \
 		{shift_details['date']['clock_in']}-{self.append_arrow_string(shift_details['date']['clock_out'])} \
-		{self.capitalize_string(shift_details['shift_poster'])}".replace('\t','')
+		{self.capitalize_string(shift_details['shift_poster'])}".replace('\t','').replace('\t','').replace('\t','')
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
