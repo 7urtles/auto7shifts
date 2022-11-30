@@ -368,9 +368,9 @@ def scraper_driver(scraper):
 		
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
-	locations = {'1':'Bridgers Westport', '2':'Lotus Westport', '3':'Yard Bar Westport', 'a':'any'},
-	positions = {'1':'Bartender', '2':'Security', 'a':'any'}
-	days = {'1':'Thu', '2':'Fri', '3':'Sat', '4':'Sun', '5':'any'}
+	locations = {'1':['Bridgers Westport'], '2':['Lotus Westport'], '3':['Yard Bar Westport'], 'a':['Bridgers Westport', 'Lotus Westport', 'Yard Bar Westport']},
+	positions = {'1':['Bartender'], '2':['Security'], 'a':['Bartender', 'Security']}
+	days = {'1':['Thu'], '2':['Fri'], '3':['Sat'], ['4']:['Sun'], 'a':['Thu','Fri','Sat','Sun']}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
@@ -383,10 +383,10 @@ if __name__ == '__main__':
 	user_positions = input('\nPositions:\n[1] Bartender\n[2] Security\nor (a) for all: ')
 	
 	# Gather desired shift locations from user
-	user_locations = input('\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport\n[3] Yard Bar Westport\nor (a) for all: ')
+	user_locations = input(f"\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport\n[3] Yard Bar Westport\nor (a) for all: ")
 	
 	# Gather desired shift days from user
-	user_days = input('\nDays:\n[1] Thurs\n[2] Fri\n[3] Sat\n[4] Sun\n[5] all')
+	user_days = input('\nDays:\n[1] Thurs\n[2] Fri\n[3] Sat\n[4] Sun\nor (a) for all: ')
 
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
