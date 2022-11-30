@@ -382,7 +382,7 @@ if __name__ == '__main__':
 	user_login_credentials = {
 		'email':os.getenv(f"{user_name.upper()}_EMAIL"),
 		'name':user_name,
-		'password':os.getenv(f"{user_name.upper}_PASSWORD"),
+		'password':os.getenv(f"{user_name.upper()}_PASSWORD"),
 		'phone':os.getenv(f"{user_name.upper()}_PHONE")
 	}
 
