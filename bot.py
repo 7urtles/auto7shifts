@@ -315,7 +315,7 @@ class Shift_Bot:
 		self.shift_tracker = {
 			'bartender':0,'security':0, 
 			'bridgers westport':0, 'lotus westport':0, 'yard bar westport':0, 
-			'thurs':0, 'fri':0, 'sat':0, 'sun'0
+			'thurs':0, 'fri':0, 'sat':0, 'sun':0
 		}
 		# Look at all found shifts
 		for shift in found_shifts:
