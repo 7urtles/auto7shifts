@@ -300,7 +300,6 @@ class Shift_Bot:
 		# Process page elements into a list of found shifts
 		try:
 			known_shifts = self.get_shift_table()
-			pprint(known_shifts)
 		except:
 			# Restart the loop if no shifts are up for grabs
 			print('Shift Pool Empty')
@@ -311,6 +310,7 @@ class Shift_Bot:
 		# Look at all found shifts
 		for shift in known_shifts:
 			shift_details = self.parse_shift(shift)
+			pprint(shift_details)
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			# print(self.shift_detail_string)
 			requested_location_found = self.check_shift_locations(shift_details)
