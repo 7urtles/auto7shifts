@@ -58,6 +58,7 @@ class Shift_Bot:
 		self.first_run = True
 		self.shift_detail_string = []
 		self.refreshes = 0
+		self.shift_tracker = {}
 		self.setup_webdriver()
 
 	#-----------------------------------------------------------------
@@ -210,6 +211,7 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
+		shift_tracker[shift_details['location']] += 1
 		if shift_details['location'] in self.shift_wanted['locations'] \
 		or shift_details['location'] == 'any':
 			return True
@@ -219,6 +221,7 @@ class Shift_Bot:
 		"""
 		Checking for the specified position type
 		"""
+		shift_tracker[shift_details['position']] += 1
 		if shift_details['position'] in self.shift_wanted['positions'] \
 		or self.shift_wanted == 'any':
 			return True
@@ -228,6 +231,7 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
+		shift_tracker[shift_details['date']['day_week']] += 1
 		if shift_details['date']['day_week'] in self.shift_wanted['days'] \
 		or shift_details['date']['day_week'] == 'any':
 			return True
@@ -278,7 +282,7 @@ class Shift_Bot:
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
 			print('\n\n'.join(self.shift_detail_string))
- 
+ 		print(self.shift_tracker)
 		if self.first_run == True:
 			logged_in = self.login()
 
@@ -308,23 +312,24 @@ class Shift_Bot:
 
 		# reset list containing known available shifts
 		self.shift_detail_string = []
+		self.shift_tracker = {
+			'bartender':0,'security':0, 
+			'bridgers westport':0, 'lotus westport':0, 'yard bar westport':0, 
+			'thurs':0, 'fri':0, 'sat':0, 'sun'0
+		}
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
+			[shift_tracker[key]+1 for key in ['bartender','security']]
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
-			# print(self.shift_detail_string)
-			requested_location_found = self.check_shift_locations(shift_details)
 			# If the shift location matches the requested location
-			if requested_location_found:
-				requested_position_found = self.check_shift_position(shift_details)
+			if self.check_shift_locations(shift_details):
 				# If the shift position matches the requested postiion
-				if requested_position_found:
-					requested_day_found = self.check_shift_days(shift_details)
+				if self.check_shift_position(shift_details):
 					# If the shift day matches the requested day
-					if requested_day_found:
-						shift_picked_up = self.pickup_shift(shift)
+					if self.check_shift_days(shift_details):
 						# If the bot successfully clicks the shift pickup button
-						if shift_picked_up:
+						if self.pickup_shift(shift):
 							# Remove the found shifts day from list of wanted days
 							self.shift_wanted['days'].remove(shift_details['date']['day_week'])
 							print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
