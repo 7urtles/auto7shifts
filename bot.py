@@ -374,13 +374,14 @@ def login_success():
 		
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
+	name = input('Name: ').lower()
 	if login_success():
 		# Load environment variables containing 7shifts user data
 		user_login_credentials = {
-			'email':os.getenv(f"{user_name.upper()}_EMAIL"),
-			'name':os.getenv(f"{user_name.upper()}_NAME"),
-			'password':os.getenv(f"{user_name.upper()}_PASSWORD"),
-			'phone':os.getenv(f"{user_name.upper()}_PHONE")
+			'email':os.getenv(f"{email.upper()}_EMAIL"),
+			'name':os.getenv(f"{name.upper()}_NAME"),
+			'password':os.getenv(f"{name.upper()}_PASSWORD"),
+			'phone':os.getenv(f"{name.upper()}_PHONE")
 		}
 		# Gather shift information based on user input
 		user_shift_wanted = {
