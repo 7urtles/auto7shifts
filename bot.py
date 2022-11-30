@@ -369,7 +369,7 @@ def scraper_driver(scraper):
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
 	locations = {'1':'Bridgers Westport', '2':'Lotus Westport', '3':'Yard Bar Westport', 'a':'any'},
-	position = {'1':'Bartender', '2':'Security', 'a':'any'}
+	positions = {'1':'Bartender', '2':'Security', 'a':'any'}
 	days = {'1':'Thu', '2':'Fri', '3':'Sat', '4':'Sun', '5':'any'}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
@@ -398,8 +398,8 @@ if __name__ == '__main__':
 
 	# Gather shift information based on user input
 	user_shift_wanted = {
-		'position':user_positions,
-		'locations':user_locations,
+		'position':positions[user_positions],
+		'locations':locations[user_locations],
 		'days':days[user_days]
 	}
 
