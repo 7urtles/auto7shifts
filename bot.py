@@ -155,7 +155,7 @@ class Shift_Bot:
 	#-----------------------------------------------------------------		
 	def parse_shift(self, shift:list) -> dict:
 		# Labels to be used in attribute dictionaries
-		detail_labels = ['shift_poster','position', 'date', 'location', 'shift_type', 'position', 'button_label']
+		detail_labels = ['shift_poster','position', 'date', 'locations', 'shift_type', 'position', 'button_label']
 		date_labels = ['day_week', 'month', 'day_month', 'year', 'clock_in', 'clock_out']
 
 		# Select all of the html text elements within the shift html table
@@ -168,11 +168,11 @@ class Shift_Bot:
 		shift_details['shift_poster'] = ' '.join([name.capitalize() for name in shift_details['shift_poster'].split()])
 		
 		# Format shift location
-		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
+		shift_details['locations'] = ' '.join([location_name.capitalize() for location_name in shift_details['locations'].split()])
 		
 		# Format shift position
-		shift_details['positions'] = shift_details['position'].capitalize()
-		shift_details['positions'] = self.append_arrow_string(shift_details['position'], 19, 2)
+		shift_details['position'] = shift_details['position'].capitalize()
+		shift_details['position'] = self.append_arrow_string(shift_details['position'], 19, 2)
 		
 
 		# Format shifts time
@@ -220,8 +220,7 @@ class Shift_Bot:
 		"""
 		Checking for the specified position type
 		"""
-		shift_details[''] = [position.lower() for position in shift_details['positions']]
-		if self.shift_wanted['positions'].lower() in shift_details['positions']:
+		if shift_details['position'].lower() in self.shift_wanted['positions']:
 			return True
 
 
@@ -370,12 +369,12 @@ def scraper_driver(scraper):
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
 	locations = {
-		'1':['Bridgers Westport'], '2':['Lotus Westport'],
-		'3':['Yard Bar Westport'],
-		'a':['Bridgers Westport', 'Lotus Westport', 'Yard Bar Westport']
+		'1':['bridgers westport'], '2':['lotus westport'],
+		'3':['yard bar westport'],
+		'a':['bridgers westport', 'lotus westport', 'yard bar westport']
 	}
-	positions = {'1':['Bartender'], '2':['Security'], 'a':['Bartender', 'Security']}
-	days = {'1':['Thu'], '2':['Fri'], '3':['Sat'], '4':['Sun'], 'a':['Thu','Fri','Sat','Sun']}
+	positions = {'1':['bartender'], '2':['security'], 'a':['bartender', 'security']}
+	days = {'1':['thu'], '2':['fri'], '3':['sat'], '4':['sun'], 'a':['thu','fri','sat','sun']}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
