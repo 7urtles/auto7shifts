@@ -324,7 +324,7 @@ class Shift_Bot:
 					if requested_day_found:
 						shift_picked_up = True #self.pickup_shift(shift)
 						# If the bot successfully clicks the shift pickup button
-						if True: #shift_picked_up:
+						if shift_picked_up:
 							# Remove the found shifts day from list of wanted days
 							self.shift_wanted['days'].remove(shift_details['date']['day_week'])
 							print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
@@ -348,18 +348,13 @@ def scraper_driver(scraper):
 	# Continues to scrape for the requested shift until it's picked up
 	while scraper.shift_wanted['days']:
 		scraper.clear()
-		scraper.shift_taken = scraper.run()
-
 		# If the scraper picks up a shift send sms notification to user
-		if scraper.shift_taken:
+		if scraper.run():
 			message = "Check your 7shifts!"
 			message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
 			print(message)
 			# twilio_sms.send_sms(number=scraper.login_credentials['phone'], message=message)
 			# twilio_sms.send_sms(number='+18166823963',message=message)
-		else:
-			twilio_sms.send_sms(number='+18166823963',message='Main loop exited. Shift pickup failed.')
-
 	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
 
