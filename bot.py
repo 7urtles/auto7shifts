@@ -155,7 +155,7 @@ class Shift_Bot:
 	#-----------------------------------------------------------------		
 	def parse_shift(self, shift:list) -> dict:
 		# Labels to be used in attribute dictionaries
-		detail_labels = ['shift_poster','position', 'date', 'locations', 'shift_type', 'position', 'button_label']
+		detail_labels = ['shift_poster','position', 'date', 'location', 'shift_type', 'position', 'button_label']
 		date_labels = ['day_week', 'month', 'day_month', 'year', 'clock_in', 'clock_out']
 
 		# Select all of the html text elements within the shift html table
@@ -168,7 +168,7 @@ class Shift_Bot:
 		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')])
 		
 		# Format shift location
-		shift_details['locations'] = ' '.join([location_name.lower() for location_name in shift_details['locations'].split(' ')])
+		shift_details['location'] = ' '.join([location_name.lower() for location_name in shift_details['location'].split(' ')])
 		
 		# Format shift position
 		shift_details['position'] = shift_details['position'].lower()
@@ -190,7 +190,7 @@ class Shift_Bot:
 		shift_detail_string = f" \
 		\n\t{shift_details['position'].capitalize()} \
 		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
-		\n\t{self.capitalize_string(shift_details['locations'])} \
+		\n\t{self.capitalize_string(shift_details['location'])} \
 		\n\t{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
 	#-----------------------------------------------------------------
@@ -216,17 +216,17 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
-		for location in self.shift_wanted['locations']:
-			if location in shift_details['locations'] \
-				or 'any' in self.shift_wanted['locations']:
-				return True
+		if shift_details['location'] in self.shift_wanted['locations'] \
+		or shift_details['location'] == 'any':
+			return True
 
 
 	def check_shift_position(self, shift_details:dict) -> bool:
 		"""
 		Checking for the specified position type
 		"""
-		if shift_details['position'].lower() in self.shift_wanted['positions']:
+		if shift_details['position'] in self.shift_wanted['positions'] \
+		or if self.shift_wanted == 'any':
 			return True
 
 
@@ -234,7 +234,8 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
-		if shift_details['date']['day_week'] in self.shift_wanted['days']:
+		if shift_details['date']['day_week'] in self.shift_wanted['days'] \
+		or shift_details['date']['day_week'] == 'any':
 			return True
 
 
