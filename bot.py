@@ -21,7 +21,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--days', nargs='+', action='append', help='foo help')
 parser.add_argument('-l', '--locations', nargs='+', action='append', help='foo help')
 args = parser.parse_args()
-# user_name = args.name
+user_name = None
+password = None
 user_days = args.days[0]
 user_locations = args.locations[0]
 
@@ -362,8 +363,9 @@ def scraper_driver(scraper):
 	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
 
+
 def login_success():
-	user_name = input('Username: ').lower()
+	email = input('Email: ').lower()
 	password = input('Password: ')
 	if user_name != 'charles' or password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
