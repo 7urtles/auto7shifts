@@ -188,9 +188,9 @@ class Shift_Bot:
 
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
-		{self.append_arrow_string(shift_details['position'].capitalize())} \
+		{self.append_arrow_string(shift_details['position'].capitalize(), 11)} \
 		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'].capitalize(), 4)} \
-		{self.append_arrow_string(self.capitalize_string(shift_details['location']),17)} \
+		{self.append_arrow_string(self.capitalize_string(shift_details['location']),20)} \
 		{shift_details['date']['clock_in']}-{self.append_arrow_string(shift_details['date']['clock_out'],10)} \
 		{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
