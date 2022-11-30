@@ -226,7 +226,7 @@ class Shift_Bot:
 		Checking for the specified position type
 		"""
 		if shift_details['position'] in self.shift_wanted['positions'] \
-		or if self.shift_wanted == 'any':
+		or self.shift_wanted == 'any':
 			return True
 
 
