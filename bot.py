@@ -172,7 +172,7 @@ class Shift_Bot:
 		
 		# Format shift position
 		shift_details['position'] = shift_details['position'].lower()
-		shift_details['position'] = self.append_arrow_string(shift_details['position'], 19, 2)
+		shift_details['position'] = shift_details['position']
 		
 
 		# Format shifts time
@@ -189,8 +189,8 @@ class Shift_Bot:
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
 		\n\t{shift_details['position'].capitalize()} \
-		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
 		\n\t{self.capitalize_string(shift_details['location'])} \
+		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
 		\n\t{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
 	#-----------------------------------------------------------------
