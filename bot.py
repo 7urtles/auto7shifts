@@ -386,7 +386,7 @@ if __name__ == '__main__':
 	user_locations = input(f"\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport\n[3] Yard Bar Westport\nor (a) for all: ")
 	
 	# Gather desired shift days from user
-	user_days = input('\nDays:\n[1] Thurs\n[2] Fri\n[3] Sat\n[4] Sun\nor (a) for all: ')
+	user_days = input(f"\nDays:\n[1] Thurs\n[2] Fri\n[3] Sat\n[4] Sun\nor (a) for all: ")
 
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
