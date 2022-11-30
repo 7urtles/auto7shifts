@@ -54,7 +54,7 @@ class Shift_Bot:
 		self.CONFIRM_PICKUP_BUTTON = CONFIRM_PICKUP_BUTTON
 		self.shift_wanted = {
 			'locations':shift_wanted['locations'],
-			'position':shift_wanted['position'],
+			'positions':shift_wanted['positions'],
 			'days':shift_wanted['days'],
 			'time':'any',
 		}
