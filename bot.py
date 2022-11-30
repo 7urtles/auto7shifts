@@ -163,24 +163,23 @@ class Shift_Bot:
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 		
 		# Format shift posters name
-		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')])
+		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')]).replace('\t','')
 		
 		# Format shift location
-		shift_details['location'] = ' '.join([location_name.lower() for location_name in shift_details['location'].split(' ')])
+		shift_details['location'] = ' '.join([location_name.lower() for location_name in shift_details['location'].split(' ')]).replace('\t','')
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].lower()
-		shift_details['position'] = shift_details['position']
+		shift_details['position'] = shift_details['position'].lower().replace('\t','')
 		
 
 		# Format shifts time
-		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
+		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ').replace('\t','')
 
 		# Convert shifts date details into a dict of accessable date traits
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
 
-		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
-		shift_details['date']['day_month'] = shift_details['date']['day_month'].lower()
+		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower().replace('\t','')
+		shift_details['date']['day_month'] = shift_details['date']['day_month'].lower().replace('\t','')
 		return shift_details
 
 	def capitalize_string(self, input_string):
@@ -284,7 +283,7 @@ class Shift_Bot:
 		
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
-			print([detail.replace('\t','') for detail in self.shift_detail_string])
+			print(''.join(self.shift_detail_string))
 
 		if self.first_run == True:
 			logged_in = self.login()
