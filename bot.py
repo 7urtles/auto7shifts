@@ -198,7 +198,7 @@ class Shift_Bot:
 			open_shift.send_keys(Keys.RETURN)
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
 			pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
-			# pickup_button.send_keys(Keys.RETURN)
+			pickup_button.send_keys(Keys.RETURN)
 			time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
 			"""*****************************************************"""
@@ -322,7 +322,7 @@ class Shift_Bot:
 					requested_day_found = self.check_shift_days(shift_details)
 					# If the shift day matches the requested day
 					if requested_day_found:
-						shift_picked_up = True #self.pickup_shift(shift)
+						shift_picked_up = self.pickup_shift(shift)
 						# If the bot successfully clicks the shift pickup button
 						if shift_picked_up:
 							# Remove the found shifts day from list of wanted days
@@ -353,8 +353,8 @@ def scraper_driver(scraper):
 			message = "Check your 7shifts!"
 			message = f"Shift Picked Up:\n\n{scraper.shift_detail_string}\n{message}"
 			print(message)
-			# twilio_sms.send_sms(number=scraper.login_credentials['phone'], message=message)
-			# twilio_sms.send_sms(number='+18166823963',message=message)
+			twilio_sms.send_sms(number=scraper.login_credentials['phone'], message=message)
+			twilio_sms.send_sms(number='+18166823963',message=message)
 	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
 
