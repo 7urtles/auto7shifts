@@ -211,7 +211,7 @@ class Shift_Bot:
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
 		for location in self.shift_wanted['locations']:
-			if location.lower() == shift_details['location'].lower() \
+			if location.lower() == shift_details['locations'].lower() \
 				or 'any' in self.shift_wanted['locations']:
 				return True
 
