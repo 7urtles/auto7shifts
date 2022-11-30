@@ -30,9 +30,12 @@ db = SQLAlchemy(app)
 class Dropped_Shift(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     employee = db.Column(db.String(80), nullable=False)
-    location = db.Column(db.String(80), nullable=False)
-    position = db.Column(db.String(80), nullable=False)
-    date = db.Column(db.String(80), unique=True)
+    location = db.Column(db.String(50), nullable=False)
+    position = db.Column(db.String(50), nullable=False)
+    day_week = db.Column(db.String(10), nullable=False)
+    day_month = db.Column(db.Integer, nullable=False)
+    month = db.Column(db.String(9), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -60,6 +63,7 @@ class Shift_Bot:
 		self.shift_detail_string = []
 		self.refreshes = 0
 		self.shift_tracker = {}
+		self.known_shifts = []
 		self.setup_webdriver()
 
 	#-----------------------------------------------------------------
@@ -78,9 +82,7 @@ class Shift_Bot:
 		# MAC
 		#self.driver = selenium.webdriver.Firefox(options=fireFoxOptions, service_log_path=os.devnull)
 		# UBUNTU
-		#self.driver = selenium.webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=fireFoxOptions)
-		s = Service('/usr/bin/geckodriver')
-		self.driver=selenium.webdriver.Firefox(service=s, options=fireFoxOptions)
+		self.driver=selenium.webdriver.Firefox(service=Service('/usr/bin/geckodriver'), options=fireFoxOptions)
 		return True
 
 	#-----------------------------------------------------------------
@@ -186,10 +188,10 @@ class Shift_Bot:
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
 		\n\t{shift_details['position'].capitalize()} \
-		\n\t{self.capitalize_string(shift_details['location'])} \
-		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['month'].capitalize()} {shift_details['date']['day_month'].capitalize()} \
-		\n\t{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
-		\n\t{self.capitalize_string(shift_details['shift_poster'])}"
+		\t{self.capitalize_string(shift_details['location'])} \
+		\t{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {shift_details['date']['day_month'].capitalize()} \
+		\t{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
+		\t{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
@@ -214,7 +216,6 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
-		self.shift_tracker[shift_details['location']] += 1
 		if shift_details['location'] in self.shift_wanted['locations'] \
 		or shift_details['location'] == 'any':
 			return True
@@ -224,7 +225,6 @@ class Shift_Bot:
 		"""
 		Checking for the specified position type
 		"""
-		self.shift_tracker[shift_details['position']] += 1
 		if shift_details['position'] in self.shift_wanted['positions'] \
 		or self.shift_wanted == 'any':
 			return True
@@ -234,7 +234,6 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
-		self.shift_tracker[shift_details['date']['day_week']] += 1
 		if shift_details['date']['day_week'] in self.shift_wanted['days'] \
 		or shift_details['date']['day_week'] == 'any':
 			return True
@@ -270,7 +269,6 @@ class Shift_Bot:
 		else:
 			_ = os.system('clear')
 
-
 	def run(self) -> bool:
 		"""
 		Bots driver code.
@@ -282,10 +280,11 @@ class Shift_Bot:
 		"""
 		print(f"Searching available shifts for {self.login_credentials['email']}\n\nPosition: {self.shift_wanted['positions']}\nLocations: {[location for location in self.shift_wanted['locations']]}\nDays: {[day for day in self.shift_wanted['days']]}\n\n")
 		print(f'Refreshes: {self.refreshes}')
+		
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
 			print('\n\n'.join(self.shift_detail_string))
-		print(self.shift_tracker)
+
 		if self.first_run == True:
 			logged_in = self.login()
 
@@ -316,27 +315,24 @@ class Shift_Bot:
 
 		# reset list containing known available shifts
 		self.shift_detail_string = []
-		self.shift_tracker = {
-			'bartender':0,'security':0, 
-			'bridgers westport':0, 'lotus westport':0, 'yard bar westport':0, 
-			'thurs':0, 'fri':0, 'sat':0, 'sun':0
-		}
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
-			self.shift_detail_string.append(self.format_shift_message(shift_details))
-			# If the shift location matches the requested location
-			if self.check_shift_locations(shift_details):
-				# If the shift position matches the requested postiion
-				if self.check_shift_position(shift_details):
-					# If the shift day matches the requested day
-					if self.check_shift_days(shift_details):
-						# If the bot successfully clicks the shift pickup button
-						if self.pickup_shift(shift):
-							# Remove the found shifts day from list of wanted days
-							self.shift_wanted['days'].remove(shift_details['date']['day_week'])
-							print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
-							return True
+			if shift_details not in self.known_shifts:
+				self.known_shifts.append(shift_details)
+				self.shift_detail_string.append(self.format_shift_message(shift_details))
+				# If the shift location matches the requested location
+				if self.check_shift_locations(shift_details):
+					# If the shift position matches the requested postiion
+					if self.check_shift_position(shift_details):
+						# If the shift day matches the requested day
+						if self.check_shift_days(shift_details):
+							# If the bot successfully clicks the shift pickup button
+							if self.pickup_shift(shift):
+								# Remove the found shifts day from list of wanted days
+								self.shift_wanted['days'].remove(shift_details['date']['day_week'])
+								print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
+								return True
 		return False
 	#-----------------------------------------------------------------
 
