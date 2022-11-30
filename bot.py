@@ -365,10 +365,12 @@ def scraper_driver(scraper):
 
 
 def login_success():
+	user_name = input('Name: ').lower()
 	user_email = input('Email: ').lower()
 	password = input('Password: ')
 	if user_email != 'charleshparmley@icloud.com' or password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
+		user_name, user_email, password = None,None,None
 		return False
 	return True
 		
@@ -378,9 +380,9 @@ if __name__ == '__main__':
 	if login_success():
 		# Load environment variables containing 7shifts user data
 		user_login_credentials = {
-			'email':os.getenv(f"{user_email.upper()}_EMAIL"),
-			'name':os.getenv(f"{name.upper()}_NAME"),
-			'password':os.getenv(f"{name.upper()}_PASSWORD"),
+			'email':user_email,
+			'name':user_name,
+			'password':password,
 			'phone':os.getenv(f"{name.upper()}_PHONE")
 		}
 		# Gather shift information based on user input
