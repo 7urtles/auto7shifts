@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--days', nargs='+', action='append', help='foo help')
 parser.add_argument('-l', '--locations', nargs='+', action='append', help='foo help')
 args = parser.parse_args()
-user_name = None
+user_email = None
 password = None
 user_days = args.days[0]
 user_locations = args.locations[0]
