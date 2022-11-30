@@ -147,7 +147,7 @@ class Shift_Bot:
 			return False
 
 	#-----------------------------------------------------------------
-	def append_arrow_string(self, input_string, space_after=17):
+	def append_arrow_string(self, input_string, space_after=20):
 			return input_string + ' ' * (space_after-len(input_string))
 
 	#-----------------------------------------------------------------		
@@ -174,7 +174,7 @@ class Shift_Bot:
 		
 
 		# Format shifts time
-		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').replace('\t','').split(' ')
+		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
 
 		# Convert shifts date details into a dict of accessable date traits
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
@@ -188,11 +188,11 @@ class Shift_Bot:
 
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
-		{self.append_arrow_string(shift_details['position'].capitalize())} \
-		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'].capitalize())} \
-		{self.append_arrow_string(self.capitalize_string(shift_details['location']))} \
-		{shift_details['date']['clock_in']}-{self.append_arrow_string(shift_details['date']['clock_out'])} \
-		{self.capitalize_string(shift_details['shift_poster'])}".replace('\t','')
+		{shift_details['position'].capitalize()} \
+		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {shift_details['date']['day_month'].capitalize()} \
+		{self.capitalize_string(shift_details['location'])} \
+		{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
+		{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
