@@ -15,12 +15,6 @@ from pprint import pprint
 from tools import twilio_sms
 
 # from flask_sqlalchemy import SQLAlchemy
-import argparse
-parser = argparse.ArgumentParser()
-# parser.add_argument('-n', '--name', help='foo help')
-parser.add_argument('-d', '--days', nargs='+', action='append', help='foo help')
-parser.add_argument('-l', '--locations', nargs='+', action='append', help='foo help')
-args = parser.parse_args()
 user_name = None
 user_email = None
 user_password = None
