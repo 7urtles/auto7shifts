@@ -204,8 +204,8 @@ class Shift_Bot:
 			open_shift.send_keys(Keys.RETURN)
 			"""DONT SEND A CLICK UNLESS SHIFT PICKUP IS INTENDED!!!!"""
 			pickup_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.CONFIRM_PICKUP_BUTTON)))
-			# pickup_button.send_keys(Keys.RETURN)
-			# time.sleep(5)
+			pickup_button.send_keys(Keys.RETURN)
+			time.sleep(5)
 			# UNCOMMENT ABOVE LINE WHEN READY TO TAKE SHIFTS
 			"""*****************************************************"""
 			return True
@@ -217,7 +217,7 @@ class Shift_Bot:
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
 		for location in self.shift_wanted['locations']:
-			if location.lower() in shift_details['locations'] \
+			if location in shift_details['locations'] \
 				or 'any' in self.shift_wanted['locations']:
 				return True
 
@@ -234,7 +234,7 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
-		if shift_details['date']['day_week'].lower() in self.shift_wanted['days'].lower():
+		if shift_details['date']['day_week'] in self.shift_wanted['days']:
 			return True
 
 
