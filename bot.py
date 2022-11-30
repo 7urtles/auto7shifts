@@ -13,7 +13,7 @@ from selenium.webdriver.firefox.service import Service
 from pprint import pprint
 
 from tools import twilio_sms
-
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 user_name = None
 user_email = None
