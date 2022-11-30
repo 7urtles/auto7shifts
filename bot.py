@@ -18,8 +18,8 @@ from tools import twilio_sms
 user_name = None
 user_email = None
 user_password = None
-user_days = args.days[0]
-user_locations = args.locations[0]
+user_days = None
+user_locations = None
 
 """
 #*************************************
