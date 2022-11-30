@@ -379,10 +379,10 @@ if __name__ == '__main__':
 		exit()
 
 	# Gather desirted shift role from user
-	user_position = input('\nPositions:\n[1] Bartender\n[2] Security\nor (a) for all')
+	user_positions = input('\nPositions:\n[1] Bartender\n[2] Security\nor (a) for all: ')
 	
 	# Gather desired shift locations from user
-	user_locations = input('\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport Yard Bar Westport\nor (a) for all')
+	user_locations = input('\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport\n[3] Yard Bar Westport\nor (a) for all: ')
 	
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
