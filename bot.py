@@ -368,7 +368,11 @@ def scraper_driver(scraper):
 		
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
-	company_locations = {'1':['Bridgers Westport'], '2':['Lotus Westport'], '3':['Yard Bar Westport'], 'a':['Bridgers Westport', 'Lotus Westport', 'Yard Bar Westport']},
+	locations = {
+		'1':['Bridgers Westport'], '2':['Lotus Westport'],
+		'3':['Yard Bar Westport'],
+		'a':['Bridgers Westport', 'Lotus Westport', 'Yard Bar Westport']
+	}
 	positions = {'1':['Bartender'], '2':['Security'], 'a':['Bartender', 'Security']}
 	days = {'1':['Thu'], '2':['Fri'], '3':['Sat'], '4':['Sun'], 'a':['Thu','Fri','Sat','Sun']}
 	user_name = input('Name: ').lower()
@@ -399,7 +403,7 @@ if __name__ == '__main__':
 	# Gather shift information based on user input
 	user_shift_wanted = {
 		'position':positions[user_positions],
-		'locations':company_locations[user_locations],
+		'locations':locations[user_locations],
 		'days':days[user_days]
 	}
 
