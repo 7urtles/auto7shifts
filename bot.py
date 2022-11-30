@@ -320,7 +320,7 @@ class Shift_Bot:
 		# Look at all found shifts
 		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
-			[shift_tracker[key]+1 for key in ['bartender','security']]
+			[self.shift_tracker[key]+1 for key in ['bartender','security']]
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			# If the shift location matches the requested location
 			if self.check_shift_locations(shift_details):
