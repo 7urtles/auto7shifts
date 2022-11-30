@@ -165,13 +165,13 @@ class Shift_Bot:
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 		
 		# Format shift posters name
-		shift_details['shift_poster'] = ' '.join([name.capitalize() for name in shift_details['shift_poster'].split()])
+		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split()])
 		
 		# Format shift location
-		shift_details['locations'] = ' '.join([location_name.capitalize() for location_name in shift_details['locations'].split()])
+		shift_details['locations'] = ' '.join([location_name.lower() for location_name in shift_details['locations'].split()])
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].capitalize()
+		shift_details['position'] = shift_details['position'].lower()
 		shift_details['position'] = self.append_arrow_string(shift_details['position'], 19, 2)
 		
 
@@ -181,11 +181,16 @@ class Shift_Bot:
 		# Convert shifts date details into a dict of accessable date traits
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
 
-		shift_details['date']['day_week'] = shift_details['date']['day_week'].capitalize()
+		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
 		return shift_details
-
+	def lower_case(words_list:list[str]):
+		return ' '.join(word.upper() for word in shift_details['shift_poster'].split())
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{' '.join([shift for shift in shift_details['shift_poster'].split()])}\n\t{shift_details['locations']}\n\t{shift_details['position']}\n\t{shift_details['date']['day_week']}: {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}\n"
+		shift_detail_string = f"\t{' '.join( self.lower_case(shift_details['shift_poster']))} \
+		\n\t{[location.upper() for location in shift_details['locations']]}\
+		\n\t{shift_details['position']}\n\t{[day.lower() for day in shift_details['date']['day_week']]}: \
+		{shift_details['date']['clock_in']}-\
+		{shift_details['date']['clock_out']}\n"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
@@ -211,7 +216,7 @@ class Shift_Bot:
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
 		for location in self.shift_wanted['locations']:
-			if location.lower() == shift_details['locations'].lower() \
+			if location.lower() in shift_details['locations'] \
 				or 'any' in self.shift_wanted['locations']:
 				return True
 
