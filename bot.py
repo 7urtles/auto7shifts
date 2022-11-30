@@ -187,9 +187,11 @@ class Shift_Bot:
 	def capitalize_string(self, input_string):
 		return ' '.join([word.capitalize() for word in input_string.split(' ')])
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{self.capitalize_string(shift_details['shift_poster'])} \
+		shift_detail_string = f" \
+		\n\t{shift_details['position'].capitalize()} \
+		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
 		\n\t{self.capitalize_string(shift_details['locations'])} \
-		\n\t{shift_details['position'].capitalize()}\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['clock_in']}-{shift_details['date']['clock_out']}"
+		\n\t{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
 	#-----------------------------------------------------------------
 
