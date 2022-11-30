@@ -368,8 +368,8 @@ def scraper_driver(scraper):
 def login_success():
 	user_name = input('Name: ').lower()
 	user_email = input('Email: ').lower()
-	password = input('Password: ')
-	if user_email != 'charleshparmley@icloud.com' or password != 'Earthday19!@22':
+	user_password = input('Password: ')
+	if user_email != 'charleshparmley@icloud.com' or user_password != 'Earthday19!@22':
 		print(f"\nInvalid Login\n")
 		return False
 	return True
