@@ -188,7 +188,7 @@ class Shift_Bot:
 
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
-		{shift_details['position'].capitalize()} \
+		{self.append_arrow_string(shift_details['position'].capitalize())} \
 		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {shift_details['date']['day_month'].capitalize()} \
 		{self.capitalize_string(shift_details['location'])} \
 		{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
@@ -284,7 +284,7 @@ class Shift_Bot:
 		
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
-			[print(self.append_arrow_string(shift.replace('\t',''))) for shift in self.shift_detail_string]
+			[print(shift.replace('\t','')) for shift in self.shift_detail_string]
 
 		if self.first_run == True:
 			logged_in = self.login()
