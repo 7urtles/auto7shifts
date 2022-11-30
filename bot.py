@@ -163,13 +163,14 @@ class Shift_Bot:
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 		
 		# Format shift posters name
-		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')]).replace('\t','')
+		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')])
 		
 		# Format shift location
-		shift_details['location'] = ' '.join([location_name.lower() for location_name in shift_details['location'].split(' ')]).replace('\t','')
+		shift_details['location'] = ' '.join([location_name.lower() for location_name in shift_details['location'].split(' ')])
 		
 		# Format shift position
-		shift_details['position'] = shift_details['position'].lower().replace('\t','')
+		shift_details['position'] = shift_details['position'].lower()
+		shift_details['position'] = shift_details['position']
 		
 
 		# Format shifts time
@@ -178,8 +179,8 @@ class Shift_Bot:
 		# Convert shifts date details into a dict of accessable date traits
 		shift_details['date'] = dict(zip(date_labels, shift_details['date']))
 
-		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower().replace('\t','')
-		shift_details['date']['day_month'] = shift_details['date']['day_month'].lower().replace('\t','')
+		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
+		shift_details['date']['day_month'] = shift_details['date']['day_month'].lower()
 		return shift_details
 
 	def capitalize_string(self, input_string):
@@ -188,7 +189,7 @@ class Shift_Bot:
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
 		{self.append_arrow_string(shift_details['position'].capitalize())} \
-		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'])} \
+		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'].capitalize())} \
 		{self.append_arrow_string(self.capitalize_string(shift_details['location']))} \
 		{shift_details['date']['clock_in']}-{self.append_arrow_string(shift_details['date']['clock_out'])} \
 		{self.capitalize_string(shift_details['shift_poster'])}"
@@ -283,7 +284,7 @@ class Shift_Bot:
 		
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
-			print(''.join(self.shift_detail_string))
+			print('\n'.join(self.shift_detail_string))
 
 		if self.first_run == True:
 			logged_in = self.login()
