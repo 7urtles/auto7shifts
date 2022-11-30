@@ -328,7 +328,7 @@ class Shift_Bot:
 					requested_day_found = self.check_shift_days(shift_details)
 					# If the shift day matches the requested day
 					if requested_day_found:
-						shift_picked_up = self.pickup_shift(shift)
+						shift_picked_up = True #self.pickup_shift(shift)
 						# If the bot successfully clicks the shift pickup button
 						if shift_picked_up:
 							# Remove the found shifts day from list of wanted days
