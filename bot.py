@@ -187,7 +187,7 @@ class Shift_Bot:
 		shift_detail_string = f" \
 		\n\t{shift_details['position'].capitalize()} \
 		\n\t{self.capitalize_string(shift_details['location'])} \
-		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['day_month'].capitalize()} \
+		\n\t{shift_details['date']['day_week'].capitalize()} {shift_details['date']['month'].capitalize()} {shift_details['date']['day_month'].capitalize()} \
 		\n\t{shift_details['date']['clock_in']}-{shift_details['date']['clock_out']} \
 		\n\t{self.capitalize_string(shift_details['shift_poster'])}"
 		return shift_detail_string
