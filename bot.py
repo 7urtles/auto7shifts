@@ -183,10 +183,10 @@ class Shift_Bot:
 
 		shift_details['date']['day_week'] = shift_details['date']['day_week'].lower()
 		return shift_details
-	def lower_case(self, words_list:list[str]):
-		return ' '.join(word.upper() for word in shift_details['shift_poster'].split())
+	def upper_case(self, words_list:list[str]):
+		return ' '.join([word.upper() for word in words_list])
 	def format_shift_message(self, shift_details):
-		shift_detail_string = f"\t{' '.join( self.lower_case(shift_details['shift_poster']))} \
+		shift_detail_string = f"\t{' '.join( self.upper_case(shift_details['shift_poster']))} \
 		\n\t{[location.upper() for location in shift_details['locations']]}\
 		\n\t{shift_details['position']}\n\t{[day.lower() for day in shift_details['date']['day_week']]}: \
 		{shift_details['date']['clock_in']}-\
