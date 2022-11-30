@@ -165,8 +165,7 @@ class Shift_Bot:
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
 		
 		# Format shift posters name
-		first_name, last_name = shift_details['shift_poster'].split()
-		shift_details['shift_poster'] = f'{first_name.capitalize()} {last_name.capitalize()}'
+		shift_details['shift_poster'] = f'{[name.capitalize() for name in shift_details['shift_poster'].split()]}'
 		
 		# Format shift location
 		shift_details['location'] = ' '.join([location_name.capitalize() for location_name in shift_details['location'].split()])
@@ -174,6 +173,7 @@ class Shift_Bot:
 		# Format shift position
 		shift_details['position'] = shift_details['position'].capitalize()
 		shift_details['position'] = self.append_arrow_string(shift_details['position'], 19, 2)
+		
 
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
@@ -211,8 +211,8 @@ class Shift_Bot:
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
 		for location in self.shift_wanted['locations']:
-			if location.lower() in shift_details['location'].lower() \
-				or self.shift_wanted['locations'] == 'any':
+			if location.lower() == shift_details['location'].lower() \
+				or if 'any' in self.shift_wanted['locations']:
 				return True
 
 
@@ -276,7 +276,7 @@ class Shift_Bot:
 		print(f'Refreshes: {self.refreshes}')
 		if self.shift_detail_string:
 			print('\nViewing Shifts:\n')
-			# print('\n\n'.join(self.shift_detail_string))
+			print('\n\n'.join(self.shift_detail_string))
  
 		if self.first_run == True:
 			logged_in = self.login()
@@ -299,7 +299,7 @@ class Shift_Bot:
 		self.refreshes += 1
 		# Process page elements into a list of found shifts
 		try:
-			known_shifts = self.get_shift_table()
+			found_shifts = self.get_shift_table()
 		except:
 			# Restart the loop if no shifts are up for grabs
 			print('Shift Pool Empty')
@@ -308,9 +308,8 @@ class Shift_Bot:
 		# reset list containing known available shifts
 		self.shift_detail_string = []
 		# Look at all found shifts
-		for shift in known_shifts:
+		for shift in found_shifts:
 			shift_details = self.parse_shift(shift)
-			pprint(shift_details)
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			# print(self.shift_detail_string)
 			requested_location_found = self.check_shift_locations(shift_details)
@@ -369,14 +368,22 @@ def scraper_driver(scraper):
 		
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
-
+	locations = {'1':'Bridgers Westport', '2':'Lotus Westport', '3':'Yard Bar Westport', 'a':'any'},
+	position = {'1':'Bartender', '2':'Security', 'a':'any'}
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
 
+	# INSECUREly validate username/password
 	if user_name != 'charles' or user_password != os.getenv(f"{user_name.upper()}_PASSWORD"):
 		print(f"\nInvalid Login\n")
 		exit()
 
+	# Gather desirted shift role from user
+	user_position = input('\nPositions:\n[1] Bartender\n[2] Security\nor (a) for all')
+	
+	# Gather desired shift locations from user
+	user_locations = input('\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport Yard Bar Westport\nor (a) for all')
+	
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
 		'email':os.getenv(f"{user_name.upper()}_EMAIL"),
@@ -387,8 +394,8 @@ if __name__ == '__main__':
 
 	# Gather shift information based on user input
 	user_shift_wanted = {
-		'position':'bartender',
-		'locations':[location.lower() for location in user_locations],
+		'position':user_positions,
+		'locations':user_locations,
 		'days':[day.lower() for day in user_days]
 	}
 
