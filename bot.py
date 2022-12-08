@@ -96,7 +96,7 @@ class Shift_Bot:
 		submit_button = self.driver.find_element(By.ID, 'submit')
 
 		WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, "email")))
-		
+
 		username_field.send_keys(self.login_credentials['email'])
 		password_field.send_keys(self.login_credentials['password'])
 
@@ -147,10 +147,10 @@ class Shift_Bot:
 			return False
 
 	#-----------------------------------------------------------------
-	def append_arrow_string(self, input_string, space_after=10):
+	def append_arrow_string(self, input_string, space_after=10, end_char=''):
 			return input_string + ' ' * (space_after-len(input_string))
 
-	#-----------------------------------------------------------------		
+	#-----------------------------------------------------------------
 	def parse_shift(self, shift:list) -> dict:
 		# Labels to be used in attribute dictionaries
 		detail_labels = ['shift_poster','position', 'date', 'location', 'shift_type', 'position', 'button_label']
@@ -161,17 +161,15 @@ class Shift_Bot:
 
 		# Create dict of labels and shift attributes
 		shift_details = {detail_labels[i]:shift_details[i].text.lower() for i in range(len(detail_labels))}
-		
+
 		# Format shift posters name
 		shift_details['shift_poster'] = ' '.join([name.lower() for name in shift_details['shift_poster'].split(' ')])
-		
+
 		# Format shift location
 		shift_details['location'] = ' '.join([location_name.lower() for location_name in shift_details['location'].split(' ')])
-		
+
 		# Format shift position
 		shift_details['position'] = shift_details['position'].lower()
-		shift_details['position'] = shift_details['position']
-		
 
 		# Format shifts time
 		shift_details['date'] = shift_details['date'].replace(',','').replace(' -','').split(' ')
@@ -183,17 +181,16 @@ class Shift_Bot:
 		shift_details['date']['day_month'] = shift_details['date']['day_month'].lower()
 		return shift_details
 
-	def capitalize_string(self, input_string):
-		return ' '.join([word.capitalize() for word in input_string.split(' ')])
 
 	def format_shift_message(self, shift_details):
 		shift_detail_string = f" \
-		{self.append_arrow_string(shift_details['position'].capitalize(), 11)} \
-		{shift_details['date']['day_week'].capitalize()}, {shift_details['date']['month'].capitalize()} {self.append_arrow_string(shift_details['date']['day_month'].capitalize(), 4)} \
-		{self.append_arrow_string(self.capitalize_string(shift_details['location']),20)} \
+		{self.append_arrow_string(shift_details['position'], 11)} \
+		{shift_details['date']['day_week']}, {shift_details['date']['month']} \
+		{self.append_arrow_string(shift_details['date']['day_month'], 4)} \
+		{self.append_arrow_string(shift_details['location'],20)} \
 		{shift_details['date']['clock_in']}-{self.append_arrow_string(shift_details['date']['clock_out'],10)} \
-		{self.capitalize_string(shift_details['shift_poster'])}"
-		return shift_detail_string
+		{shift_details['shift_poster']}"
+		return shift_detail_string.title()
 	#-----------------------------------------------------------------
 
 	def pickup_shift(self, shift:list) -> dict:
@@ -217,8 +214,7 @@ class Shift_Bot:
 	#-----------------------------------------------------------------
 
 	def check_shift_locations(self, shift_details:dict) -> bool:
-		if shift_details['location'] in self.shift_wanted['locations'] \
-		or shift_details['location'] == 'any':
+		if shift_details['location'] in self.shift_wanted['locations']:
 			return True
 
 
@@ -226,8 +222,7 @@ class Shift_Bot:
 		"""
 		Checking for the specified position type
 		"""
-		if shift_details['position'] in self.shift_wanted['positions'] \
-		or self.shift_wanted == 'any':
+		if shift_details['position'] in self.shift_wanted['positions']:
 			return True
 
 
@@ -235,8 +230,7 @@ class Shift_Bot:
 		"""
 		Checking for open shifts and available dates for the specified day
 		"""
-		if shift_details['date']['day_week'] in self.shift_wanted['days'] \
-		or shift_details['date']['day_week'] == 'any':
+		if shift_details['date']['day_week'] in self.shift_wanted['days']:
 			return True
 
 
@@ -279,12 +273,24 @@ class Shift_Bot:
 			-pick up shift
 			-send user new shift info via telegram
 		"""
-		print(f"Searching available shifts for {self.login_credentials['email']}\n\nPosition: {self.shift_wanted['positions']}\nLocations: {[location for location in self.shift_wanted['locations']]}\nDays: {[day for day in self.shift_wanted['days']]}\n\n")
-		print(f'Refreshes: {self.refreshes}')
-		
+		search_details = [f" Positions: {', '.join(self.shift_wanted['positions']).title()}", f" Locations: {', '.join([location for location in self.shift_wanted['locations'] if location !='a']).title()}", f" Days: {', '.join([day for day in self.shift_wanted['days']]).title()}"]
+		longest_option_length = max([len(detail)+2 for detail in search_details])
+		search_details = ['  |'+append_arrow_string(detail, space_after=longest_option_length, end_char='|') for detail in search_details]
+		menu_seperator = f"   {'-'*longest_option_length}"
+		search_details.insert(0,menu_seperator)
+		search_details.insert(0,f"\n    {self.login_credentials['email']}")
+		search_details.append(menu_seperator)
+		[print(detail) for detail in search_details]
+
 		if self.shift_detail_string:
-			print('\nViewing Shifts:\n')
-			[print(shift.replace('\t','')) for shift in self.shift_detail_string]
+			longest_option_length = max([len(shift.replace('\t',''))+2 for shift in self.shift_detail_string])
+			self.shift_detail_string = ['  |'+append_arrow_string(shift.replace('\t',''), space_after=longest_option_length, end_char='|') for shift in self.shift_detail_string]
+			menu_seperator = f"   {'-'*longest_option_length}"
+			self.shift_detail_string.insert(0,menu_seperator)
+			self.shift_detail_string.append(menu_seperator)
+			print(f"\n    Available Shifts:\t\t\tSearches: {self.refreshes}")
+			[print(shift) for shift in self.shift_detail_string]
+
 
 		if self.first_run == True:
 			logged_in = self.login()
@@ -349,7 +355,7 @@ def scraper_driver(scraper):
 	# if scraper.save_cookies():
 	# 	print('login cookies saved')
 	# 	exit()
-	
+
 	# Continues to scrape for the requested shift until it's picked up
 	while scraper.shift_wanted['days']:
 		scraper.clear()
@@ -362,35 +368,69 @@ def scraper_driver(scraper):
 			twilio_sms.send_sms(number='+18166823963',message=message)
 	# Close the selenium browser driver ending session and freeing up used memory
 	scraper.stop_webdriver()
-
-
-
-		
+#--------------------------------------------------------------------------------
+def clear():
+	# for windows
+	if os.name == 'nt':
+		_ = os.system('cls')
+	# for mac and linux(here, os.name is 'posix')
+	else:
+		_ = os.system('clear')
+#--------------------------------------------------------------------------------
+def append_arrow_string(input_string, space_after=10, end_char=''):
+	return input_string + ' ' * (space_after-len(input_string)) + end_char
+#--------------------------------------------------------------------------------
+def create_menu(options:dict)->str:
+	option_strings = [f"[{key}] {value.title()}" for key,value in options.items() if key != "title"]
+	longest_option_length = max([len(option)+2 for option in option_strings])
+	menu_seperator = f"{'-'*longest_option_length}"
+	instruction_string = ":"
+	option_strings = [append_arrow_string(option, space_after=longest_option_length, end_char='|') for option in option_strings]
+	option_strings.insert(0,menu_seperator)
+	option_strings.insert(0,f"Select {options['title'].title()}:\n")
+	option_strings.append(menu_seperator)
+	option_strings.append(instruction_string)
+	return "\n".join(option_strings)
 #--------------------------------------------------------------------------------
 if __name__ == '__main__':
 	locations = {
-		'1':['bridgers westport'], '2':['lotus westport'],
-		'3':['yard bar westport'],
-		'a':['bridgers westport', 'lotus westport', 'yard bar westport']
+		'1':'bridgers westport', '2':'lotus westport',
+		'3':'yard bar westport', 'title':'locations'
 	}
-	positions = {'1':['bartender'], '2':['security'], 'a':['bartender', 'security']}
-	days = {'1':['thu'], '2':['fri'], '3':['sat'], '4':['sun'], 'a':['fri','sat','sun']}
+	positions = {'1':'bartender', '2':'security', 'title':'positions'}
+	days = {'1':'thu', '2':'fri', '3':'sat', '4':'sun', 'title':'days'}
+
 	user_name = input('Name: ').lower()
 	user_password = input('Password: ')
-
-	# INSECUREly validate username/password
+	# INSECURELY validate username/password
 	if user_name != 'charles' or user_password != os.getenv(f"{user_name.upper()}_PASSWORD"):
 		print(f"\nInvalid Login\n")
 		exit()
 
 	# Gather desirted shift role from user
-	user_positions = input('\nPositions:\n[1] Bartender\n[2] Security\nor (a) for all: ')
-	
+	clear()
+	user_positions = input(create_menu(positions))
+	if user_positions == 'a':
+		del positions['title']
+		user_positions = positions
+	else:
+		user_positions = user_positions.split(' ')
 	# Gather desired shift locations from user
-	user_locations = input(f"\nLocations:\n[1] Bridgers Westport\n[2] Lotus Westport\n[3] Yard Bar Westport\nor (a) for all: ")
-	
+	clear()
+	user_locations = input(create_menu(locations))
+	if user_locations == 'a':
+		del locations['title']
+		user_locations = locations
+	else:
+		user_locations = user_locations.split(' ')
 	# Gather desired shift days from user
-	user_days = input(f"\nDays:\n[1] Thurs\n[2] Fri\n[3] Sat\n[4] Sun\nor (a) for all: ")
+	clear()
+	user_days = input(create_menu(days))
+	if user_days == 'a':
+		del days['title']
+		user_days = days
+	else:
+		user_days = user_days.split(' ')
 
 	# Load environment variables containing 7shifts user data
 	user_login_credentials = {
@@ -402,11 +442,10 @@ if __name__ == '__main__':
 
 	# Gather shift information based on user input
 	user_shift_wanted = {
-		'positions':positions[user_positions],
-		'locations':locations[user_locations],
-		'days':days[user_days]
+		'positions':[positions[_choice] for _choice in user_positions],
+		'locations':[locations[_choice] for _choice in user_locations],
+	  	'days':[days[_choice] for _choice in user_days]
 	}
-
 	# link to page of available shifts
 	shift_pool_url = os.getenv('SHIFT_POOL_URL')
 
