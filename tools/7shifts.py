@@ -98,9 +98,8 @@ class Shift_Pool:
 
     def update(self)->None:
         """
-        Fills self.shifts dict with Shift objects using the each found shifts id as a key.
-        Shifts are only added to self.shifts if the shifts id does not already exist in the dict.
-        Each shifts 
+        Populates self.shifts dict with Shift objects using each found shifts id as the key and its data as the value.
+        Shifts are added if the shift id is not in self.shifts
         """
         shift_pool_url = 'https://app.7shifts.com/gql'
         response = requests.post(shift_pool_url, cookies=cookies, headers=headers, json=json_data)
@@ -112,5 +111,3 @@ class Shift_Pool:
                 self.shifts[shift_id] = Shift(found_shift['shift'])
 
 # -------------------------------------------------------------------------------
-
-print(Shift_Pool().shifts)
