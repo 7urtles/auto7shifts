@@ -3,6 +3,8 @@ import json
 from pprint import pprint
 # TODO
 # - function to generate cookies
+# - function to gather users scheduled shifts
+# - function to gather users available locations
 # - integrate the below shift data retrieval method into the bot. 
 #   this would aleviate the overhead of running a selenium browser instance to check for shifts
 cookies = {
