@@ -86,6 +86,9 @@ class Shift:
         self.start = shift_attrs['start']
         self.end = shift_attrs['end']
 
+    def __repr__(self):
+        return '<Shift %r>' % self.id
+
 # -------------------------------------------------------------------------------
 
 class Shift_Pool:
@@ -109,3 +112,6 @@ class Shift_Pool:
                 self.shifts[shift_id] = Shift(found_shift['shift'])
 
 # -------------------------------------------------------------------------------
+
+for i in range(6):
+    print(Shift_Pool().shifts)
