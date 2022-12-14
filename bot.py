@@ -107,28 +107,6 @@ class Shift_Bot:
 		except:
 			return False
 
-
-	def save_cookies(self) -> bool:
-		pickle.dump(self.driver.get_cookies() , open("cookies/cookies.pkl","wb"))
-		return True
-
-
-	def add_cookies(self) -> bool:
-		# Pre-load 7shifts url in order to add cookies (url must match cookie url)
-		# self.driver.get(self.shift_pool_url)
-
-		# Load login cookies
-		cookies = pickle.load(open("cookies/cookies.pkl", "rb"))
-
-		# Add each cookie to the current driver
-		try:
-			for cookie in cookies:
-				self.driver.add_cookie(cookie)
-				True
-		except:
-			print('Adding cookie failed: Web address and cookie address must match')
-			return False
-
 	#-----------------------------------------------------------------
 
 	def get_shift_table(self) -> list | bool:
@@ -212,37 +190,11 @@ class Shift_Bot:
 			return False
 
 	#-----------------------------------------------------------------
-
-	def check_shift_locations(self, shift_details:dict) -> bool:
-		if shift_details['location'] in self.shift_wanted['locations']:
-			return True
-
-
-	def check_shift_position(self, shift_details:dict) -> bool:
-		"""
-		Checking for the specified position type
-		"""
+	def verify_shift(self, shift_details:dict) -> bool:
 		if shift_details['position'] in self.shift_wanted['positions']:
-			return True
-
-
-	def check_shift_days(self, shift_details:dict) -> bool:
-		"""
-		Checking for open shifts and available dates for the specified day
-		"""
-		if shift_details['date']['day_week'] in self.shift_wanted['days']:
-			return True
-
-
-	def check_shift_time(self, shift_details:dict) -> bool:
-		shift_time = [
-			shift_details['date']['clock_in'],
-			shift_details['date']['clock_out']
-		]
-		if self.shift_wanted['time'] == shift_time \
-			or self.shift_wanted['time'] == 'any':
-			return True
-
+			if shift_details['location'] in self.shift_wanted['locations']:
+				if shift_details['date']['day_week'] in self.shift_wanted['days']:
+					return True
 	#-----------------------------------------------------------------
 
 	def stop_webdriver(self) -> bool:
@@ -295,19 +247,6 @@ class Shift_Bot:
 		if self.first_run == True:
 			logged_in = self.login()
 
-			#-----------------------------------------------------------------
-			# Storing the session cookies. Requires the commented out scraper cookie
-			#	storage code within the base scope scraper_driver() function. 
-
-			# Direct webdriver to available shifts url
-			# self.driver.get(self.shift_pool_url)
-			# Now that the webdrivers current url and the cookies url match the cookies may be added
-
-			# self.add_cookies()
-			# Reload page with added cookies
-			# self.driver.get(self.shift_pool_url)
-			#-----------------------------------------------------------------
-
 			if logged_in:
 				self.first_run = False
 
@@ -328,18 +267,14 @@ class Shift_Bot:
 			self.shift_detail_string.append(self.format_shift_message(shift_details))
 			if shift_details not in self.known_shifts:
 				self.known_shifts.append(shift_details)
-				# If the shift location matches the requested location
-				if self.check_shift_locations(shift_details):
-					# If the shift position matches the requested postiion
-					if self.check_shift_position(shift_details):
-						# If the shift day matches the requested day
-						if self.check_shift_days(shift_details):
-							# If the bot successfully clicks the shift pickup button
-							if self.pickup_shift(shift):
-								# Remove the found shifts day from list of wanted days
-								self.shift_wanted['days'].remove(shift_details['date']['day_week'])
-								print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
-								return True
+				# If the shift details match a shift the user wants
+				if self.verify_shift(shift_details):
+					# If the bot successfully clicks the shift pickup button
+					if self.pickup_shift(shift):
+						# Remove the found shifts day from list of wanted days
+						self.shift_wanted['days'].remove(shift_details['date']['day_week'])
+						print(f"Shift Picked Up:\n\n{self.shift_detail_string}")
+						return True
 		return False
 	#-----------------------------------------------------------------
 
@@ -415,6 +350,7 @@ if __name__ == '__main__':
 		user_positions = positions
 	else:
 		user_positions = user_positions.split(' ')
+
 	# Gather desired shift locations from user
 	clear()
 	user_locations = input(create_menu(locations))
@@ -423,6 +359,7 @@ if __name__ == '__main__':
 		user_locations = locations
 	else:
 		user_locations = user_locations.split(' ')
+		
 	# Gather desired shift days from user
 	clear()
 	user_days = input(create_menu(days))

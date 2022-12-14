@@ -1,4 +1,0 @@
-Name: Traceback (most recent call last):
-  File "/var/www/7shifts_auto_pickup/bot.py", line 378, in <module>
-    user_name = input('Name: ').lower()
-OSError: [Errno 9] Bad file descriptor
