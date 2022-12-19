@@ -1,11 +1,5 @@
 
-
-
 import requests
-import json
-
-
-
 
 class DataCollector:
 	def __init__(self, email:str, password:str):
@@ -13,9 +7,9 @@ class DataCollector:
 		self.email = email
 		self.password = password
 		self.login_success = False
-		self.account_data = None
-		self.company_users = None
-		self.work_locations = None
+		self.user_data = None
+		self.employee = None
+		self.location_data = None
 		self.shift_pool = None
 		self.session = requests.Session()
 
@@ -43,15 +37,15 @@ class DataCollector:
 
 		return True
 
-	def load_account_data(self) -> str:
+	def load_user_data(self) -> str:
 		user_account_request_data = {
 	    	'url':"https://app.7shifts.com/api/v2/company/139871/account"
 		}
-		account_data_json = self.session.get(**user_account_request_data).json()
-		self.user_id = account_data_json['data']['user_id']
+		user_account_data_json = self.session.get(**user_account_request_data).json()
+		self.user_id = user_account_data_json['data']['user_id']
 		return self.user_id
 
-	def load_company_users_data(self) -> dict:
+	def load_employee_data(self) -> dict:
 		all_users_request_data = {
 			'url':'https://app.7shifts.com/api/v1/users',
 			'params':{
@@ -60,10 +54,10 @@ class DataCollector:
 			    'active': '1', # 1 for employed, or 0 for previously employed
 			}
 		}
-		company_user_data_json = self.session.get(**all_users_request_data).json()
-		return company_user_data_json
+		user_data_json = self.session.get(**all_users_request_data).json()
+		return user_data_json
 
-	def load_work_locations(self) -> dict:
+	def load_location_data(self) -> dict:
 		user_locations_request_data = {
 	    'url':f"https://app.7shifts.com/api/v2/company/139871/users/{self.user_id}/authorized_locations"
 		}
@@ -90,13 +84,9 @@ class DataCollector:
 	def run(self):
 		self.login_success = self.login()
 		self.account_data = self.load_account_data()
-		self.company_users_data = self.load_company_users_data()
-		self.work_locations = self.load_work_locations()
+		self.employee_data = self.load_employee_data()
+		self.location_data = self.load_location_data()
 		self.shift_pool = self.load_shift_pool()
 
 	def __repr__(self):
 		return f"<DataCollector: {self.user_id}>"
-
-seven_data = DataCollector()
-seven_data.run()
-print(seven_data.shift_pool)
