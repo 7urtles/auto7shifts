@@ -72,7 +72,8 @@ json_data = {
 # Note: json_data will not be serialized by requests
 # exactly as it was in the original request.
 #data = '{"operationName":"GetLegacyShiftPoolOffers","variables":{"companyId":"139871","cursor":null,"limit":20},"query":"query GetLegacyShiftPoolOffers($companyId: ID!, $cursor: String, $limit: Int) {\\n  getShiftPool(companyId: $companyId, cursor: $cursor, limit: $limit) {\\n    legacyShiftPoolOffers {\\n      ...LegacyShiftPoolOfferFragment\\n      __typename\\n    }\\n    cursor {\\n      prev\\n      next\\n      count\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment LegacyShiftPoolOfferFragment on LegacyShiftPoolOffer {\\n  shiftPool {\\n    id\\n    offerType\\n    offerId\\n    offers {\\n      id\\n      firstname\\n      lastname\\n      photo\\n      __typename\\n    }\\n    __typename\\n  }\\n  comments\\n  shift {\\n    id\\n    start\\n    end\\n    open\\n    user {\\n      userId\\n      firstName\\n      lastName\\n      photo\\n      __typename\\n    }\\n    locationId\\n    location {\\n      address\\n      timezone\\n      __typename\\n    }\\n    department {\\n      name\\n      __typename\\n    }\\n    role {\\n      id\\n      name\\n      color\\n      __typename\\n    }\\n    __typename\\n  }\\n  location {\\n    address\\n    timezone\\n    __typename\\n  }\\n  bids {\\n    id\\n    userId\\n    __typename\\n  }\\n  __typename\\n}\\n"}'
-#response = requests.post('https://app.7shifts.com/gql', cookies=cookies, headers=headers, data=data)
+response = requests.post('https://app.7shifts.com/gql', cookies=cookies, headers=headers, data=json_data)
+print(response.text)
 # -------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------
 
@@ -114,6 +115,10 @@ class Shift_Pool():
             shift_id = found_shift['shift']['id']
             if shift_id not in self.shifts:
                 self.shifts[shift_id] = Shift(found_shift['shift'])
-pool = Shift_Pool()
-print(list(pool.shifts.values())[0].id)
+# pool = Shift_Pool()
+# print(list(pool.shifts.values())[0].id)
+
+
+
+
 # -------------------------------------------------------------------------------
