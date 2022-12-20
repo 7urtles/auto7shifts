@@ -10,8 +10,8 @@ from tools.server_utils import *
 from tools.twilio_sms import send_sms
 from bot import Shift_Bot, scraper_driver
 
-
 # -----------------------------------------------------------------------------
+
 load_dotenv()
 PUB_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SEC_KEY = os.getenv('STRIPE_SECRET_KEY')
@@ -23,15 +23,15 @@ stripe.api_key = STRIPE_SEC_KEY
 app = Flask(__name__)
 scrapers = {}
 
-
 # -----------------------------------------------------------------------------
+
 # Routes Begin: 
 @app.route('/')
 def home():
 	return render_template('index.html')
 
-
 # -----------------------------------------------------------------------------
+
 @app.route('/submit', methods = ['POST'])
 def submit():
 	match request.method:
@@ -50,27 +50,27 @@ def submit():
 	# return redirect('https://buy.stripe.com/test_00g03p6DA2P26ukdQQ') # TEST URL
 	return redirect('https://buy.stripe.com/14kaI43oh9Nm8msaEG') # LIVE PAYMENT URL
 
-
 # -----------------------------------------------------------------------------
+
 @app.route('/invalid_credentials')
 def invalid_credentials():
 	return render_template('invalid_credentials.html')
 
-
 # -----------------------------------------------------------------------------
+
 #@app.route("/checkout")
 #def get_publishable_key():
 #    return render_template('checkout.html',key=PUB_KEY)
 
-
 # -----------------------------------------------------------------------------
+
 @app.route("/sms/user_registered/"+SMS_URL_KEY)
 def user_registered():
 	send_sms('New User Registered')
 	return 'sms sent'
 
-
 # -----------------------------------------------------------------------------
+
 @app.route('/payment_successful', methods=['POST'])
 def webhook():
 	# check the request data to confirm stripe payment for user
@@ -93,8 +93,8 @@ def webhook():
 
 	return 'Unknow errored occurred. Please contact admin via stripe sms service'
 
-
 # -----------------------------------------------------------------------------
+
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=5007)
 	

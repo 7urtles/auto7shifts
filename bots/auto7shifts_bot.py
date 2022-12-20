@@ -15,17 +15,14 @@ from pprint import pprint
 from tools import twilio_sms
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-user_name = None
-user_email = None
-user_password = None
-user_days = None
-user_locations = None
 
+#-----------------------------------------------------------------
 
-#*************************************
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
+
+#*************************************
 
 class Dropped_Shift(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -39,8 +36,8 @@ class Dropped_Shift(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
-#*************************************
 
+#*************************************
 
 class Shift_Bot:
 	def __init__(self, login_credentials={}, shift_wanted={}, shift_pool_url='https://app.7shifts.com/company/139871/shift_pool/up_for_grabs', CONFIRM_PICKUP_BUTTON='btn-success'):

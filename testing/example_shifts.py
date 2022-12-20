@@ -1,4 +1,4 @@
-{
+shift_pool = {
 	"data":{
 		"getShiftPool":{
 			"legacyShiftPoolOffers":[
@@ -10,12 +10,13 @@
 						"offers":[],
 						"__typename":"ShiftPool"
 					},
-					"comments":null,
+					"comments":None,
+
 					"shift":{
 						"id":"524472221",
 						"start":"2022-12-16T21:00:00-06:00",
 						"end":"2022-12-17T03:00:00-06:00",
-						"open":false,
+						"open":False,
 						"user":{
 							"userId":"4047495",
 							"firstName":"Thomas",
@@ -26,7 +27,8 @@
 						"locationId":"176550",
 						"location":{
 							"address":"Bridgers Westport",
-							"timezone":"America/Chicago","__typename":"Location"
+							"timezone":"America/Chicago",
+							"__typename":"Location"
 						},
 						"department":{
 							"name":"FOH","__typename":"Department"
@@ -49,7 +51,10 @@
 				}
 			],
 			"cursor":{
-				"prev":null,"next":null,"count":1,"__typename":"Cursor"
+				"prev":None,
+				"next":None,
+				"count":1,
+				"__typename":"Cursor"
 			},
 			"__typename":"ShiftPoolResponse"
 		}
