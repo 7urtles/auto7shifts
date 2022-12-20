@@ -10,7 +10,7 @@ class DataCollector:
 		self.password = password
 		self.login_success = False
 		self.user_data = None
-		self.employee = None
+		self.employee_data = None
 		self.location_data = None
 		self.shift_pool = None
 		self.session = requests.Session()
@@ -57,14 +57,14 @@ class DataCollector:
 			    'active': '1', # 1 for employed, or 0 for previously employed
 			}
 		}
-		employee_data_json = self.session.get(**all_employee_request_data).json()
+		employee_data_json = self.session.get(**all_employee_request_data).json()['data']
 		return employee_data_json
 
 	def request_location_data(self) -> dict:
 		user_locations_request_data = {
-	    'url':f"https://app.7shifts.com/api/v2/company/139871/users/{self.user_id}/authorized_locations"
+	    	'url':f"https://app.7shifts.com/api/v2/company/139871/users/{self.user_id}/authorized_locations"
 		}
-		user_locations_json = self.session.get(**user_locations_request_data).json()
+		user_locations_json = self.session.get(**user_locations_request_data).json()['data']
 		return user_locations_json
 
 	def request_shift_pool(self):
@@ -81,8 +81,8 @@ class DataCollector:
 		    },
 		    'allow_redirects':False
 		}
-		shift_pool_json = self.session.post(**shift_offers_request_data).json()
-		return shift_pool_json
+		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
+		return shift_pool
 
 	def run(self):
 		self.login_success = self.request_login()
@@ -96,4 +96,16 @@ class DataCollector:
 
 # *******************************************************************************
 
-        
+import sys
+sys.path.append("/Users/charles/Github/Auto7shifts/") 
+
+from tools.shifts import *
+from testing.example_data import *
+
+user_locations = ShiftPool(shifts)
+
+scraper = DataCollector('charleshparmley@icloud.com', 'Earthday19!@22')
+scraper.run()
+scraper.request_employee_data()
+print(scraper.employee_data)
+# *******************************************************************************
