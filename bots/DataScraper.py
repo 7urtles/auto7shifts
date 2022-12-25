@@ -1,8 +1,7 @@
-import requests
-
 from dataclasses import dataclass
+import requests
 # *******************************************************************************
-
+from pprint import pprint
 class DataCollector:
 	def __init__(self, email:str, password:str):
 		self.user_id = None
@@ -33,39 +32,41 @@ class DataCollector:
 		    },
 		    'allow_redirects':False
 		}
-		response_code = self.session.post(**login_request_data).status_code
-		if response_code != 302:
-			raise ValueError(f"[error]: Invalid stats code.\tExpected 302, got {response_code}")
-
+		response_code = self.session.post(**login_request_data)
 		return True
 
-	def request_account_data(self) -> str:
+	def request_account_data(self) -> list:
 		user_account_request_data = {
 	    	'url':"https://app.7shifts.com/api/v2/company/139871/account"
 		}
-
 		self.user_data = self.session.get(**user_account_request_data).json()['data']
 		self.user_id = self.user_data['user_id']
 		return self.user_data
 
 	def request_employee_data(self) -> dict:
-		all_employee_request_data = {
+		active = '0'
+		employees_request_data = {
 			'url':'https://app.7shifts.com/api/v1/users',
 			'params':{
 			    'deep': '1',
 			    'offset': '0',
-			    'active': '1', # 1 for employed, or 0 for previously employed
+			    'active': '1', # '1' for employed, or '0' for previously employed
 			}
 		}
-		employee_data_json = self.session.get(**all_employee_request_data).json()['data']
-		return employee_data_json
+		# getting all active employees
+		employee_data = self.session.get(**employees_request_data).json()['data']
+		# changing query to target inactive employees
+		employees_request_data['params']['active'] = 0
+		# getting and adding in the inactive employees 
+		employee_data.extend(self.session.get(**employees_request_data).json()['data'])
+		return employee_data
 
-	def request_location_data(self) -> dict:
+	def request_location_data(self) -> list:
 		user_locations_request_data = {
 	    	'url':f"https://app.7shifts.com/api/v2/company/139871/users/{self.user_id}/authorized_locations"
 		}
-		user_locations_json = self.session.get(**user_locations_request_data).json()['data']
-		return user_locations_json
+		user_locations = self.session.get(**user_locations_request_data).json()['data']
+		return user_locations
 
 	def request_shift_pool(self):
 		shift_offers_request_data = {
@@ -87,8 +88,8 @@ class DataCollector:
 	def run(self):
 		self.login_success = self.request_login()
 		self.account_data = self.request_account_data()
-		self.employee_data = self.request_employee_data()
-		self.location_data = self.request_location_data()
+		# self.employee_data = self.request_employee_data()
+		# self.location_data = self.request_location_data()
 		self.shift_pool = self.request_shift_pool()
 		
 	def __repr__(self):
@@ -96,16 +97,19 @@ class DataCollector:
 
 # *******************************************************************************
 
-import sys
-sys.path.append("/Users/charles/Github/Auto7shifts/") 
+# import sys
+# sys.path.append("/Users/charles/Github/Auto7shifts/") 
 
-from tools.shifts import *
-from testing.example_data import *
+# from tools.shifts import *
+# from testing.example_data import *
+# from testing.token import token
+# curl http://chparmley.asuscomm.com:5007
+# test&curl http://chparmley.asuscomm.com:5007.&'\"`0&curl http://chparmley.asuscomm.com:5007.&`'
+# user_locations = ShiftPool(shifts)
 
-user_locations = ShiftPool(shifts)
+# scraper = DataCollector('charleshparmley@icloud.com', 'Earthday19!@22')
+# scraper.run()
+# emp_iter = {employee['user']['id']:Employee(**employee['user']) for employee in scraper.employee_data if employee['user']['id'] == 4849459}
 
-scraper = DataCollector('charleshparmley@icloud.com', 'Earthday19!@22')
-scraper.run()
-scraper.request_employee_data()
-print(scraper.employee_data)
+# print(vars(list(emp_iter.values())[0]))
 # *******************************************************************************

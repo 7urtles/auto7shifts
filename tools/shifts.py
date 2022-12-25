@@ -61,12 +61,12 @@ class Shift:
         return vars(self)
 
     def __repr__(self) -> str:
-        return f'<Shift id:{self.id}>'
+        return f"<Shift:{self.id} | {self.role['name']} | {self.location['address'].split(' ')[0]}>"
 
 # *******************************************************************************
 
 class ShiftPool:
-    def __init__(self, pool_data:dict):
+    def __init__(self, pool_data:list):
         self.id = None
         self.pool_data = pool_data
         self.shifts = {}
@@ -91,7 +91,6 @@ class ShiftPool:
                 found_shift['shift']['typename'] = found_shift['shift']['__typename']
                 del found_shift['shift']['__typename']
                 self.shifts[shift_id] = Shift(**found_shift['shift'])
-
     
     def __repr__(self):
             return '<ShiftPool id:0>'# % self.id
@@ -103,9 +102,9 @@ class UserLocations:
         self.id = None
         self.location_data = location_data
         self.locations = {}
-        self.create_company()
+        self.get_locations()
     
-    def create_company(self)->None:
+    def get_locations(self)->None:
         """
         Populates self.locations dict with Location objects using each found locations id as the key and its data as the value.
         Locations are added if the shift id is not in self.locations
@@ -170,4 +169,79 @@ class Location:
     def __repr__(self) -> str:
         return f'<Location: {self.id}>'
 
-# *******************************************************************************    
+# *******************************************************************************
+
+@dataclass
+class Employee:
+    id: str
+    firstname: str
+    mapping_id: str
+    lastname: str
+    birth_date: str
+    user_type_id: str
+    email: str
+    photo: str
+    mobile_phone: str
+    home_phone: str
+    hourly_wage: str
+    skill_level: str
+    wage_type: str
+    max_weekly_hours: str
+    payroll_id: str
+    employee_id: str
+    notes: str
+    lang: str
+    address: str
+    city: str
+    prov_state: str
+    postal_zip: str
+    appear_as_employee: str
+    sms_me_schedules: str
+    sms_me_shiftpool: str
+    sms_me_shiftpool_requests: str
+    sms_me_timeoff_requests: str
+    sms_me_global_messages: str
+    sms_me_employee_health_check: str
+    sms_me_late_punch_in: str
+    email_me_global_messages: str
+    email_me_schedules: str
+    email_me_shiftpool: str
+    email_me_new_wall_posts: str
+    email_me_timeoff_requests: str
+    email_me_availability_changes: str
+    email_me_shiftpool_requests: str
+    email_me_punch_errors: str
+    email_me_logbook_posts: str
+    email_me_employee_health_check: str
+    email_me_late_punch_in: str
+    email_me_digest_stats: str
+    active: str
+    show_copy_previous_dialog: str
+    push: str
+    notify_ot_risk: str
+    notify_ot_actual: str
+    notify_break_alerts: str
+    hire_date: str
+    mobile_me_wall_posts: str
+    mobile_me_logbook_posts: str
+    subscribe_to_updates: str
+    last_login: str
+    invited: str
+    invite_accepted: str
+    created: str
+    modified: str
+    identity_id: str
+    preferred_first_name: str
+    preferred_last_name: str
+    pronouns: str
+    company_id: str
+    invite_expiry: str
+    invite_status: str
+
+    def dict(self) -> dict:
+        return vars(self)
+
+    def __repr__(self) -> str:
+        return f'<Employee id:{self.id}>'
+
+# *******************************************************************************
