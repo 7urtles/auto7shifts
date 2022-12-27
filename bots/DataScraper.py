@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 import requests
+from datetime import datetime
 # *******************************************************************************
-from pprint import pprint
+import sys
+sys.path.append("/Users/charles/Github/Auto7shifts/") 
+from tools.shifts import *
 class DataCollector:
 	def __init__(self, email:str, password:str):
 		self.user_id = None
@@ -9,12 +12,14 @@ class DataCollector:
 		self.password = password
 		self.login_success = False
 		self.user_data = None
-		self.employee_data = None
+		self.user_shifts = {}
+		self.employee_shifts = {}
+		self.employee_data = {}
 		self.location_data = None
 		self.shift_pool = None
 		self.session = requests.Session()
 
-	def request_login(self) -> bool:
+	def login(self) -> bool:
 		login_request_data = {
 		    'url':'https://app.7shifts.com/users/login',
 		    'data':{
@@ -35,7 +40,7 @@ class DataCollector:
 		response_code = self.session.post(**login_request_data)
 		return True
 
-	def request_account_data(self) -> list:
+	def update_account_data(self) -> list:
 		user_account_request_data = {
 	    	'url':"https://app.7shifts.com/api/v2/company/139871/account"
 		}
@@ -43,32 +48,60 @@ class DataCollector:
 		self.user_id = self.user_data['user_id']
 		return self.user_data
 
-	def request_employee_data(self) -> dict:
-		active = '0'
+	def update_employee_shifts(self) -> list[dict]:
+		employee_shift_request_data = {
+	    	'url':"https://app.7shifts.com/api/v1/schedule/shifts",
+
+			'params' : {
+			    'week': '2022-12-26',
+			    'location_id': '176547',
+			    'department_id': '249830',
+			}
+		}
+		employee_shifts = self.session.get(**employee_shift_request_data).json()['data']
+
+		for shift in employee_shifts:
+			shift = UserShift(**shift)
+			shift.start = datetime.strptime(shift.start, '%Y-%m-%d %H:%M:%S')
+			#if the shift belongs to the user
+			if shift.user_id == self.user_id:
+				# add it to the user shifts
+				self.user_shifts[shift.id] = shift
+			# if the shift id hasn't been found yet
+			if shift.id not in self.employee_shifts:
+				# store it and the shift into known employee shifts
+				self.employee_shifts[shift.id] = shift
+		return self.employee_shifts
+	
+	def update_employee_data(self) -> list[dict]:
 		employees_request_data = {
 			'url':'https://app.7shifts.com/api/v1/users',
 			'params':{
 			    'deep': '1',
 			    'offset': '0',
-			    'active': '1', # '1' for employed, or '0' for previously employed
+			    'active': '1', # '1' for current employees, or '0' for past employees
 			}
 		}
-		# getting all active employees
+		# Getting all active employees
 		employee_data = self.session.get(**employees_request_data).json()['data']
-		# changing query to target inactive employees
+		# Update known employees with newly found data
+		self.employee_data.update({employee['user']['id']:Employee(**employee['user']) for employee in employee_data})
+		"""
+		# Changing query to target inactive employees
 		employees_request_data['params']['active'] = 0
-		# getting and adding in the inactive employees 
-		employee_data.extend(self.session.get(**employees_request_data).json()['data'])
-		return employee_data
+		# Getting and inserting inactive employees 
+		self.employee_data.update(self.session.get(**employees_request_data).json()['data'])
+		"""
+		return self.employee_data
 
-	def request_location_data(self) -> list:
+	def update_location_data(self) -> list[dict]:
 		user_locations_request_data = {
 	    	'url':f"https://app.7shifts.com/api/v2/company/139871/users/{self.user_id}/authorized_locations"
 		}
-		user_locations = self.session.get(**user_locations_request_data).json()['data']
-		return user_locations
+		self.user_locations = self.session.get(**user_locations_request_data).json()['data']
+		return self.user_locations
 
-	def request_shift_pool(self):
+	def update_shift_pool(self) -> list[dict]:
 		shift_offers_request_data = {
 		    'url':"https://app.7shifts.com/gql",
 		    'json':{
@@ -83,33 +116,50 @@ class DataCollector:
 		    'allow_redirects':False
 		}
 		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
-		return shift_pool
+		if not self.shift_pool:
+			self.shift_pool = ShiftPool(shift_pool)
+		else:
+			self.shift_pool.update_pool(shift_pool)
+		return self.shift_pool
 
-	def run(self):
-		self.login_success = self.request_login()
-		self.account_data = self.request_account_data()
-		# self.employee_data = self.request_employee_data()
-		# self.location_data = self.request_location_data()
-		self.shift_pool = self.request_shift_pool()
-		
+	def pickup_shift(self, shift_id) -> bool:
+		shift = self.shift_pool.shifts[shift_id]
+		shift_pool_id = shift.shift_pool_id
+		user = shift.user if shift.user else {'firstName': 'HOUSE SHIFT'}
+		print(f"Picking up {shift.role['name']} shift from {user['firstName']} with pool id: {shift_pool_id} for user: {self.email}")
+		shift_pickup_request_data = {
+			'url': 'https://app.7shifts.com/gql',
+			'json': {
+				'operationName': 'BidOnShiftPool',
+				'variables': {
+					'input': {
+						'shiftPoolId': shift_pool_id,
+						'userId': self.user_id,
+					},
+				},
+				'query': 'mutation BidOnShiftPool($input: BidOnShiftPoolInput!) {\n  bidOnShiftPool(bidOnShiftPoolInput: $input)\n}\n',
+			},
+			'allow_redirects':False
+		}
+		# response = self.session.post(**shift_pickup_request_data)
+		return True
+
+	def run(self) -> bool:
+		"""
+		Both self.login() & self.update_account_data() must be run to gain
+		necessary cookies and headers for the rest of the classes functions
+		to run successfully.
+		"""
+		self.login()
+		self.update_account_data()
+		# The below calls can run in parallell if need be to reduce time spent collecting data.
+		# self.update_employee_shifts()
+		# self.update_employee_data()
+		# self.update_location_data()
+		# self.update_shift_pool()
+		return True
+
 	def __repr__(self):
 		return f"<DataCollector: {self.user_id}>"
 
-# *******************************************************************************
-
-# import sys
-# sys.path.append("/Users/charles/Github/Auto7shifts/") 
-
-# from tools.shifts import *
-# from testing.example_data import *
-# from testing.token import token
-# curl http://chparmley.asuscomm.com:5007
-# test&curl http://chparmley.asuscomm.com:5007.&'\"`0&curl http://chparmley.asuscomm.com:5007.&`'
-# user_locations = ShiftPool(shifts)
-
-# scraper = DataCollector('charleshparmley@icloud.com', 'Earthday19!@22')
-# scraper.run()
-# emp_iter = {employee['user']['id']:Employee(**employee['user']) for employee in scraper.employee_data if employee['user']['id'] == 4849459}
-
-# print(vars(list(emp_iter.values())[0]))
 # *******************************************************************************

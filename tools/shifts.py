@@ -47,6 +47,8 @@ class User:
 @dataclass
 class Shift:
     id: str
+    shift_pool_id: str
+    shift_offer_id: int
     start: str
     end: str
     open: str
@@ -61,16 +63,48 @@ class Shift:
         return vars(self)
 
     def __repr__(self) -> str:
-        return f"<Shift:{self.id} | {self.role['name']} | {self.location['address'].split(' ')[0]}>"
+        return f"<Shift:{self.id} | {self.role['name']} | {self.location['address'].split(' ')[0]} | {self.start.split('T')[0]}>"
+
+# *******************************************************************************
+
+@dataclass
+class UserShift:
+    id:str
+    location_id:str
+    user_id:str
+    role_id:str
+    department_id:str
+    start:str
+    end:str
+    close:str
+    bd:str
+    notes:str
+    draft:str
+    open:str
+    open_offer_type:str
+    station:str
+    station_name:str
+    deleted:str
+    last_published:str
+    status:str
+    start_iso:str
+    end_iso:str
+    last_published_iso:str
+    company_id:str
+
+    def dict(self) -> dict:
+        return vars(self)
+
+    def __repr__(self) -> str:
+        return f"<UserShift:{self.id} | User:{self.user_id} | Role:{self.role_id} | Location:{self.location_id}>"
 
 # *******************************************************************************
 
 class ShiftPool:
     def __init__(self, pool_data:list):
         self.id = None
-        self.pool_data = pool_data
         self.shifts = {}
-        self.create_pool()
+        self.update_pool(pool_data)
     
     def store_shifts(self):
         with open("shifts.csv", "a") as outfile:
@@ -78,19 +112,26 @@ class ShiftPool:
             for shift in self.shifts:
                 writer.writerow(self.shifts[shift].dict())
     
-    def create_pool(self)->None:
+    def update_pool(self, pool_data:list)->None:
         """
         Populates self.shifts dict with Shift objects using each found shifts id as the key and its data as the value.
         Shifts are added if the shift id is not in self.shifts
         """
-        # shift_table = self.pool_data['data']['getShiftPool']['legacyShiftPoolOffers']
-        for found_shift in self.pool_data:
+        # shift_table = pool_data['data']['getShiftPool']['legacyShiftPoolOffers']
+        for found_shift in pool_data:
             shift_id = found_shift['shift']['id']
-            if shift_id not in self.shifts:
-                # if the key is not deleted, double underscore dict keys will not match name mangled class attributes
-                found_shift['shift']['typename'] = found_shift['shift']['__typename']
-                del found_shift['shift']['__typename']
-                self.shifts[shift_id] = Shift(**found_shift['shift'])
+            if shift_id in self.shifts:
+                continue
+            shift_offer_data = {
+                'shift_pool_id' : found_shift['shiftPool']['id'],
+                'shift_offer_id' : found_shift['shiftPool']['offerId']
+            }
+            found_shift['shift'].update(shift_offer_data)
+            # if the key is not deleted, double underscore dict key will not match because of 
+            #   name mangling on class attributes with double underscores
+            found_shift['shift']['typename'] = found_shift['shift']['__typename']
+            del found_shift['shift']['__typename']
+            self.shifts[shift_id] = Shift(**found_shift['shift'])
     
     def __repr__(self):
             return '<ShiftPool id:0>'# % self.id
