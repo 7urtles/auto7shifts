@@ -1,12 +1,13 @@
-from dataclasses import dataclass
+import sys
 import requests
 from datetime import datetime
-# *******************************************************************************
-import sys
+from dataclasses import dataclass
 sys.path.append("/Users/charles/Github/Auto7shifts/") 
 from tools.shifts import *
+# *******************************************************************************
+
 class DataCollector:
-	def __init__(self, email:str, password:str):
+	def __init__(self, email:str, password:str, user_agent=None):
 		self.user_id = None
 		self.email = email
 		self.password = password
@@ -18,6 +19,7 @@ class DataCollector:
 		self.location_data = None
 		self.shift_pool = None
 		self.session = requests.Session()
+		self.session.headers["user-agent"] = user_agent
 
 	def login(self) -> bool:
 		login_request_data = {
@@ -37,7 +39,7 @@ class DataCollector:
 		    },
 		    'allow_redirects':False
 		}
-		response_code = self.session.post(**login_request_data)
+		response = self.session.post(**login_request_data)
 		return True
 
 	def update_account_data(self) -> list:
@@ -116,6 +118,7 @@ class DataCollector:
 		    'allow_redirects':False
 		}
 		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
+		
 		if not self.shift_pool:
 			self.shift_pool = ShiftPool(shift_pool)
 		else:

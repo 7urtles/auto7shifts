@@ -17,7 +17,8 @@ PUB_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SEC_KEY = os.getenv('STRIPE_SECRET_KEY')
 END_KEY = os.getenv('ENDPOINT_SECRET_KEY')
 SMS_URL_KEY = os.getenv('SMS_URL_KEY')
-
+print(PUB_KEY)
+exit()
 stripe.api_key = STRIPE_SEC_KEY
 
 app = Flask(__name__)

@@ -1,16 +1,24 @@
+import os
 from flask import Flask, request, json
 from bots.DataScraper import DataCollector
 from twilio.rest import Client
 from datetime import datetime,date
+from dotenv import load_dotenv
 
-account_sid = "ACb501d15d451cda82f05b368b0cfdbd9e"
-auth_token = "88023e56d01c7b65fcbc023bb6b21af3"
-client = Client(account_sid, auth_token)
+load_dotenv()
+
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+EMAIL = os.getenv('CHARLES_EMAIL')
+PASSWORD = os.getenv('CHARLES_PASSWORD')
+USER_AGENT = os.getenv('USER_AGENT')
+
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 app = Flask(__name__)
 app.messages = {}
-app.scraper = DataCollector('charleshparmley@icloud.com', 'Earthday19!@22')
-app.days = ['Fri']
+app.scraper = DataCollector(EMAIL, PASSWORD, USER_AGENT)
+app.days = ['Thu','Fri','Sat']
 app.roles = ['Bartender']
 app.weekday_key = {
 	0:"Mon",
@@ -74,7 +82,7 @@ def validate_shift(shift_id) -> bool:
 	if weekday not in app.days:
 		print(f'Shift day not {app.days}\t\t{shift}')
 		return
-	
+	shift_date = datetime.strptime(shift_date, '%Y-%m-%d')
 	# Gather what days the user is already working on
 	user_scheduled_days = [shift.start.day for shift in app.scraper.user_shifts.values()]
 	# If user is already scheduled on found shifts date
@@ -158,5 +166,6 @@ def get_weekday(shift_date:str) -> str:
 if __name__ == "__main__":
 	# Loading users 7shift data into the scraper
 	app.scraper.run()
+	twilio_callback()
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007)
+	# app.run(host="0.0.0.0", port=5007)
