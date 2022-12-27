@@ -12,6 +12,7 @@ TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 EMAIL = os.getenv('CHARLES_EMAIL')
 PASSWORD = os.getenv('CHARLES_PASSWORD')
 USER_AGENT = os.getenv('USER_AGENT')
+CALLBACK_ENDPOINT_URL = os.getenv('CALLBACK_ENDPOINT_URL')
 
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
@@ -37,7 +38,7 @@ web requests sent to their website. This increases speed, decreases memory,
 cpu usage, and the apps footprint especially compared to the prior selenium version.
 """
 
-@app.route('/twilio', methods=['POST'])
+@app.route(f'/{CALLBACK_ENDPOINT_URL}', methods=['POST'])
 def twilio_callback():
 	"""
 	This function/route is meant to be called by a twilio webhook when twilio
@@ -166,6 +167,6 @@ def get_weekday(shift_date:str) -> str:
 if __name__ == "__main__":
 	# Loading users 7shift data into the scraper
 	app.scraper.run()
-	twilio_callback()
+	# twilio_callback()
 	# Launching the callback webserver
-	# app.run(host="0.0.0.0", port=5007)
+	app.run(host="0.0.0.0", port=5007)
