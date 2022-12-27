@@ -144,7 +144,7 @@ class DataCollector:
 			},
 			'allow_redirects':False
 		}
-		# response = self.session.post(**shift_pickup_request_data)
+		response = self.session.post(**shift_pickup_request_data)
 		return True
 
 	def run(self) -> bool:

@@ -63,7 +63,7 @@ class Shift:
         return vars(self)
 
     def __repr__(self) -> str:
-        return f"<Shift:{self.id} | {self.role['name']} | {self.location['address'].split(' ')[0]} | {self.start.split('T')[0]}>"
+        return f"<Shift:{self.id} | {self.role['name']} | {self.location['address'].split(' ')[0]} | {self.start.split('T')[0]} | PoolID:{self.shift_pool_id}>"
 
 # *******************************************************************************
 

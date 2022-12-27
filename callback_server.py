@@ -167,6 +167,6 @@ def get_weekday(shift_date:str) -> str:
 if __name__ == "__main__":
 	# Loading users 7shift data into the scraper
 	app.scraper.run()
-	# twilio_callback()
+	twilio_callback()
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007)
+	# app.run(host="0.0.0.0", port=5007)
