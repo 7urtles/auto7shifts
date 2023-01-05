@@ -184,7 +184,7 @@ def validate_sms(messages:client.messages) -> bool:
 		else:
 			print('New shift pool message found')
 			print(message.body)
-			return True
+			continue
 	else:
 		return False
 	
