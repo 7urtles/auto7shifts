@@ -53,11 +53,6 @@ def submit():
 	else:
 		print("---LOGIN FAILED---")
 		return render_template("index.html")
-	app.scraper.update_employee_data()
-	for employee in app.scraper.employee_data:
-		employee = app.scraper.employee_data[employee]
-		if employee.notes:
-			print(employee.firstname, employee.notes)
 	twilio_endpoint()
 	return render_template("index.html")
 
