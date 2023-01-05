@@ -78,7 +78,7 @@ def twilio_endpoint():
 	# The endpoint will be accessable upon launch. However the scraper
 	# 	will not be initialized until a sends a post request to /submit
 	#	with login info and desired shift options
-	print('Checking Scraper....')
+	print('Checking Scraper...')
 	if not app.scraper:
 		print('Scraper not initiated')
 		print("---EXITING---")
@@ -104,7 +104,7 @@ def twilio_endpoint():
 		print("---EXITING---")
 		return "No Available Shifts."
 	# Look for a shift matching user preferences
-	if validate_shift(available_shifts):
+	if validate_shifts(available_shifts):
 		# Attempt to claim the shift
 		if app.scraper.pickup_shift(shift_id):
 		# If a shift is claimed then the apps known data needs to be updated
@@ -118,7 +118,7 @@ def twilio_endpoint():
 
 # ---------------------------------------------------------------------------
 
-def validate_shift(shift_id:str) -> bool:
+def validate_shifts(available_shifts:list) -> bool:
 	for shift_id in available_shifts:
 		shift = app.scraper.shift_pool.shifts[shift_id]
 		# Check if the shift role is one the user wants
