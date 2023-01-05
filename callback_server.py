@@ -213,4 +213,4 @@ if __name__ == "__main__":
 	# check new shift data for a shift
 	# callback()
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007, debug=True)
+	app.run(host="0.0.0.0", port=5007)
