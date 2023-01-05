@@ -41,7 +41,7 @@ async function test_submit(){
     }
 
 
-    let url = 'http://localhost:5007/submit/jmfjv7456SKaDfh3572f9456faKLFJDS';
+    let url = 'http://192.168.1.216:5007/submit/jmfjv7456SKaDfh3572f9456faKLFJDS';
     let data = form_data;
 
     let res = await fetch(url, {
