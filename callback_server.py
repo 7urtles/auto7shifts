@@ -110,6 +110,7 @@ def twilio_endpoint():
 			# Keep running and updating known shifts until there are no 
 			#	matching shifts left in the pool
 			twilio_endpoint()
+	print("---EXITING---")
 	# Then exit the loop and wait for another twilio callback request
 	return 'Search Complete.'
 
@@ -183,7 +184,6 @@ def validate_sms(messages:client.messages) -> bool:
 			print('Not a shift pool message')
 			continue
 		else:
-			print('New shift pool message found')
 			print(message.body)
 			new_message = True
 	else:
