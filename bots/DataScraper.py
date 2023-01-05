@@ -26,21 +26,25 @@ class DataCollector:
 		    'url':'https://app.7shifts.com/users/login',
 		    'data':{
 		        '_method': 'POST',
-		        'data[_Token][key]': 'cbd332b64ee4f15a967a692a4a237f3a',
+		        # 'data[_Token][key]': 'cbd332b64ee4f15a967a692a4a237f3a',
 		        'data[User][email]': self.email,
 		        'data[User][password]': self.password,
-		        'data[User][redirect]': '',
+		        # 'data[User][redirect]': '',
 		        'data[User][keep_me_logged_in]': [
 		            '0',
 		            '1',
 		        ],
 		        'data[_Token][fields]': 'be4fd85121b5dd0aea168db08ad7a5daf34c830b%3AUser.redirect',
-		        'data[_Token][unlocked]': '',
+		        # 'data[_Token][unlocked]': '',
 		    },
 		    'allow_redirects':False
 		}
 		response = self.session.post(**login_request_data)
-		return True
+		if response.status_code == 302:
+			self.login_success = True
+		else:
+			self.login_success = False
+		return self.login_success
 
 	def update_account_data(self) -> list:
 		user_account_request_data = {
@@ -103,7 +107,7 @@ class DataCollector:
 		self.user_locations = self.session.get(**user_locations_request_data).json()['data']
 		return self.user_locations
 
-	def update_shift_pool(self) -> list[dict]:
+	def update_shift_pool(self,shift_pool) -> list[dict]:
 		shift_offers_request_data = {
 		    'url':"https://app.7shifts.com/gql",
 		    'json':{
@@ -117,7 +121,7 @@ class DataCollector:
 		    },
 		    'allow_redirects':False
 		}
-		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
+		# shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
 		
 		if not self.shift_pool:
 			self.shift_pool = ShiftPool(shift_pool)
@@ -153,14 +157,11 @@ class DataCollector:
 		necessary cookies and headers for the rest of the classes functions
 		to run successfully.
 		"""
-		self.login()
-		self.update_account_data()
-		# The below calls can run in parallell if need be to reduce time spent collecting data.
-		# self.update_employee_shifts()
-		# self.update_employee_data()
-		# self.update_location_data()
-		# self.update_shift_pool()
-		return True
+		if self.login():
+			self.update_account_data()
+			return True
+		else:
+			return False
 
 	def __repr__(self):
 		return f"<DataCollector: {self.user_id}>"

@@ -132,6 +132,7 @@ class ShiftPool:
             found_shift['shift']['typename'] = found_shift['shift']['__typename']
             del found_shift['shift']['__typename']
             self.shifts[shift_id] = Shift(**found_shift['shift'])
+        self.store_shifts()
     
     def __repr__(self):
             return '<ShiftPool id:0>'# % self.id

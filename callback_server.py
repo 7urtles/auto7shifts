@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, json
+from flask import Flask, request, json, render_template
 from bots.DataScraper import DataCollector
 from twilio.rest import Client
 from datetime import datetime,date
@@ -9,27 +9,59 @@ load_dotenv()
 
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
-EMAIL = os.getenv('CHARLES_EMAIL')
-PASSWORD = os.getenv('CHARLES_PASSWORD')
-USER_AGENT = os.getenv('USER_AGENT')
-CALLBACK_ENDPOINT_URL = os.getenv('CALLBACK_ENDPOINT_URL')
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
+TWILIO_ENDPOINT = os.getenv('TWILIO_ENDPOINT')
 
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 app = Flask(__name__)
 app.messages = {}
-app.scraper = DataCollector(EMAIL, PASSWORD, USER_AGENT)
-app.days = ['Thu','Fri','Sat']
-app.roles = ['Bartender']
-app.weekday_key = {
-	0:"Mon",
-	1:"Tue",
-	2:"Wed",
-	3:"Thu",
-	4:"Fri",
-	5:"Sat",
-	6:"Sun",
+app.scraper = False
+app.shift_preferences = None
+app.weekdays = {
+	0:"mon",
+	1:"tue",
+	2:"wed",
+	3:"thu",
+	4:"fri",
+	5:"sat",
+	6:"sun",
 }
+
+# ---------------------------------------------------------------------------
+
+@app.route('/chickenparm')
+def index():
+	return render_template("index.html")
+
+# ---------------------------------------------------------------------------
+
+"""
+This route is used to gather users 7shifts login information and
+	their desired shift preferences
+"""
+@app.route(f'/submit/{TWILIO_ENDPOINT}', methods=['POST'])
+def submit():
+	user_data = request.json['account']
+	user_shift_preferences = request.json['requested']
+	scraper = DataCollector(*request.json['account']['login'])
+	scraper.run()
+	if scraper.login_success:
+		print("---LOGIN SUCCESS---")
+		app.scraper = scraper
+		print(f"7shifts User ID: {app.scraper.user_id}")
+	else:
+		print("---LOGIN FAILED---")
+		return render_template("index.html")
+	app.scraper.update_employee_data()
+	for employee in app.scraper.employee_data:
+		employee = app.scraper.employee_data[employee]
+		if employee.notes:
+			print(employee.firstname, employee.notes)
+	twilio_endpoint()
+	return render_template("index.html")
+
+# ---------------------------------------------------------------------------
 
 """
 The purpose of using a webhook & checking twilio messages instead of 
@@ -37,9 +69,8 @@ recurringly querying 7shifts pool data via a loop is to minimize
 web requests sent to their website. This increases speed, decreases memory, 
 cpu usage, and the apps footprint especially compared to the prior selenium version.
 """
-
-@app.route(f'/{CALLBACK_ENDPOINT_URL}', methods=['POST'])
-def twilio_callback():
+@app.route(f'/{TWILIO_ENDPOINT}', methods=['POST'])
+def twilio_endpoint():
 	"""
 	This function/route is meant to be called by a twilio webhook when twilio
 	receives a new text message. It first checks the days messages for text
@@ -49,124 +80,142 @@ def twilio_callback():
 	constantly check a twilio accounts received messages. Twilio may block 
 	and/or rate limit requests if the api is called to often.
 	"""
-	# Checking twilios received texts from 7shifts sms notifications for a qualifying shift
-	if check_twilio():
-		# The websites shift data may have change since it was last loaded.
-		# The below two calls update the necessary data to search for and claim shifts.
-		app.scraper.update_shift_pool()
-		app.scraper.update_employee_shifts()
-		# Iterate over available shifts
-		for shift_id in app.scraper.shift_pool.shifts:
-			# If a desired shift has not been found
-			if not validate_shift(shift_id):
-				continue
-			# Attempt to claim the shift
-			if app.scraper.pickup_shift(shift_id):
-			# If a shift is claimed then the apps known data needs to be updated
-				print('Updating app data')
-				twilio_callback()
-		# Then exit the loop and wait for another twilio callback request
-	return 'new messages read successfully'
-
-def validate_shift(shift_id) -> bool:
-	shift = app.scraper.shift_pool.shifts[shift_id]
-	# Check if the shift role is one the user wants
-	if shift.role['name'] not in app.roles:
-		print(f'Shift role not {app.roles}\t\t{shift}')
-		return
-
-	# Parse out the shift date
-	shift_date = shift.start.split('T')[0]
-	# Convert numeric day into a weekday
-	weekday = get_weekday(shift_date)
-	# Check if the shift day is one the user wants
-	if weekday not in app.days:
-		print(f'Shift day not {app.days}\t\t{shift}')
-		return
-	shift_date = datetime.strptime(shift_date, '%Y-%m-%d')
-	# Gather what days the user is already working on
-	user_scheduled_days = [shift.start.day for shift in app.scraper.user_shifts.values()]
-	# If user is already scheduled on found shifts date
-	if shift_date.day in user_scheduled_days:
-		print(f'Already scheduled [{str(shift_date).split(" ")[0]}] \t\t{shift}')
+	# The endpoint will be accessable upon launch. However the scraper
+	# 	will not be initialized until a sends a post request to /submit
+	#	with login info and desired shift options
+	print('Checking Scraper...')
+	if not app.scraper:
+		print('Scraper not initiated')
+		return 'Scraper not initiated'
+	print('Checking Twilio Messages....')
+	messages = client.messages.stream(date_sent=date.today())
+	if messages:
+		print("Reading Messages....")
+	if not validate_sms(messages):
+		print("No New Messages....")
+		print("---EXITING---")
 		return False
+	# The websites shift data may have change since it was last loaded.
+	# The below two calls update the necessary data to search for and claim shifts.
+	print("Gathering All Existing Shifts....")
+	app.scraper.update_employee_shifts()
+	print("Gathering Shift Pool....")
+	app.scraper.update_shift_pool()
+	# Iterate over available shifts
+	available_shifts = app.scraper.shift_pool.shifts
+	if not available_shifts:
+		print('No Available Shifts. Shift Pool Empty.')
+		return "No Available Shifts."
+	# Look for a shift matching user preferences
+	if validate_shift(available_shifts):
+		# Attempt to claim the shift
+		if app.scraper.pickup_shift(shift_id):
+		# If a shift is claimed then the apps known data needs to be updated
+			print('---Shift Claimed---')
+			# Keep running and updating known shifts until there are no 
+			#	matching shifts left in the pool
+			twilio_endpoint()
+	# Then exit the loop and wait for another twilio callback request
+	return 'Search Complete.'
 
-	# This really shouldn't happen but is here as an extra safety.....
-	# If the shift is already assigned to the user
-	if shift_id in app.scraper.user_shifts:
-		print(f'Already owned: \t\t\t\t{shift}')
-		return False
-	# If we made it here the found shift is acceptable to claim	
-	return True
+# ---------------------------------------------------------------------------
 
-def check_twilio(seven_shifts_sms_number='(201) 627-9226') -> bool:
-	"""
-	Pulls received text messages from twilio.
-	These messages contain a string describing a dropped shifts shift data.
-	Checks the messages body string for the users criteria then returns a bool
-	describing whether or not a desired shift has been read from the days messages.
-	"""
-	# to know if the below loop has found a message describing a shift we want
-	potential_shift_found = False
-	# pull and iterate a twilio accounts received texts from today
-	print('Checking Twilio Messages:')
-	for message in client.messages.stream(date_sent=date.today()):
+def validate_shift(shift_id:str) -> bool:
+	for shift_id in available_shifts:
+		shift = app.scraper.shift_pool.shifts[shift_id]
+		# Check if the shift role is one the user wants
+		if shift.role['name'] not in app.shift_preferences.roles:
+			print(f'Shift role not {app.shift_preferences.roles}\t\t{shift}')
+			continue
+		# Check if the shift location is one the user wants
+		if shift.role['location'] not in app.shift_preferences.locations:
+			print(f'Shift location not {app.shift_preferences.locations}\t\t{shift}')
+			continue
+		# Parse out the shift date
+		shift_date = shift.start.split('T')[0]
+		# Convert numeric day into a weekday
+		weekday = day_of_week(shift_date)
+		# If the weekday somehow ends up not an valid weekday
+		if not weekday or weekday not in app.weekdays.keys():
+			print('Failed to parse valid weekday from shift_date')
+			continue
+		# Check if the shift day is one the user wants
+		if weekday not in app.shift_preferences.days:
+			print(f'Shift day not {app.shift_preferences.days}\t\t{shift}')
+			continue
+		# Attempt to convert shift_date into datetime
+		try:
+			shift_date = datetime.strptime(shift_date, '%Y-%m-%d')
+		except:
+			print('Could not format shift_date into datetime object')
+			continue
+		# Gather what days the user is already working on
+		user_scheduled_days = [shift.start.day for shift in app.scraper.user_shifts.values()]
+		# If user is already scheduled on found shifts date
+		if shift_date.day in user_scheduled_days:
+			print(f'Already scheduled [{str(shift_date).split(" ")[0]}] \t\t{shift}')
+			continue
+
+		# This really shouldn't happen but is here as an extra safety.....
+		# If the shift is already assigned to the user
+		if shift_id in app.scraper.user_shifts:
+			print(f'Already owned: \t\t\t\t{shift}')
+			continue
+		# If we made it here the found shift is acceptable to claim	
+		return True
+	return False
+
+# ---------------------------------------------------------------------------
+
+def validate_sms(messages:client.messages) -> bool:
+	for message in messages:
+		# only consider messages sent by twilio
+		if message.from_ != TWILIO_PHONE_NUMBER:
+			print('Message not sent from twilio...... Ignoring')
+			continue
 		# If the message has already been stored in the app skip to the next message
 		if message.sid in app.messages:
-			# print("Message already read")
+			# print("Skipping old message")
 			continue
 		# If it is a newly seen message
 		else:
 			# store it to our known messages
 			app.messages[message.sid] = message.body
-			
 		# Each message describing an available shift will have 'up for grabs' in it.
 		# If not then the message was not about a dropped shift and we should ignore it.
 		if 'up for grabs' not in message.body:
-			print('Found message does not describe a shift')
+			print('Not a shift pool message')
 			continue
+		else:
+			print('New shift pool message found')
+			print(message.body)
+			return True
+	else:
+		return False
+	
+# ---------------------------------------------------------------------------
 
-		# Format the message body string
-		body = message.body.split("grabs:")[1].strip()
-		body = body.replace(')',"").split('(')[1]
-		# Extract shift role from message body
-		role = body.split(' ')[0]
-
-		# Check if role is not one we're looking for
-		if role not in app.roles:
-			print(f'Shift role not in {app.roles}\t\t{body}')
-			# move on to the next message
-			continue
-
-		# Extract the date as a string from the message body
-		shift_date = body.replace('.',"").split("on ")[-1]
-		# Get the day of the week the shift is on
-		weekday = get_weekday(shift_date)
-
-		# If it's a day we're not looking for
-		if weekday not in app.days:
-			print(f'Shift day not in {app.days}\t\t\t{body}')
-			# move on to the next message
-			continue
-		
-		# If we've made it this far then make the function aware that a potential shift has been found
-		potential_shift_found = True
-	# The retreived messages have all been checked
-	return potential_shift_found
-
-def get_weekday(shift_date:str) -> str:
+def day_of_week(shift_date:str) -> str:
 	# shift_date = message_body.replace('.',"").split("on ")[-1]
+	d=date.today()
+	d=d.replace(day=int(shift_date))
 	try:
 		shift_date = datetime.strptime(shift_date,"%a, %B %d, %Y").day
 	except:
+		print(" datetime format failed")
+	try:
 		shift_date = datetime.strptime(shift_date, '%Y-%m-%d').day
-	d=date.today()
-	d=d.replace(day=int(shift_date))
-	return app.weekday_key[d.weekday()]
+	except:
+		print("Second datetime format failed")
+		return False
+	return app.weekdays[d.weekday()]
+
+# ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
 	# Loading users 7shift data into the scraper
-	app.scraper.run()
-	twilio_callback()
+	# app.scraper.run()
+	# check new shift data for a shift
+	# callback()
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007)
+	app.run(host="0.0.0.0", port=5007, debug=True)

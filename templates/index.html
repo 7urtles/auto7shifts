@@ -6,7 +6,11 @@
 		<meta name="author" content="colorlib.com">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Auto7shifts</title>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
     <!-- Font Icon -->
     <!-- {{ url_for('static', filename='style.css') }} -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,6 +23,7 @@
               data-locale="auto"></script>
         <!-- Main css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
  
 </head>
 <body>
@@ -50,13 +55,13 @@
                 <fieldset> 
                     <h2>Contact</h2>
                     <div class="form-group">
-                        <input type="text" name="first_name" id="first_name" placeholder="First Name"/>
+                        <input type="text" name="first_name" category="contact" id="first_name" placeholder="First Name"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="last_name" id="last_name" placeholder="Last Name"/>
+                        <input type="text" name="last_name" category="contact" id="last_name" placeholder="Last Name"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="phone" id="phone" placeholder="Phone"/>
+                        <input type="text" name="phone" category="contact" id="phone" placeholder="Phone"/>
                     </div>
                 </fieldset>
 
@@ -66,13 +71,13 @@
                 <fieldset>
                     <h2>Account Connection</h2>
                     <div class="form-group">
-                        <input type="email" name="email" id="email" placeholder="7shifts_login@mail.com"/>
+                        <input type="email" name="email" category="login" id="email" placeholder="7shifts_login@mail.com"/>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="password" placeholder="7shifts Password"/>
+                        <input type="password" name="password" category="login" id="password" placeholder="7shifts Password"/>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="repassword" id="repassword" placeholder="Confirm Password"/>
+                        <input type="text" name="user_agent" category="login" id="repassword" value="Mozilla/5.0 (iPhone14,3; U; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/19A346 Safari/602.1" placeholder="Confirm Password"/>
                     </div>
                 </fieldset>
 
@@ -84,37 +89,41 @@
                     <h5 class="text-start">Role:</h5>
                     <div class="form-group">
                         <!-- <input type="text" name="shift_type" id="shift_type" placeholder="Bartender, Security"/> -->
-                        <select class="form-select text-secondary" name="position" aria-label="select_position">
-                          <option selected>None</option>
-                          <option value="Bartender">Bartender</option>
-                          <option value="Security">Security</option>
+                        <select class="form-control selectpicker text-secondary" category="roles" aria-label="select_position" multiple>
+                          <option value="bartender">Bartender</option>
+                          <option value="security">Security</option>
                         </select>
                     </div>
 
                     <h5 class="text-start">Day:</h5>
                     <div class="form-group">
-                        <select class="form-select text-secondary" name="day" aria-label="select_position">
-                          <option selected>None</option>
-                          <option value="Thu">Thu</option>
-                          <option value="Fri">Fri</option>
-                          <option value="Sat">Sat</option>
-                          <option value="Sun">Sun</option>
+                        <select class="form-control selectpicker text-secondary" category="days" aria-label="select_position" multiple>
+                          <option value="thu">Thu</option>
+                          <option value="fri">Fri</option>
+                          <option value="sat">Sat</option>
+                          <option value="sun">Sun</option>
                         </select>
                     </div>
 
                     <h5 class="text-start">Location:</h5>
                     <div class="form-group">
-                        <select class="form-select text-secondary" name="location" aria-label="select_location">
-                          <option selected>None</option>
-                          <option value="yardbar">Yard Bar Westport</option>
-                          <option value="bridgers">Bridgers</option>
-                          <option value="lotus">Lotus</option>
-                          <option value="shotstop">Shot Stop</option>
+                        <!-- <select class="form-select selectpicker text-secondary" name="location" aria-label="select_location" multiple>
+                            <option selected>None</option>
+                            <option value="yardbar">Yard Bar Westport</option>
+                            <option value="bridgers">Bridgers</option>
+                            <option value="lotus">Lotus</option>
+                            <option value="shotstop">Shot Stop</option>
+                        </select> -->
+                        <select class="form-control selectpicker text-secondary" category="locations" aria-label="select_position" multiple>
+                            <option value="yardbar">Yard Bar Westport</option>
+                            <option value="bridgers">Bridgers</option>
+                            <option value="lotus">Lotus</option>
+                            <option value="shotstop">Shot Stop</option>
                         </select>
                     </div>
                 </fieldset>
-
-                <button type="submit" id='submit-button' form="signup-form" hidden>Submit</button>
+                <!-- <button type="button" id='some-button' onclick="test_submit()">Test</button> -->
+                <button type="test" id='submit-button' form="signup-form" hidden>Submit</button>
                 
             </form>
         </div>

@@ -424,7 +424,7 @@ fieldset.current {
         .actions ul li a:hover {
           background-color: #090909; }
 
-.form-group {
+.form-control {
   padding-bottom: 20px;
   position: relative; }
 
