@@ -90,7 +90,7 @@ def twilio_endpoint():
 	if not validate_sms(messages):
 		print("No New Messages....")
 		print("---EXITING---")
-		return False
+		return "no new messages"
 	# The websites shift data may have change since it was last loaded.
 	# The below two calls update the necessary data to search for and claim shifts.
 	print("Updating Scheduled Shifts....")
