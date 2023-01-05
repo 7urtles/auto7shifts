@@ -163,6 +163,7 @@ def validate_shift(shift_id:str) -> bool:
 # ---------------------------------------------------------------------------
 
 def validate_sms(messages:client.messages) -> bool:
+	new_message = False
 	for message in messages:
 		# only consider messages sent by twilio
 		if message.from_ != TWILIO_PHONE_NUMBER:
@@ -184,9 +185,9 @@ def validate_sms(messages:client.messages) -> bool:
 		else:
 			print('New shift pool message found')
 			print(message.body)
-			continue
+			new_message = True
 	else:
-		return False
+		return new_message
 	
 # ---------------------------------------------------------------------------
 
