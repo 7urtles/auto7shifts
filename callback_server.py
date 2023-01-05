@@ -81,6 +81,7 @@ def twilio_endpoint():
 	print('Checking Scraper...')
 	if not app.scraper:
 		print('Scraper not initiated')
+		print("---EXITING---")
 		return 'Scraper not initiated'
 	print('Checking Twilio Messages....')
 	messages = client.messages.stream(date_sent=date.today())
@@ -100,6 +101,7 @@ def twilio_endpoint():
 	available_shifts = app.scraper.shift_pool.shifts
 	if not available_shifts:
 		print('No Available Shifts. Shift Pool Empty.')
+		print("---EXITING---")
 		return "No Available Shifts."
 	# Look for a shift matching user preferences
 	if validate_shift(available_shifts):
