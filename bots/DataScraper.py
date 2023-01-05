@@ -1,4 +1,5 @@
 import sys
+import csv
 import requests
 from datetime import datetime
 from dataclasses import dataclass
