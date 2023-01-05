@@ -121,7 +121,7 @@ class DataCollector:
 		    },
 		    'allow_redirects':False
 		}
-		# shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
+		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
 		
 		if not self.shift_pool:
 			self.shift_pool = ShiftPool(shift_pool)
