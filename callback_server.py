@@ -93,14 +93,14 @@ def twilio_endpoint():
 		return False
 	# The websites shift data may have change since it was last loaded.
 	# The below two calls update the necessary data to search for and claim shifts.
-	print("Gathering All Existing Shifts....")
+	print("Updating Scheduled Shifts....")
 	app.scraper.update_employee_shifts()
-	print("Gathering Shift Pool....")
+	print("Updating Shift Pool....")
 	app.scraper.update_shift_pool()
 	# Iterate over available shifts
 	available_shifts = app.scraper.shift_pool.shifts
 	if not available_shifts:
-		print('No Available Shifts. Shift Pool Empty.')
+		print('Shift Pool Empty.')
 		print("---EXITING---")
 		return "No Available Shifts."
 	# Look for a shift matching user preferences
