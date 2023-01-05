@@ -107,7 +107,7 @@ class DataCollector:
 		self.user_locations = self.session.get(**user_locations_request_data).json()['data']
 		return self.user_locations
 
-	def update_shift_pool(self,shift_pool) -> list[dict]:
+	def update_shift_pool(self) -> list[dict]:
 		shift_offers_request_data = {
 		    'url':"https://app.7shifts.com/gql",
 		    'json':{
