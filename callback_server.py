@@ -43,8 +43,8 @@ This route is used to gather users 7shifts login information and
 @app.route(f'/submit/{TWILIO_ENDPOINT}', methods=['POST'])
 def submit():
 	user_data = request.json['account']
-	user_shift_preferences = request.json['requested']
-	print(user_shift_preferences)
+	app.shift_preferences = request.json['requested']
+	print(app.shift_preferences)
 	scraper = DataCollector(*request.json['account']['login'])
 	scraper.run()
 	if scraper.login_success:
