@@ -44,6 +44,7 @@ This route is used to gather users 7shifts login information and
 def submit():
 	user_data = request.json['account']
 	user_shift_preferences = request.json['requested']
+	print(user_shift_preferences)
 	scraper = DataCollector(*request.json['account']['login'])
 	scraper.run()
 	if scraper.login_success:
