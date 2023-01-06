@@ -120,8 +120,8 @@ def validate_shifts(available_shifts:list) -> bool:
 	for shift_id in available_shifts:
 		shift = app.scraper.shift_pool.shifts[shift_id]
 		# Check if the shift role is one the user wants
-		if shift.role['name'] not in app.shift_preferences.roles:
-			print(f'Shift role not {app.shift_preferences.roles}\t\t{shift}')
+		if shift.role['name'] not in app.shift_preferences["roles"]:
+			print(f'Shift role not {app.shift_preferences["roles"]}\t\t{shift}')
 			continue
 		# Check if the shift location is one the user wants
 		if shift.role['location'] not in app.shift_preferences.locations:
