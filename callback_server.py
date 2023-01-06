@@ -220,7 +220,7 @@ def day_of_week(shift_date:str) -> str:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-	logging.basicConfig(level=logging.INFO)
+	logging.basicConfig(filename='7shifts.log', encoding='utf-8', level=logging.DEBUG)
 	# Loading users 7shift data into the scraper
 	app.scraper = DataCollector()
 	app.scraper.run()

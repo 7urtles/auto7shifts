@@ -22,3 +22,6 @@ id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,departme
 id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,department,role,typename
 id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,department,role,typename
 id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,department,role,typename
+id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,department,role,typename
+id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,department,role,typename
+id,shift_pool_id,shift_offer_id,start,end,open,user,locationId,location,department,role,typename
