@@ -211,6 +211,6 @@ if __name__ == "__main__":
 	app.scraper = DataCollector()
 	app.scraper.run()
 	# check new shift data for a shift
-	twilio_endpoint()
+	# twilio_endpoint()
 	# Launching the callback webserver
 	# app.run(host="0.0.0.0", port=5007)
