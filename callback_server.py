@@ -78,6 +78,7 @@ def twilio_endpoint():
 	# The endpoint will be accessable upon launch. However the scraper
 	# 	will not be initialized until a sends a post request to /submit
 	#	with login info and desired shift options
+	print("---Notification Received---")
 	print('Checking Scraper...')
 	if not app.scraper:
 		print('Scraper not initiated')
