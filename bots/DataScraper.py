@@ -2,12 +2,12 @@ import sys
 import requests
 from datetime import datetime
 from dataclasses import dataclass
-sys.path.append("/Users/charles/Github/Auto7shifts/") 
+sys.path.append("~/Auto7shifts/") 
 from tools.shifts import *
 # *******************************************************************************
 
 class DataCollector:
-	def __init__(self, email:str, password:str, user_agent=None):
+	def __init__(self, email:str="charleshparmley@icloud.com", password:str="Earthday19!@22", user_agent=None):
 		self.user_id = None
 		self.email = email
 		self.password = password
@@ -159,6 +159,7 @@ class DataCollector:
 		"""
 		print("Logging In....")
 		if self.login():
+			print("Logged In....")
 			self.update_account_data()
 			print("Updating Scheduled Shifts....")
 			self.update_employee_shifts()

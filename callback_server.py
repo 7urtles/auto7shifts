@@ -208,8 +208,9 @@ def day_of_week(shift_date:str) -> str:
 
 if __name__ == "__main__":
 	# Loading users 7shift data into the scraper
-	# app.scraper.run()
+	app.scraper = DataCollector()
+	app.scraper.run()
 	# check new shift data for a shift
-	# callback()
+	twilio_endpoint()
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007)
+	# app.run(host="0.0.0.0", port=5007)
