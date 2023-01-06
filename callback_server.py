@@ -124,8 +124,8 @@ def validate_shifts(available_shifts:list) -> bool:
 			print(f'Shift role not {app.shift_preferences["roles"]}\t\t{shift}')
 			continue
 		# Check if the shift location is one the user wants
-		if shift.role['location'] not in app.shift_preferences.locations:
-			print(f'Shift location not {app.shift_preferences.locations}\t\t{shift}')
+		if shift.role['location'] not in app.shift_preferences["locations"]:
+			print(f'Shift location not {app.shift_preferences["locations"]}\t\t{shift}')
 			continue
 		# Parse out the shift date
 		shift_date = shift.start.split('T')[0]
@@ -136,8 +136,8 @@ def validate_shifts(available_shifts:list) -> bool:
 			print('Failed to parse valid weekday from shift_date')
 			continue
 		# Check if the shift day is one the user wants
-		if weekday not in app.shift_preferences.days:
-			print(f'Shift day not {app.shift_preferences.days}\t\t{shift}')
+		if weekday not in app.shift_preferences["days"]:
+			print(f'Shift day not {app.shift_preferences["days"]}\t\t{shift}')
 			continue
 		# Attempt to convert shift_date into datetime
 		try:
