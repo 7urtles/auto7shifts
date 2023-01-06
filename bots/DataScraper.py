@@ -1,4 +1,5 @@
 import sys
+import logging
 import requests
 from datetime import datetime
 from dataclasses import dataclass
@@ -44,6 +45,7 @@ class DataCollector:
 			self.login_success = True
 		else:
 			self.login_success = False
+			logging.error("Login Failed!")
 		return self.login_success
 
 	def update_account_data(self) -> list:
@@ -51,6 +53,7 @@ class DataCollector:
 	    	'url':"https://app.7shifts.com/api/v2/company/139871/account"
 		}
 		self.user_data = self.session.get(**user_account_request_data).json()['data']
+		logging.debug(self.user_data)
 		self.user_id = self.user_data['user_id']
 		return self.user_data
 
@@ -65,8 +68,10 @@ class DataCollector:
 			}
 		}
 		employee_shifts = self.session.get(**employee_shift_request_data).json()['data']
-
+		logging.debug(employee_shifts)
+		logging.debug("Iterating all employee shifts")
 		for shift in employee_shifts:
+			logging.debug(shift)
 			shift = UserShift(**shift)
 			shift.start = datetime.strptime(shift.start, '%Y-%m-%d %H:%M:%S')
 			#if the shift belongs to the user
@@ -90,6 +95,7 @@ class DataCollector:
 		}
 		# Getting all active employees
 		employee_data = self.session.get(**employees_request_data).json()['data']
+		logging.debug(employee_data)
 		# Update known employees with newly found data
 		self.employee_data.update({employee['user']['id']:Employee(**employee['user']) for employee in employee_data})
 		"""
@@ -105,6 +111,7 @@ class DataCollector:
 	    	'url':f"https://app.7shifts.com/api/v2/company/139871/users/{self.user_id}/authorized_locations"
 		}
 		self.user_locations = self.session.get(**user_locations_request_data).json()['data']
+		logging.debug(self.user_locations)
 		return self.user_locations
 
 	def update_shift_pool(self) -> list[dict]:
@@ -122,7 +129,7 @@ class DataCollector:
 		    'allow_redirects':False
 		}
 		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
-		
+		logging.debug(shift_pool)
 		if not self.shift_pool:
 			self.shift_pool = ShiftPool(shift_pool)
 		else:
@@ -133,7 +140,7 @@ class DataCollector:
 		shift = self.shift_pool.shifts[shift_id]
 		shift_pool_id = shift.shift_pool_id
 		user = shift.user if shift.user else {'firstName': 'HOUSE SHIFT'}
-		print(f"Picking up {shift.role['name']} shift from {user['firstName']} with pool id: {shift_pool_id} for user: {self.email}")
+		logging.info(f"Picking up {shift.role['name']} shift from {user['firstName']} with pool id: {shift_pool_id} for user: {self.email}")
 		shift_pickup_request_data = {
 			'url': 'https://app.7shifts.com/gql',
 			'json': {
@@ -157,17 +164,17 @@ class DataCollector:
 		necessary cookies and headers for the rest of the classes functions
 		to run successfully.
 		"""
-		print("Logging In....")
+		logging.info("Logging In....")
 		if self.login():
-			print("Logged In....")
+			logging.info("Logged In....")
 			self.update_account_data()
-			print("Updating Scheduled Shifts....")
+			logging.info("Updating Scheduled Shifts....")
 			self.update_employee_shifts()
-			print("Updating Shift Pool....")
+			logging.info("Updating Shift Pool....")
 			self.update_shift_pool()
 			return True
 		else:
-			print("Login Failed")
+			logging.info("Login Failed")
 			return False
 
 	def __repr__(self):
