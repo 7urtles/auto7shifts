@@ -144,9 +144,9 @@ class UserLocations:
         self.id = None
         self.location_data = location_data
         self.locations = {}
-        self.get_locations()
+        self.create_locations()
     
-    def get_locations(self)->None:
+    def create_locations(self)->None:
         """
         Populates self.locations dict with Location objects using each found locations id as the key and its data as the value.
         Locations are added if the shift id is not in self.locations

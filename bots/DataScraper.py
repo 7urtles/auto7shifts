@@ -157,10 +157,16 @@ class DataCollector:
 		necessary cookies and headers for the rest of the classes functions
 		to run successfully.
 		"""
+		print("Logging In....")
 		if self.login():
 			self.update_account_data()
+			print("Updating Scheduled Shifts....")
+			self.update_employee_shifts()
+			print("Updating Shift Pool....")
+			self.update_shift_pool()
 			return True
 		else:
+			print("Login Failed")
 			return False
 
 	def __repr__(self):

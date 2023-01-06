@@ -50,10 +50,9 @@ def submit():
 		print("---LOGIN SUCCESS---")
 		app.scraper = scraper
 		print(f"7shifts User ID: {app.scraper.user_id}")
+		twilio_endpoint()
 	else:
 		print("---LOGIN FAILED---")
-		return render_template("index.html")
-	twilio_endpoint()
 	return render_template("index.html")
 
 # ---------------------------------------------------------------------------
@@ -92,11 +91,8 @@ def twilio_endpoint():
 		print("---EXITING---")
 		return "no new messages"
 	# The websites shift data may have change since it was last loaded.
-	# The below two calls update the necessary data to search for and claim shifts.
-	print("Updating Scheduled Shifts....")
-	app.scraper.update_employee_shifts()
-	print("Updating Shift Pool....")
-	app.scraper.update_shift_pool()
+	# Update the necessary data to search for and claim shifts.
+	app.scraper.run()
 	# Iterate over available shifts
 	available_shifts = app.scraper.shift_pool.shifts
 	if not available_shifts:
