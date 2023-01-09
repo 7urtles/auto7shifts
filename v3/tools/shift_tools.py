@@ -3,7 +3,7 @@ import calendar
 import logging
 from datetime import datetime, date
 
-def shift_wanted(shift) -> str | bool:
+def shift_wanted(shift) -> bool:
     logging.debug(f"Checking shift: {shift.id}")
     logging.debug(shift)
     # Check if the shift role is one the user wants
@@ -16,25 +16,6 @@ def shift_wanted(shift) -> str | bool:
     if shift.day not in user['days']:
         return False
     # If we made it here the found shift is acceptable to claim 
-    return True
-
-def check_role(shift):
-    if shift.role['name'] not in app.shift_preferences["roles"]:
-        logging.debug(f'Shift role not {app.shift_preferences["roles"]} {shift}')
-        return False
-    return True
-
-def check_location(shift):
-    if shift.role['location'] not in app.shift_preferences["locations"]:
-        logging.info(f'Shift location not {app.shift_preferences["locations"]} {shift}')
-        return False
-    return True
-
-def check_day(shift):
-    if weekday not in app.shift_preferences["days"]:
-        logging.debug(f"{weekday} not in {app.shift_preferences['days']}")
-        logging.info(f"Shift day not {app.shift_preferences['days']} {shift}")
-        return False
     return True
 
 def convert_shift_date(shift_start_string:str) -> date:
