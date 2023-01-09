@@ -20,7 +20,6 @@ app.scraper = False
 app.shift_preferences = None
 
 app.messages = {}
-app.days_scheduled = []
 # *******************************************************************************
 
 @app.route(f'/{TWILIO_ENDPOINT}', methods=['POST'])
@@ -55,7 +54,6 @@ def submit():
 	user_data = request.json['account']
 	app.shift_preferences = request.json['requested']
 	logging.debug(app.shift_preferences)
-	logging.debug(app.scraper.days_scheduled)
 	scraper = ShiftScraper(*request.json['account']['login'])
 	
 	if scraper.login():

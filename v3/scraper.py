@@ -63,6 +63,7 @@ class ShiftScraper:
 				# Get shifts day of the week
 				shift_day = date_to_weekday(convert_shift_date(shift['start'].split(' ')[0]))
 				self.days_scheduled.append(shift_day)
+		logging.debug(f"Currently Scheduled: {self.days_scheduled}")
 
 	def __update_pool(self) -> list[dict]:
 		logging.info("Updating Shift Pool")

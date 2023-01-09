@@ -7,7 +7,7 @@ def shift_wanted(shift, app) -> bool:
     logging.debug(f"Checking shift: {shift.id}")
     logging.debug(shift)
     # If user is already working that day
-    if shift.day in app.days_scheduled:
+    if shift.day in app.scraper.days_scheduled:
         return False
     # Check if the shift day is one the user wants
     if shift.day not in app.shift_preference['days']:
