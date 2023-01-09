@@ -3,29 +3,32 @@ import calendar
 import logging
 from datetime import datetime, date
 
-def shift_wanted(shift) -> bool:
+def shift_wanted(shift, app) -> bool:
     logging.debug(f"Checking shift: {shift.id}")
     logging.debug(shift)
-    # Check if the shift role is one the user wants
-    if shift.role not in user['roles']:
-        return False
-    # Check if the shift location is one the user wants
-    if shift.location not in user['locations']:
+    # If user is already working that day
+    if shift.day in app.days_scheduled:
         return False
     # Check if the shift day is one the user wants
-    if shift.day not in user['days']:
+    if shift.day not in app.shift_preference['days']:
+        return False
+    # Check if the shift role is one the user wants
+    if shift.role not in app.shift_preference['roles']:
+        return False
+    # Check if the shift location is one the user wants
+    if shift.location not in app.shift_preference['locations']:
         return False
     # If we made it here the found shift is acceptable to claim 
     return True
 
 def convert_shift_date(shift_start_string:str) -> date:
     # Parse out the shift date
-    date_string = date_string.split('T')[0]
+    date_string = shift_start_string.split('T')[0]
     formatted_date = datetime.strptime(date_string, '%Y-%m-%d')
     return formatted_date.date()
 
 def date_to_weekday(shift_date:datetime) -> str:
-    return calendar.day_name[formatted_date.weekday()]
+    return calendar.day_name[shift_date.weekday()]
 
 def store_shift(shift)->None:
     db.session.add(shift)

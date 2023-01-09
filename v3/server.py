@@ -8,6 +8,7 @@ from wtforms.validators import DataRequired, EqualTo
 
 from scraper import ShiftScraper
 from tools.shift_tools import *
+from tools.sms_tools import TWILIO_ENDPOINT
 
 # *******************************************************************************
 app = Flask(__name__)
@@ -15,9 +16,11 @@ app.config['SECRET_KEY'] = 'jdhfalioy4879tyhaw7h4p98w'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 # *******************************************************************************
-app.messages = {}
 app.scraper = False
 app.shift_preferences = None
+
+app.messages = {}
+app.days_scheduled = []
 # *******************************************************************************
 
 @app.route(f'/{TWILIO_ENDPOINT}', methods=['POST'])
@@ -27,7 +30,7 @@ def twilio_endpoint():
 	Checks various criteria to check if there is an available shift the user wants.
 	Aattempts to claim the shift if so.
 	"""
-	logging.info("RECEIVED")
+	logging.info("CALLBACK RECEIVED")
 	# Exit if scraper not initialized
 	if not app.scraper:
 		logging.error('Scraper not initiated')
@@ -48,15 +51,16 @@ def submit():
 	Gathers users 7shifts login information and shift preferences 
 	from a form.
 	"""
-	logging.info("RECEIVED")
+	logging.info("FORM RECEIVED")
 	user_data = request.json['account']
 	app.shift_preferences = request.json['requested']
 	logging.debug(app.shift_preferences)
+	logging.debug(app.scraper.days_scheduled)
 	scraper = ShiftScraper(*request.json['account']['login'])
 	
 	if scraper.login():
 		app.scraper = scraper
-
+	
 	logging.info("EXITING")
 	return "success"
 
@@ -78,8 +82,8 @@ def shift_handler(pool_data:list[dict]) -> bool:
 			# store it
 			store_shift(shift)
 		# If user wants the shift
-		if shift_wanted(shift):
-			# Attempt to claim the shift
+		if shift_wanted(shift, app):
+			# take it
 			app.scraper.pickup_shift(shift.id)
 			return True
 		return False
@@ -161,9 +165,9 @@ def init_db():
 if __name__ == "__main__":
 	logging.basicConfig(
 		format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
-		filename='logs/7shifts.log', encoding='utf-8', level=logging.INFO, 
+		filename='logs/7shifts.log', encoding='utf-8', level=logging.DEBUG, 
 		datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
 	init_db()
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007)
+	app.run(host="0.0.0.0", port=5007, debug=True)

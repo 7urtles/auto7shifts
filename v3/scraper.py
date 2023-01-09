@@ -1,14 +1,15 @@
 import logging
 import requests
 from datetime import datetime
-from tools.classes import *
+from tools.shift_tools import convert_shift_date, date_to_weekday
 # *******************************************************************************
 
 class ShiftScraper:
 	def __init__(self, email:str="charleshparmley@icloud.com", password:str="Earthday19!@22", user_agent=None):
-		self.user_id = None
 		self.email = email
 		self.password = password
+		self.user_id = None
+		self.days_scheduled = []
 		self.session = requests.Session()
 		self.session.headers["user-agent"] = user_agent
 
@@ -27,7 +28,6 @@ class ShiftScraper:
 		    'allow_redirects':False
 		}
 		response = self.session.post(**login_request_data)
-
 		if response.status_code == 302:
 			logging.info("Loggin Success")
 			return True
@@ -43,6 +43,26 @@ class ShiftScraper:
 
 		logging.debug(f"User ID: {self.user_id}")
 		return self.user_id
+
+	def __update_days_scheduled(self) -> None:
+		self.days_scheduled = []
+		logging.info("Updating Scheduled Days")
+		employee_shift_request_data = {
+	    	'url':"https://app.7shifts.com/api/v1/schedule/shifts",
+			'params' : {
+			    'week': f"{datetime.date(datetime.today())}",
+			    'location_id': '176547',
+			    'department_id': '249830',
+			}
+		}
+		employee_shifts = self.session.get(**employee_shift_request_data).json()['data']
+
+		for shift in employee_shifts:	
+			#if the shift belongs to the user
+			if shift['user_id'] == self.user_id:
+				# Get shifts day of the week
+				shift_day = date_to_weekday(convert_shift_date(shift['start'].split(' ')[0]))
+				self.days_scheduled.append(shift_day)
 
 	def __update_pool(self) -> list[dict]:
 		logging.info("Updating Shift Pool")
@@ -60,7 +80,7 @@ class ShiftScraper:
 		    'allow_redirects':False
 		}
 		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
-		logging.debug(shift_pool)
+		logging.debug(f"Shift Pool: {shift_pool}")
 		return shift_pool
 
 	def pickup_shift(self, shift_id) -> bool:
@@ -89,6 +109,7 @@ class ShiftScraper:
 	def shift_pool(self) -> bool:
 		if self.__login():
 			if self.__update_user():
+				self.__update_days_scheduled(self)
 				return self.__update_pool()
 		return False
 
@@ -99,6 +120,7 @@ class ShiftScraper:
 		"""
 		if self.__login():
 			if self.__update_user():
+				self.__update_days_scheduled()
 				self.__update_pool()
 				return True
 		return False
