@@ -228,7 +228,3 @@ if __name__ == "__main__":
 	# twilio_endpoint()
 	# Launching the callback webserver
 	app.run(host="0.0.0.0", port=5007)
-	# logging.debug('This message should go to the log file')
-	# logging.info('So should this')
-	# logging.warning('And this, too')
-	# logging.error('And non-ASCII stuff, too, like Øresund and Malmö')
