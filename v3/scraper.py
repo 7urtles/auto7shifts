@@ -102,7 +102,7 @@ class ShiftScraper:
 			},
 			'allow_redirects':False
 		}
-		# response = self.session.post(**shift_pickup_request_data)
+		response = self.session.post(**shift_pickup_request_data)
 		logging.info('SHIFT CLAIMED')
 		return True
 
