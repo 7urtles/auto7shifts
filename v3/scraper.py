@@ -34,7 +34,7 @@ class ShiftScraper:
 		logging.error("Login Failed")
 		return False
 
-	def __update_user(self) -> str | None:
+	def __update_user(self) -> str:
 		logging.info("Updating Account Data")
 		user_account_request_data = {
 	    	'url':"https://app.7shifts.com/api/v2/company/139871/account"
