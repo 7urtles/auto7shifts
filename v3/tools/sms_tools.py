@@ -53,4 +53,3 @@ def send_sms(number=ACCOUNT_PHONE_NUMBER, message='shift picked up'):
                 body = message
             ) 
     print(f'SMS SENT: {number}')
-send_sms(message=f"Shift Picked Up:\nBartender YardBar Saturday")
