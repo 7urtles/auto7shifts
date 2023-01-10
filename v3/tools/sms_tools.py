@@ -8,9 +8,9 @@ load_dotenv()
 
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
-TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
+ACCOUNT_PHONE_NUMBER = os.getenv('ACCOUNT_PHONE_NUMBER')
 TWILIO_ENDPOINT = os.getenv('TWILIO_ENDPOINT')
-SEVEN_SHIFTS_PHONE_NUMBER = None
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
 
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 # ---------------------------------------------------------------------------
@@ -43,3 +43,14 @@ def new_shift_sms() -> bool:
         logging.info("No New Messages")
         return False
 # -----------------------------------------------------------------------------
+
+def send_sms(number=ACCOUNT_PHONE_NUMBER, message='shift picked up'):
+    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN) 
+    # try:
+    message = client.messages.create(  
+                to = number,
+                from_ = TWILIO_PHONE_NUMBER,
+                body = message
+            ) 
+    print(f'SMS SENT: {number}')
+send_sms(message=f"Shift Picked Up:\nBartender YardBar Saturday")

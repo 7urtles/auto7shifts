@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, EqualTo
 
 from scraper import ShiftScraper
 from tools.shift_tools import *
-from tools.sms_tools import TWILIO_ENDPOINT
+from tools.sms_tools import *
 
 # *******************************************************************************
 app = Flask(__name__)
@@ -83,8 +83,9 @@ def shift_handler(pool_data:list[dict]) -> bool:
 		if shift_wanted(shift, app):
 			# take it
 			app.scraper.pickup_shift(shift.id)
+			send_sms(message=f"Shift Picked Up:\n{shift.role} {shift.day} {shift.location}")
 			return True
-		return False
+	return False
 # ---------------------------------------------------------------------------
 
 @app.route('/')
