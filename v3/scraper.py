@@ -84,9 +84,7 @@ class ShiftScraper:
 		logging.debug(f"Shift Pool: {shift_pool}")
 		return shift_pool
 
-	def pickup_shift(self, shift_id) -> bool:
-		shift = self.shift_pool.shifts[shift_id]
-		shift_pool_id = shift.shift_pool_id
+	def pickup_shift(self, shift) -> bool:
 		user = shift.user if shift.user else {'firstName': 'HOUSE SHIFT'}
 		logging.info(f"Picking up {shift.role['name']} shift from {user['firstName']} with pool id: {shift_pool_id} for user: {self.email}")
 		shift_pickup_request_data = {
@@ -95,7 +93,7 @@ class ShiftScraper:
 				'operationName': 'BidOnShiftPool',
 				'variables': {
 					'input': {
-						'shiftPoolId': shift_pool_id,
+						'shiftPoolId': shift.shift_pool_id,
 						'userId': self.user_id,
 					},
 				},
