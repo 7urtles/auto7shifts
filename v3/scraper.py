@@ -99,8 +99,9 @@ class ShiftScraper:
 		logging.debug(f"Shift Pool: {shift_pool}")
 		if shift_pool.get('data'):
 			shift_pool = shift_pool['data']['getShiftPool']['legacyShiftPoolOffers']
+			return shift_pool
 		
-		return shift_pool
+		return False
 
 	def pickup_shift(self, shift) -> bool:
 		user = shift.user if shift.user else {'firstName': 'HOUSE SHIFT'}

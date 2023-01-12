@@ -72,6 +72,8 @@ def shift_handler(pool_data:list[dict]) -> bool:
 	Iterates a list of shifts, formatting their data and checking
 	for one that matches the users requirements.
 	"""
+	if not pool_data:
+		return False
 	logging.info("Checking Shifts")
 	for shift in pool_data:
 		# clean up excessive dict
