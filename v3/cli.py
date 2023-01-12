@@ -97,7 +97,7 @@ def get_selections(*args):
 	return True
 
 def run():
-	server.scraper = account
+	server.app.scraper = account
 	server.init_db()
 	logging.basicConfig(
 		format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
