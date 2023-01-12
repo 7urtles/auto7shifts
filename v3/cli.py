@@ -7,6 +7,7 @@ from tools import shift_tools
 import server
 
 account = ShiftScraper()
+account.user_agent = server.USER_AGENT
 welcome_text = "--Welcome to ezShifts--"
 login_text = "Please Login:"
 user_preferences = {

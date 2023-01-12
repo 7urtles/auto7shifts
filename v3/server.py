@@ -1,4 +1,5 @@
 import logging
+from dotenv import load_dotenv
 
 from flask import Flask, request, json, render_template, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
@@ -15,6 +16,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jdhfalioy4879tyhaw7h4p98w'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+
+USER_AGENT = os.getenv('USER_AGENT')
 # *******************************************************************************
 app.scraper = False
 app.shift_preferences = None
@@ -167,6 +170,6 @@ if __name__ == "__main__":
 		filename='logs/7shifts.log', encoding='utf-8', level=logging.DEBUG, 
 		datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
-	init_db()
+	b
 	# Launching the callback webserver
 	app.run(host="0.0.0.0", port=5007)

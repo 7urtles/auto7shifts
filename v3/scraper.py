@@ -5,7 +5,7 @@ from tools.shift_tools import convert_shift_date, date_to_weekday
 # *******************************************************************************
 
 class ShiftScraper:
-	def __init__(self, email:str = "charleshparmley@icloud.com", password:str = "Earthday19!@22", user_agent = None):
+	def __init__(self, email:str = None, password:str = None, user_agent = None):
 		self.email = email
 		self.password = password
 		self.user_id = ""
