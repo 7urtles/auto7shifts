@@ -167,7 +167,7 @@ def set_userpass(*args):
 if __name__ == "__main__":
 	logging.basicConfig(
 		#format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
-		level=logging.ERROR
+		level=logging.DEBUG
 		#datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
 	main()
