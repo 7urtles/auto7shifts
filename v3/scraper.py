@@ -10,10 +10,11 @@ class ShiftScraper:
 		self.password = password
 		self.user_id = ""
 		self.first_name = ""
-		self.allowed_compaines = [dict]
-		self.allowed_locations = [dict]
-		self.allowed_roles = [dict]
-		self.days_scheduled = [dict]
+		self.user_shifts = []
+		self.allowed_compaines = []
+		self.allowed_locations = []
+		self.allowed_roles = []
+		self.days_scheduled = []
 		self.session = requests.Session()
 		self.session.headers["user-agent"] = user_agent
 
@@ -36,6 +37,7 @@ class ShiftScraper:
 			logging.info("Loggin Success")
 			return True
 		logging.error("Login Failed")
+		raise ValueError("Login Failed! Credentials not valid")
 		return False
 
 	def _update_user(self) -> str:
@@ -47,8 +49,8 @@ class ShiftScraper:
 		self.user_id = account_data['user_id']
 		self.first_name = account_data['first_name']
 		self.allowed_compaines = account_data['company']
-		self.allowed_locations = account_data['locations']
-		self.allowed_roles = account_data['roles']
+		self.allowed_locations = {location['id']:location for location in account_data['locations']}
+		self.allowed_roles = {role['id']:role for role in account_data['roles']}
 		logging.debug(f"{self.user_id=}")
 		logging.debug(f"{self.first_name=}")
 		logging.debug(f"{self.allowed_compaines=}")
@@ -72,9 +74,11 @@ class ShiftScraper:
 			#if the shift belongs to the user
 			if shift['user_id'] == self.user_id:
 				# Get shifts day of the week
+				self.user_shifts.append(shift)
 				shift_day = date_to_weekday(convert_shift_date(shift['start'].split(' ')[0]))
 				self.days_scheduled.append(shift_day)
 		logging.debug(f"Currently Scheduled: {self.days_scheduled}")
+
 
 	def _update_pool(self) -> list[dict]:
 		logging.info("Updating Shift Pool")
