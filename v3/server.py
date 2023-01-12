@@ -170,6 +170,5 @@ if __name__ == "__main__":
 		filename='logs/7shifts.log', encoding='utf-8', level=logging.DEBUG, 
 		datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
-	b
 	# Launching the callback webserver
 	app.run(host="0.0.0.0", port=5007)

@@ -99,8 +99,13 @@ def get_selections(*args):
 def run():
 	server.scraper = account
 	server.init_db()
-	server.app.run()
-	logging.info("RUNNING")
+	logging.basicConfig(
+		format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
+		filename='logs/7shifts.log', encoding='utf-8', level=logging.DEBUG, 
+		datefmt='%m/%d/%Y %I:%M:%S %p'
+	)
+	# Launching the callback webserver
+	app.run(host="0.0.0.0", port=5007)
 
 def login_menu(user_name:str = None, user_pass:str = None) -> bool:
 	if account.user_id:
