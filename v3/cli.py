@@ -105,7 +105,7 @@ def run():
 		datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
 	# Launching the callback webserver
-	app.run(host="0.0.0.0", port=5007)
+	server.app.run(host="0.0.0.0", port=5007)
 
 def login_menu(user_name:str = None, user_pass:str = None) -> bool:
 	if account.user_id:
