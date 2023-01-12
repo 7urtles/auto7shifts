@@ -166,8 +166,8 @@ def set_userpass(*args):
 
 if __name__ == "__main__":
 	logging.basicConfig(
-		#format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
-		level=logging.DEBUG
-		#datefmt='%m/%d/%Y %I:%M:%S %p'
+		format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
+		filename='logs/7shifts.log', encoding='utf-8', level=logging.DEBUG, 
+		datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
 	main()
