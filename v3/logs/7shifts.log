@@ -1,1 +1,6 @@
 
+[01/09/2023 07:14:13 PM][INFO][werkzeug]_internal.py[224]:_log() -> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5007
+ * Running on http://192.168.1.226:5007
+[01/09/2023 07:14:13 PM][INFO][werkzeug]_internal.py[224]:_log() -> [33mPress CTRL+C to quit[0m

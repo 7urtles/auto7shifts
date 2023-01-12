@@ -5,15 +5,19 @@ from tools.shift_tools import convert_shift_date, date_to_weekday
 # *******************************************************************************
 
 class ShiftScraper:
-	def __init__(self, email:str="charleshparmley@icloud.com", password:str="Earthday19!@22", user_agent=None):
+	def __init__(self, email:str = "charleshparmley@icloud.com", password:str = "Earthday19!@22", user_agent = None):
 		self.email = email
 		self.password = password
-		self.user_id = None
-		self.days_scheduled = []
+		self.user_id = ""
+		self.first_name = ""
+		self.allowed_compaines = [dict]
+		self.allowed_locations = [dict]
+		self.allowed_roles = [dict]
+		self.days_scheduled = [dict]
 		self.session = requests.Session()
 		self.session.headers["user-agent"] = user_agent
 
-	def __login(self) -> bool:
+	def _login(self) -> bool:
 		login_request_data = {
 		    'url':'https://app.7shifts.com/users/login',
 		    'data':{
@@ -34,17 +38,25 @@ class ShiftScraper:
 		logging.error("Login Failed")
 		return False
 
-	def __update_user(self) -> str:
+	def _update_user(self) -> str:
 		logging.info("Updating Account Data")
 		user_account_request_data = {
 	    	'url':"https://app.7shifts.com/api/v2/company/139871/account"
 		}
-		self.user_id = self.session.get(**user_account_request_data).json()['data']['user_id']
-
-		logging.debug(f"User ID: {self.user_id}")
+		account_data = self.session.get(**user_account_request_data).json()['data']
+		self.user_id = account_data['user_id']
+		self.first_name = account_data['first_name']
+		self.allowed_compaines = account_data['company']
+		self.allowed_locations = account_data['locations']
+		self.allowed_roles = account_data['roles']
+		logging.debug(f"{self.user_id=}")
+		logging.debug(f"{self.first_name=}")
+		logging.debug(f"{self.allowed_compaines=}")
+		logging.debug(f"{self.allowed_locations=}")
+		logging.debug(f"{self.allowed_roles=}")
 		return self.user_id
 
-	def __update_days_scheduled(self) -> None:
+	def _update_days_scheduled(self) -> None:
 		self.days_scheduled = []
 		logging.info("Updating Scheduled Days")
 		employee_shift_request_data = {
@@ -56,7 +68,6 @@ class ShiftScraper:
 			}
 		}
 		employee_shifts = self.session.get(**employee_shift_request_data).json()['data']
-
 		for shift in employee_shifts:	
 			#if the shift belongs to the user
 			if shift['user_id'] == self.user_id:
@@ -65,7 +76,7 @@ class ShiftScraper:
 				self.days_scheduled.append(shift_day)
 		logging.debug(f"Currently Scheduled: {self.days_scheduled}")
 
-	def __update_pool(self) -> list[dict]:
+	def _update_pool(self) -> list[dict]:
 		logging.info("Updating Shift Pool")
 		shift_offers_request_data = {
 		    'url':"https://app.7shifts.com/gql",
@@ -76,12 +87,15 @@ class ShiftScraper:
 		            'cursor': None,
 		            'limit': 20,
 		        },
-		        'query': 'query GetLegacyShiftPoolOffers($companyId: ID!, $cursor: String, $limit: Int) {\n  getShiftPool(companyId: $companyId, cursor: $cursor, limit: $limit) {\n    legacyShiftPoolOffers {\n      ...LegacyShiftPoolOfferFragment\n      __typename\n    }\n    cursor {\n      prev\n      next\n      count\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment LegacyShiftPoolOfferFragment on LegacyShiftPoolOffer {\n  shiftPool {\n    id\n    offerType\n    offerId\n    offers {\n      id\n      firstname\n      lastname\n      photo\n      __typename\n    }\n    __typename\n  }\n  comments\n  shift {\n    id\n    start\n    end\n    open\n    user {\n      userId\n      firstName\n      lastName\n      photo\n      __typename\n    }\n    locationId\n    location {\n      address\n      timezone\n      __typename\n    }\n    department {\n      name\n      __typename\n    }\n    role {\n      id\n      name\n      color\n      __typename\n    }\n    __typename\n  }\n  location {\n    address\n    timezone\n    __typename\n  }\n  bids {\n    id\n    userId\n    __typename\n  }\n  __typename\n}\n',
+		        'query': 'query GetLegacyShiftPoolOffers($companyId: ID!, $cursor: String, $limit: Int) {\n  getShiftPool(companyId: $companyId, cursor: $cursor, limit: $limit) {\n    legacyShiftPoolOffers {\n      ...LegacyShiftPoolOfferFragment\n      _typename\n    }\n    cursor {\n      prev\n      next\n      count\n      _typename\n    }\n    _typename\n  }\n}\n\nfragment LegacyShiftPoolOfferFragment on LegacyShiftPoolOffer {\n  shiftPool {\n    id\n    offerType\n    offerId\n    offers {\n      id\n      firstname\n      lastname\n      photo\n      _typename\n    }\n    _typename\n  }\n  comments\n  shift {\n    id\n    start\n    end\n    open\n    user {\n      userId\n      firstName\n      lastName\n      photo\n      _typename\n    }\n    locationId\n    location {\n      address\n      timezone\n      _typename\n    }\n    department {\n      name\n      _typename\n    }\n    role {\n      id\n      name\n      color\n      _typename\n    }\n    _typename\n  }\n  location {\n    address\n    timezone\n    _typename\n  }\n  bids {\n    id\n    userId\n    _typename\n  }\n  _typename\n}\n',
 		    },
 		    'allow_redirects':False
 		}
-		shift_pool = self.session.post(**shift_offers_request_data).json()['data']['getShiftPool']['legacyShiftPoolOffers']
+		shift_pool = self.session.post(**shift_offers_request_data).json()
 		logging.debug(f"Shift Pool: {shift_pool}")
+		if shift_pool.get('data'):
+			shift_pool = shift_pool['data']['getShiftPool']['legacyShiftPoolOffers']
+		
 		return shift_pool
 
 	def pickup_shift(self, shift) -> bool:
@@ -106,10 +120,10 @@ class ShiftScraper:
 		return True
 
 	def shift_pool(self) -> bool:
-		if self.__login():
-			if self.__update_user():
-				self.__update_days_scheduled(self)
-				return self.__update_pool()
+		if self._login():
+			if self._update_user():
+				self._update_days_scheduled()
+				return self._update_pool()
 		return False
 
 	def login(self) -> bool:
@@ -117,14 +131,14 @@ class ShiftScraper:
 		Both self.login() & self.update_account_data() must be run to gain
 		necessary cookies and headers.
 		"""
-		if self.__login():
-			if self.__update_user():
-				self.__update_days_scheduled()
-				self.__update_pool()
+		if self._login():
+			if self._update_user():
+				self._update_days_scheduled()
+				self._update_pool()
 				return True
 		return False
 
-	def __repr__(self):
+	def _repr_(self):
 		return f"<ShiftScraper: {self.user_id}>"
 
 # *******************************************************************************
