@@ -1,7 +1,5 @@
-# Auto7shifts v3
-<br>
-## Purpose:
-
+# Auto7shifts v3  
+ 
 Some employee management tools have a feature to automatically claim work shifts as they come available.  
 Currently the 7shifts employee management application does not have this feature.
 
