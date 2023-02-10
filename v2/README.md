@@ -1,6 +1,6 @@
-Auto7shifts v2
+# Auto7shifts v2
 
-Second iteration of an automated shift pickup tool.
+### Second iteration of an automated shift pickup tool.
 
 
 ## Purpose:
