@@ -68,7 +68,7 @@ This is automatically done by Auto7shifts.
 The 'TWILIO_ENDPOINT' variable is used to protect the applications callback url which prevents unauthorized triggering  
 of the applications messaging system and is already set for you.  
 
-Necessary keys can be found on the Twilio home console.  
+Necessary keys below can be found on the Twilio home console.  
 
 | Key | Example |
 | ------------- | ------------- |
