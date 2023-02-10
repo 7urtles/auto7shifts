@@ -69,10 +69,14 @@ The 'TWILIO_ENDPOINT' variable is used to protect the applications callback url 
 of the applications messaging system and is already set for you.  
 
 Necessary keys can be found on the Twilio home console.  
-  - TWILIO_ACCOUNT_SID     ex: 'pk_live_notAnAcutalKey'
-  - TWILIO_AUTH_TOKEN      ex: 'sk_live_notAnAcutalKey'
-  - TWILIO_PHONE_NUMBER    ex: '+18887776666'
-  - PHONE_NUMBER           ex: '+18887776666'
+
+| Variable  | Example |
+| ------------- | ------------- |
+| TWILIO_ACCOUNT_SID  | 'pk_live_notAnAcutalKey'  |
+| TWILIO_AUTH_TOKEN  | 'sk_live_notAnAcutalKey'  |
+| TWILIO_PHONE_NUMBER  | '+18887776666'  |
+| PHONE_NUMBER  | '+18887776666'  |
+
 
 The workflow for sms notifications is as such:
 1. 7Shifts sends notification contents as an sms to Twilio triggering a webhook event
