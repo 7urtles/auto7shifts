@@ -62,8 +62,8 @@ pip install -r requirements.txt
 ```
 python3 cli.py
 ```
-
-### SMS Notifications
+<br>
+## SMS Notifications
 Twilio setup is required. Each sms costs less than a penny. 
 Other free options may be added in the future.  
 
@@ -94,7 +94,7 @@ The workflow for sms notifications is as such:
 1. 7Shifts sends notification contents as an sms to Twilio triggering a webhook event
 2. Twilio sends the notification contents to the applications callback endpoint activiting its functionality
 3. If a shift is claimed its details are parsed by the application and sent to the user.
-
+<br>
 ### Auto7shifts as a service
 A stripe account must be created, along with a product setting the price and payment specifications as you desire.
 More information and detailed instructions can be found on their docs page here:  
@@ -102,6 +102,6 @@ https://stripe.com/docs/products-prices/getting-started
 
 After completion of the form within the applications web interface the user will be directed to a stripe payment page.
 The application is configured to only send a charge once it claims a shift, and will do so for every shift claimed.
-
+<br>
 ### Telegram Notifications
 - Setup information pending
