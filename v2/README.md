@@ -48,8 +48,13 @@ Auto7shifts is compliant with their TOS, user, and api policies.
 <br>
 
 ## Setup:
-In config.json fill the following fields according to their names.  
-If a feature is not desired set the 'ACTIVE' variable to False
+Some basic Git commands are:
+```
+git status
+git add
+git commit
+```
+After cloning this repository edit the included config.json with the relevant account information and keys
 
 ### SMS Notifications
 Twilio setup is required. Each sms costs less than a penny. 
