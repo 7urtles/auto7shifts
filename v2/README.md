@@ -70,7 +70,7 @@ of the applications messaging system and is already set for you.
 
 Necessary keys can be found on the Twilio home console.  
 
-| Variable  | Example |
+| Key | Example |
 | ------------- | ------------- |
 | TWILIO_ACCOUNT_SID  | 'pk_live_notAnAcutalKey'  |
 | TWILIO_AUTH_TOKEN  | 'sk_live_notAnAcutalKey'  |
