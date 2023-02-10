@@ -48,32 +48,41 @@ Auto7shifts is compliant with their TOS, user, and api policies.
 <br>
 
 ## Setup:
-
 In config.json fill the following fields according to their names.  
 If a feature is not desired set the 'ACTIVE' variable to False
 
 ### SMS Notifications
 Twilio setup is required. Each sms costs less than a penny. 
-Other free options may be added in the future.
-This functionality requries setting your Twilio phone number as your 7shifts contact number, along with  
-enabling sms notifications within the 7shifts application which is automatically configured by Auto7shifts.
+Other free options may be added in the future.  
+
+After creating an account setting up an sms service can be done here:  
+https://console.twilio.com/us1/develop/sms/services
+
+Once a messaging service is configured the callback url may be set up by going to:
+Develop -> Sender Pool -> and clicking the phone number you registered.
+
+This functionality requries setting the above phone number as your 7shifts contact number, along with  
+switching from push to sms notifications within the 7shifts application.  
+This is automatically done by Auto7shifts.
 
 The 'TWILIO_ENDPOINT' variable is used to protect the applications callback url which prevents unauthorized triggering  
 of the applications messaging system and is already set for you.  
 
 Necessary keys can be found on the Twilio home console.  
-- TWILIO_ACCOUNT_SID
-- TWILIO_AUTH_TOKEN
-- TWILIO_PHONE_NUMBER
-- PHONE_NUMBER
+- TWILIO_ACCOUNT_SID     ex: 'pk_live_notAnAcutalKey'
+- TWILIO_AUTH_TOKEN      ex: 'sk_live_notAnAcutalKey'
+- TWILIO_PHONE_NUMBER    ex: '+18887776666'
+- PHONE_NUMBER           ex: '+18887776666'
 
 The workflow for sms notifications is as such:
 1. 7Shifts sends notification contents as an sms to Twilio triggering a webhook event
 2. Twilio sends the notification contents to the applications callback endpoint activiting its functionality
 3. If a shift is claimed its details are parsed by the application and sent to the user.
 
-
-
+### Auto7shifts as a service
+A stripe account must be created, along with a product setting the price and payment specifications as you desire.
+More information and detailed instructions can be found on their docs page here:  
+https://stripe.com/docs/products-prices/getting-started
 
 ### Telegram Notifications
 - Setup information pending
