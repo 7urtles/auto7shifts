@@ -169,7 +169,7 @@ def init_db():
 if __name__ == "__main__":
 	logging.basicConfig(
 		format='[%(asctime)s][%(levelname)s][%(name)s]%(filename)s[%(lineno)d]:%(funcName)s() -> %(message)s', 
-		filename='logs/7shifts.log', encoding='utf-8', level=logging.DEBUG, 
+		filename='logs/7shifts.log', encoding='utf-8', level=logging.INFO, 
 		datefmt='%m/%d/%Y %I:%M:%S %p'
 	)
 	# Launching the callback webserver
