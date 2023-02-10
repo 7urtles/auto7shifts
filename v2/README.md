@@ -14,7 +14,8 @@ Since other employees of a company cannot auto claim shifts, an Auto7shifts user
 employee within a company to to instantly claim shifts that come available.
 
 This allows a user to have a significant increase in pay based on how much they are willing to work and   
-how many shifts come available. Personal testing yielded an average pay increase of $300 a week. Not too shabby!  
+how many shifts come available. Personal testing yielded an average pay increase of $300 a week.  
+Not too shabby!  
 
 
 ## Features:
