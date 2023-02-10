@@ -6,7 +6,7 @@ Currently the 7shifts employee management application does not have this feature
 Auto7shifts aims to fill that gap.
 
 Since other employees of a company cannot auto claim shifts, an Auto7shifts user can potentially be the only  
-employee within a company to to instantly claim shifts that come available.
+employee within a company to instantly claim shifts that come available.
 
 This allows a user to have a significant increase in pay based on how much they are willing to work and   
 how many shifts come available. Personal testing yielded an average pay increase of $300 a week.  
