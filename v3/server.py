@@ -76,9 +76,9 @@ def shift_handler(pool_data:list[dict]) -> bool:
 		return False
 	logging.info("Checking Shifts")
 	for shift in pool_data:
-		# clean up excessive dict
+		# remove unwanted dict values
 		shift = format_shift(shift)
-		# convert to obj for easier handling/storage
+		# create shift obj from dict for more simple handling/storage
 		shift = DroppedShift(**shift)
 		# if shift is new to the database
 		if shift_not_stored(shift.id):
