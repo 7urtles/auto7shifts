@@ -48,13 +48,20 @@ Auto7shifts is compliant with their TOS, user, and api policies.
 <br>
 
 ## Setup:
-Some basic Git commands are:
 ```
-git status
-git add
-git commit
+git clone https://github.com/chparmley/auto7shifts.git
 ```
-After cloning this repository edit the included config.json with the relevant account information and keys
+After setting up the necessary accounts (instructions below)
+clone this repository and edit the included config.json with relevant account information and keys.  
+
+Then
+```
+cd auto7shifts
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 
+```
 
 ### SMS Notifications
 Twilio setup is required. Each sms costs less than a penny. 
