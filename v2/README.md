@@ -4,7 +4,7 @@ Second iteration of an automated shift pickup tool.
 
 --------
 
-## Purpose:
+### Purpose:
 
 Some employee management tools have a feature to automatically claim work shifts as they come available.  
 Currently the 7shifts employee management application does not have this feature.
