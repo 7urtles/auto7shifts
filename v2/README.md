@@ -17,7 +17,7 @@ This allows a user to have a significant increase in pay based on how much they 
 how many shifts come available. Personal testing yielded an average pay increase of $300 a week. Not too shabby!
 
 
-###Features:
+### Features:
 ---------
 * Privelage Detection:  
 Companies possibly have multiple roles, positions, and locations.
