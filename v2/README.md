@@ -19,14 +19,14 @@ how many shifts come available. Personal testing yielded an average pay increase
 
 ### Features:
 ---------
-#### Privelage Detection:  
+#### Privelage Detection:
 Companies possibly have multiple roles, positions, and locations.
 The app will detect what the user has access to and provide selectable options accordingly.
 
-#### Day Selection:  
+#### Day Selection:
 Ability to specify what days a user would like to pick up shifts on.
 
-* #### Schedule Detection:  
+#### Schedule Detection:
 The official 7shifts app allows the possibility for users to pick up shifts when the are already scheduled.
 Auto7shifts will detect what days a user is already working and prevent accidental double scheduling issues.
 
