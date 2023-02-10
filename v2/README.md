@@ -16,7 +16,7 @@ employee within a company to to instantly claim shifts that come available.
 This allows a user to have a significant increase in pay based on how much they are willing to work and   
 how many shifts come available. Personal testing yielded an average pay increase of $300 a week.  
 Not too shabby!  
-
+<br>
 
 ## Features:
 
