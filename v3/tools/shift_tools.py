@@ -21,7 +21,7 @@ def shift_wanted(shift, app) -> bool:
     # If we made it here the found shift is acceptable to claim 
     return True
 
-def convert_shift_date(shift_start_string:str) -> date:
+def shift_to_datetime(shift_start_string:str) -> date:
     # Parse out the shift date
     date_string = shift_start_string.split('T')[0]
     formatted_date = datetime.strptime(date_string, '%Y-%m-%d')
