@@ -15,7 +15,7 @@ how many shifts come available. Personal testing yielded an average pay increase
 Not too shabby!  
 <br>
 
-## Features:
+## Current Features:
 
 - Privelage Detection:  
 Companies possibly have multiple roles, positions, and locations.
