@@ -48,18 +48,18 @@ Auto7shifts is compliant with their TOS, user, and api policies.
 <br>
 
 ## Setup:
+1. Set up the necessary accounts (instructions below)
+2. Clone this repository, installing necessary dependancies
 ```
 git clone https://github.com/chparmley/auto7shifts.git
-```
-After setting up the necessary accounts (instructions below)
-clone this repository and edit the included config.json with relevant account information and keys.  
-
-Then
-```
 cd auto7shifts
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+3. Edit the included config.json with relevant account information and keys
+4. Run
+```
 python3 cli.py
 ```
 
