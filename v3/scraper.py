@@ -1,8 +1,20 @@
 import logging
 import requests
 from datetime import datetime
-from tools.shift_tools import convert_shift_date, date_to_weekday
+from tools.shift_tools import shift_to_datetime, date_to_weekday
 # *******************************************************************************
+
+''' 
+The ShiftScrapers functions for the majority follow this pattern:
+	1. Construct request
+	2. Send request
+	3. React to response
+	
+Their purpose is to be called in groups to perform a larger task such as performing login
+and updating user data.
+
+The exception to this is ShiftScraper.pickup_shift() because of always updating user data before calling it.
+'''
 
 class ShiftScraper:
 	def __init__(self, email:str = None, password:str = None, user_agent = None):
