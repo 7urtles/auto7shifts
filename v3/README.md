@@ -95,7 +95,7 @@ The workflow for sms notifications is as such:
 3. If a shift is claimed its details are parsed by the application and sent to the user.
 <br>
 
-### Auto7shifts as a service
+## Auto7shifts as a service
 A stripe account must be created, along with a product setting the price and payment specifications as you desire.
 More information and detailed instructions can be found on their docs page here:  
 https://stripe.com/docs/products-prices/getting-started
