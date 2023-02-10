@@ -33,7 +33,7 @@ Auto7shifts will detect what days a user is already working and prevent accident
 
 - SMS Notifications via Twilio:  
 If twilio is configured the app can send sms messages to the user notifying of the details of their new shift  
-upon claiming it. Notification includes timeframe, date, role, position, and location of the claimed shift.
+upon claiming it. Notification includes timeframe, date, role, position, and location of the claimed shift.  
 Setup instructions pending...
 
 - Telegram Message Notifications:  
@@ -46,8 +46,8 @@ of Auto7shifts as a service
 
 - Device Discretion:  
 Auto7shifts changes the applications user-agent in its request headers to normalize the apps appearance to  
-7shifts official web app servers. However this is not necessary as 7shifts support and developer team have  
-verified that Auto7shifts is compliant with their TOS, user, and api policies. 
+7shifts official web app servers. However this is not necessary as 7shifts support and developer team have verified  
+Auto7shifts is compliant with their TOS, user, and api policies. 
 
 
 ## Usage:
