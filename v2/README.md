@@ -1,8 +1,5 @@
 # Auto7shifts v2
 
-### Second iteration of an automated shift pickup tool.
-
-
 ## Purpose:
 
 Some employee management tools have a feature to automatically claim work shifts as they come available.  
