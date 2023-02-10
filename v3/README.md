@@ -45,6 +45,10 @@ Auto7shifts changes the applications user-agent in its request headers to normal
 Auto7shifts is compliant with their TOS, user, and api policies. 
 <br>
 
+- Logging & Data Storage
+Logging is set to INFO level by default & ogfile can be found in auto7shifts/logs
+User account creation is currently disabled. Found shifts get stored into a simple sqlite3 database
+
 ## Setup:
 1. Set up the necessary accounts (instructions below)
 2. Clone this repository, installing necessary dependancies
@@ -63,6 +67,7 @@ python3 cli.py
 <br>
 ## SMS Notifications
 Twilio setup is required. Each sms costs less than a penny. 
+ROI should be acceptable.
 Other free options may be added in the future.  
 
 After creating an account setting up an sms service can be done here:  
