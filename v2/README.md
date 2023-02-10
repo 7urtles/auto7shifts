@@ -48,8 +48,35 @@ of Auto7shifts as a service
 Auto7shifts changes the applications user-agent in its request headers to normalize the apps appearance to  
 7shifts official web app servers. However this is not necessary as 7shifts support and developer team have verified  
 Auto7shifts is compliant with their TOS, user, and api policies. 
+<br>
+
+## Setup:
+
+In config.json fill the following fields according to their names.  
+If a feature is not desired set the 'ACTIVE' variable to False
+
+### SMS Notifications
+Twilio setup is required. Each sms costs less than a penny. 
+Other free options may be added in the future.
+This functionality requries setting your Twilio phone number as your 7shifts contact number, along with  
+enabling sms notifications within the 7shifts application which is automatically configured by Auto7shifts.
+
+The 'TWILIO_ENDPOINT' variable is used to protect the applications callback url which prevents unauthorized triggering  
+of the applications messaging system and is already set for you.  
+
+Necessary keys can be found on the Twilio home console.  
+- TWILIO_ACCOUNT_SID
+- TWILIO_AUTH_TOKEN
+- TWILIO_PHONE_NUMBER
+- PHONE_NUMBER
+
+The workflow for sms notifications is as such:
+1. 7Shifts sends notification contents as an sms to Twilio triggering a webhook event
+2. Twilio sends the notification contents to the applications callback endpoint activiting its functionality
+3. If a shift is claimed its details are parsed by the application and sent to the user.
 
 
-## Usage:
-------
-Edit the included config.json
+
+
+### Telegram Notifications
+- Setup information pending
