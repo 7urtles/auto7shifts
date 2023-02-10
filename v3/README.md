@@ -1,5 +1,5 @@
 # Auto7shifts v3
-
+<br>
 ## Purpose:
 
 Some employee management tools have a feature to automatically claim work shifts as they come available.  
