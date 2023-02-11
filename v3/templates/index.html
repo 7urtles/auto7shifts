@@ -34,34 +34,20 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
               <div class="container-fluid">
-                <h1 class="text-center navbar-brand mx-auto mb-5" href="http://www.7shifts.online">Automated Shift Grabber</h1>
+                <h1 class="text-center navbar-brand mx-auto mb-5" href="http://www.7shifts.online">7shifts Automated Pickup Tool</h1>
               </div>
             </nav>
 
             <form name=signup-form action='/submit' method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
+                
                 <h3>
                     Welcome 
                 </h3>
                 <fieldset> 
                     <div class="form-group text-center">
                         <img src="{{ url_for('static', filename='Mini-Robot.png')}}" class="mt-1fa mx-auto d-block w-75 h-75" alt="robot">
-                        <p class="mt-1 px-2">Get the work you deserve</p>
-                    </div>
-                </fieldset>
-
-                <h3>
-                    Contact Info
-                </h3>
-                <fieldset> 
-                    <h2>Contact</h2>
-                    <div class="form-group">
-                        <input type="text" name="first_name" category="contact" id="first_name" placeholder="First Name"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="last_name" category="contact" id="last_name" placeholder="Last Name"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="phone" category="contact" id="phone" placeholder="Phone"/>
+                        <p class="mt-1 px-2">Your Schedule</p>
+                        <p class="mt-1 px-2">Your Control</p>
                     </div>
                 </fieldset>
 
@@ -71,24 +57,23 @@
                 <fieldset>
                     <h2>Account Connection</h2>
                     <div class="form-group">
+                        <input type="text" name="phone" category="contact" id="phone" placeholder="Phone"/>
+                    </div>
+                    <div class="form-group">
                         <input type="email" name="email" category="login" id="email" placeholder="7shifts_login@mail.com"/>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" category="login" id="password" placeholder="7shifts Password"/>
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="user_agent" category="login" id="repassword" value="Mozilla/5.0 (iPhone14,3; U; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/19A346 Safari/602.1" placeholder="Confirm Password"/>
-                    </div>
                 </fieldset>
 
                 <h3>
-                    Pick Shift
+                    Preferences
                 </h3>
                 <fieldset>
-                    <br>
+                    <h2>Shift Options</h2>
                     <h5 class="text-start">Role:</h5>
                     <div class="form-group">
-                        <!-- <input type="text" name="shift_type" id="shift_type" placeholder="Bartender, Security"/> -->
                         <select class="form-control selectpicker text-secondary" category="roles" aria-label="select_position" multiple>
                           <option value="Bartender">Bartender</option>
                           <option value="Security">Security</option>
@@ -107,13 +92,6 @@
 
                     <h5 class="text-start">Location:</h5>
                     <div class="form-group">
-                        <!-- <select class="form-select selectpicker text-secondary" name="location" aria-label="select_location" multiple>
-                            <option selected>None</option>
-                            <option value="yardbar">Yard Bar Westport</option>
-                            <option value="bridgers">Bridgers</option>
-                            <option value="lotus">Lotus</option>
-                            <option value="shotstop">Shot Stop</option>
-                        </select> -->
                         <select class="form-control selectpicker text-secondary" category="locations" aria-label="select_position" multiple>
                             <option value="Yardbar">Yard Bar Westport</option>
                             <option value="Bridgers">Bridgers</option>
@@ -122,9 +100,6 @@
                         </select>
                     </div>
                 </fieldset>
-                <!-- <button type="button" id='some-button' onclick="test_submit()">Test</button> -->
-                <!-- <button type="button" id='submit-button' onclick="test_submit()">Submit</button> -->
-                
             </form>
         </div>
 
