@@ -1,12 +1,12 @@
 import logging
 import getpass
-from scraper import ShiftScraper
+from scraper import SessionInstance
 from simple_term_menu import TerminalMenu
 from pprint import pprint
 from tools import shift_tools
 import server
 
-account = ShiftScraper()
+account = SessionInstance()
 account.user_agent = server.USER_AGENT
 welcome_text = "--Welcome to ezShifts--"
 login_text = "Please Login:"
@@ -40,12 +40,12 @@ def main_menu():
 
 def preferences_menu() -> bool:
 	welcome_text = f"\nWelcome {account.email},\n\nCurrent Schedule:\n"
-	current_shifts = [f"{account.allowed_roles[shift['role_id']]['name']} | {shift_tools.date_to_weekday(shift_tools.convert_shift_date(shift['start'].split(' ')[0]))} | {account.allowed_locations[shift['location_id']]['name']}" for shift in account.user_shifts]
+	current_shifts = [f"{account.roles[shift['role_id']]['name']} | {shift_tools.date_to_weekday(shift_tools.convert_shift_date(shift['start'].split(' ')[0]))} | {account.locations[shift['location_id']]['name']}" for shift in account.shifts]
 	title = f"\n{welcome_text} {current_shifts}\n"
 	menu_options = {
 		"options" : [f"Roles: {user_preferences['roles']}", f"Days: {user_preferences['days']}", f"Locations: {user_preferences['locations']}"],
 		"actions" : [get_selections for option in user_preferences],
-		"values" : [account.allowed_roles, {day:{"name":day} for day in weekdays}, account.allowed_locations]
+		"values" : [account.roles, {day:{"name":day} for day in weekdays}, account.locations]
 	}
 
 	logging.debug(list(user_preferences.values()))
@@ -129,7 +129,7 @@ def login_menu(user_name:str = None, user_pass:str = None) -> bool:
 
 
 def send_login(*args):
-	account.login()
+	account.update()
 	if not account.user_id:
 		raise ValueError("Login Failed! Credentials not valid")
 		logging.debug(f"{account.user_id=}")
