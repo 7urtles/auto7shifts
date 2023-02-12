@@ -35,10 +35,6 @@ Setup instructions pending...
 This feature requires the creation and setup of a Telegram bot.
 Setup instructions pending...
 
-- Web UI w/ Stripe payment portal:  
-A entrepenurial user can use the included flask server frontend, serving it publically, to provide use  
-of Auto7shifts as a service
-
 - Device Discretion:  
 Auto7shifts changes the applications user-agent in its request headers to normalize the apps appearance to  
 7shifts official web app servers. However this is not necessary as 7shifts support and developer team have verified  
