@@ -88,7 +88,7 @@ class SessionInstance:
 		"""
 		logging.info("Updating Account Data")
 		user_account_request_data = {
-	    	'url':"https://app.7shifts.com/api/v2/company/254692/account"
+	    	'url':f"https://app.7shifts.com/api/v2/company/{ company_id }/account"
 		}
 		try:
 			account_data = self.session.get(**user_account_request_data).json()['data']
@@ -122,8 +122,8 @@ class SessionInstance:
 	    	'url':"https://app.7shifts.com/api/v1/schedule/shifts",
 			'params' : {
 			    'week': f"{datetime.date(datetime.today())}",
-			    'location_id': '319579',
-			    'department_id': '464752',
+			    'location_id': f"{ location_id }",
+			    'department_id': f"{ department_id }",
 			}
 		}
 		try:
@@ -160,7 +160,7 @@ class SessionInstance:
 		    'json':{
 		        'operationName': 'GetLegacyShiftPoolOffers',
 		        'variables': {
-		            'companyId': '254692',
+		            'companyId': f"{ company_id }",
 		            'cursor': None,
 		            'limit': 20,
 		        },
