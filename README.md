@@ -58,7 +58,7 @@ python3 cli.py
 ## SMS Notifications
 Twilio setup is required. Each sms costs less than a penny. 
 ROI should be acceptable.
-Other free options may be added in the future.  
+Free methods are being explored.  
 
 After creating an account setting up an sms service can be done here:  
 https://console.twilio.com/us1/develop/sms/services
