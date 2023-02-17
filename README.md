@@ -1,16 +1,14 @@
-# Auto7shifts v3  
+# Auto7shifts
  
-Some employee management tools have a feature to automatically claim work shifts as they come available.  
-Currently the 7shifts employee management application does not have this feature.
+Some employee management tools have a feature to automatically claim work as it comes available.
 
-Auto7shifts aims to fill that gap.
+Auto7shifts provides that functionality to a user giving them an edge above their peers.
 
-Since other employees of a company cannot auto claim shifts, an Auto7shifts user can potentially be the only  
-employee within a company to instantly claim shifts that come available.
+If other employees of a company cannot auto claim shifts, an Auto7shifts user can be the only  
+employee within a company to automatically claim shifts as they come available.
 
 This allows a user to have a significant increase in pay based on how much they are willing to work and   
-how many shifts come available. Personal testing yielded an average pay increase of $300 a week.  
-Not too shabby!  
+how many shifts come available. Testing showed a users work opportunity increase by 30% on average. 
 <br>
 
 ## Current Features:
@@ -26,19 +24,15 @@ Ability to specify what days a user would like to pick up shifts on.
 The official 7shifts app allows the possibility for users to pick up shifts when the are already scheduled.
 Auto7shifts will detect what days a user is already working and prevent accidental double scheduling issues.
 
-- SMS Notifications via Twilio:  
-If twilio is configured the app can send sms messages to the user notifying of the details of their new shift  
+- SMS Notifications:  
+If Twilio is configured the app can send sms messages to the user notifying of the details of their new shift  
 upon claiming it. Notification includes timeframe, date, role, position, and location of the claimed shift.  
-Setup instructions pending...
-
-- Telegram Message Notifications:  
-This feature requires the creation and setup of a Telegram bot.
 Setup instructions pending...
 
 - Device Discretion:  
 Auto7shifts changes the applications user-agent in its request headers to normalize the apps appearance to  
-7shifts official web app servers. However this is not necessary as 7shifts support and developer team have verified  
-Auto7shifts is compliant with their TOS, user, and api policies. 
+7shifts official web app servers. However this is not necessary and 7shifts support has verified their TOS, user, 
+and api policies are not being violated.
 <br>
 
 - Logging & Data Storage
@@ -92,15 +86,3 @@ The workflow for sms notifications is as such:
 1. 7Shifts sends notification contents as an sms to Twilio triggering a webhook event
 2. Twilio sends the notification contents to the applications callback endpoint activiting its functionality
 3. If a shift is claimed its details are parsed by the application and sent to the user.
-<br>
-
-## Auto7shifts as a service
-A stripe account must be created, along with a product setting the price and payment specifications as you desire.
-More information and detailed instructions can be found on their docs page here:  
-https://stripe.com/docs/products-prices/getting-started
-
-After completion of the form within the applications web interface the user will be directed to a stripe payment page.
-The application is configured to only send a charge once it claims a shift, and will do so for every shift claimed.
-<br>
-### Telegram Notifications
-- Setup information pending
