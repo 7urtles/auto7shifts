@@ -97,7 +97,7 @@ class SessionInstance:
 			return False
 		return account_data
 
-	def	_update_session_info(self, account_data) -> bool:
+	def _update_session_info(self, account_data) -> bool:
 		"""
 		Takes in user data requested from 7shifts.com, storing it in the classes
 		instance variables.
