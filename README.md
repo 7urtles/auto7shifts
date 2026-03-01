@@ -5,7 +5,7 @@ Automated shift-claiming tool for the 7shifts scheduling platform. Monitors the 
 ---
 
 <details>
-<summary><h3>Overview</h3></summary>
+<summary><strong>Overview</strong></summary>
 
 Auto7Shifts authenticates against 7shifts' internal API, polls the open shift pool, and automatically claims shifts that match the user's configured preferences. It checks the user's existing schedule before claiming to prevent double-booking, and sends an SMS confirmation via Twilio when a shift is successfully claimed.
 
@@ -27,7 +27,7 @@ Auto7Shifts authenticates against 7shifts' internal API, polls the open shift po
 </details>
 
 <details>
-<summary><h3>Features</h3></summary>
+<summary><strong>Features</strong></summary>
 
 - **Privilege detection**: reads the user's accessible companies, locations, and roles and presents them as selectable filter options in the CLI
 - **Schedule conflict detection**: fetches the user's current week schedule before claiming; skips shifts on days already worked
@@ -42,7 +42,7 @@ Auto7Shifts authenticates against 7shifts' internal API, polls the open shift po
 </details>
 
 <details>
-<summary><h3>Setup</h3></summary>
+<summary><strong>Setup</strong></summary>
 
 <details>
 <summary><strong>Installation</strong></summary>
@@ -96,7 +96,7 @@ The CLI prompts for login, then presents menus to configure:
 </details>
 
 <details>
-<summary><h3>SMS Notifications</h3></summary>
+<summary><strong>SMS Notifications</strong></summary>
 
 Requires a Twilio account with an active phone number.
 
@@ -127,7 +127,7 @@ Requires a Twilio account with an active phone number.
 </details>
 
 <details>
-<summary><h3>Architecture</h3></summary>
+<summary><strong>Architecture</strong></summary>
 
 ```
 auto7shifts/
@@ -151,14 +151,14 @@ auto7shifts/
 </details>
 
 <details>
-<summary><h3>Stack</h3></summary>
+<summary><strong>Stack</strong></summary>
 
 Python, Flask, SQLAlchemy, SQLite, Requests, Twilio, python-dotenv, simple-term-menu
 
 </details>
 
 <details>
-<summary><h3>License</h3></summary>
+<summary><strong>License</strong></summary>
 
 Private project - not for distribution.
 
