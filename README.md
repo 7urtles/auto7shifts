@@ -2,8 +2,6 @@
 
 Automated shift-claiming tool for the 7shifts scheduling platform. Monitors the open shift pool and claims matching shifts based on configurable day, role, and location preferences.
 
-Sold as a SaaS service to restaurant and bar employees.
-
 ---
 
 <details>
